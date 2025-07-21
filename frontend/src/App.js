@@ -1,51 +1,63 @@
-import { useEffect } from "react";
-import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
-
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
-
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
-
-  return (
-    <div>
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
-  );
-};
+import React, { useState, useEffect } from 'react';
+import './App.css';
+import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { 
+  Home, About, Services, Contact, Login, Dashboard, 
+  Navigation, Footer, Hero, ServicesSection, AboutSection, 
+  ContactSection, LoginModal, InvestmentDashboard 
+} from './components';
 
 function App() {
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
+
+  // Check login status on app load
+  useEffect(() => {
+    const savedUser = localStorage.getItem('user');
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  const handleLogin = (userData) => {
+    setUser(userData);
+    setIsLoggedIn(true);
+    localStorage.setItem('user', JSON.stringify(userData));
+    setIsLoginOpen(false);
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    setIsLoggedIn(false);
+    localStorage.removeItem('user');
+  };
+
   return (
     <div className="App">
       <BrowserRouter>
+        <Navigation 
+          isLoggedIn={isLoggedIn}
+          user={user}
+          onLogin={() => setIsLoginOpen(true)}
+          onLogout={handleLogout}
+        />
         <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/dashboard" element={
+            isLoggedIn ? <Dashboard user={user} /> : <Home />
+          } />
         </Routes>
+        <Footer />
+        <LoginModal 
+          isOpen={isLoginOpen}
+          onClose={() => setIsLoginOpen(false)}
+          onLogin={handleLogin}
+        />
       </BrowserRouter>
     </div>
   );
