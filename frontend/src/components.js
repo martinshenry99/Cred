@@ -9,6 +9,7 @@ export const Home = () => {
       <ServicesSection />
       <AboutSection />
       <ContactSection />
+      <LiveChat />
     </div>
   );
 };
@@ -18,9 +19,9 @@ export const About = () => {
     <div className="min-h-screen bg-gray-50 pt-20">
       <div className="max-w-7xl mx-auto px-4 py-16">
         <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-gray-900 mb-8">About Global Justice Authority</h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-8">About Crypto Regulatory Enforcement Division</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Established to uphold the highest standards of justice, integrity, and legal excellence in the digital age.
+            Established to uphold the highest standards of regulatory compliance, security, and legal excellence in the cryptocurrency ecosystem.
           </p>
         </div>
         
@@ -35,24 +36,25 @@ export const About = () => {
           <div>
             <h2 className="text-3xl font-bold text-gray-900 mb-6">Our Mission</h2>
             <p className="text-gray-700 mb-6">
-              At Global Justice Authority, we specialize in providing cutting-edge solutions to detect, prevent, and investigate financial crimes and fraudulent activities. Our expert team of analysts, investigators, and legal specialists work tirelessly to protect your assets and safeguard the integrity of digital transactions.
+              At CRED (Crypto Regulatory Enforcement Division), we specialize in providing cutting-edge solutions to detect, prevent, and investigate cryptocurrency crimes and fraudulent activities. Our expert team of analysts, investigators, and legal specialists work tirelessly to protect your digital assets and ensure regulatory compliance.
             </p>
             <p className="text-gray-700 mb-6">
-              Whether you're facing issues with suspicious transactions, financial fraud, money laundering, or asset recovery, we leverage advanced tools and proven strategies to bring transparency, accountability, and justice to complex financial investigations.
+              Whether you're facing issues with suspicious crypto transactions, regulatory compliance, money laundering investigations, or asset recovery, we leverage advanced tools and proven strategies to bring transparency, accountability, and justice to the cryptocurrency ecosystem.
             </p>
             <div className="grid grid-cols-2 gap-4">
               <div className="text-center p-4 bg-blue-50 rounded-lg">
-                <div className="text-2xl font-bold text-blue-900">500+</div>
-                <div className="text-blue-700">Cases Solved</div>
+                <div className="text-2xl font-bold text-blue-900">750+</div>
+                <div className="text-blue-700">Crypto Cases</div>
               </div>
               <div className="text-center p-4 bg-blue-50 rounded-lg">
-                <div className="text-2xl font-bold text-blue-900">$50M+</div>
-                <div className="text-blue-700">Assets Recovered</div>
+                <div className="text-2xl font-bold text-blue-900">$120M+</div>
+                <div className="text-blue-700">Crypto Recovered</div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <LiveChat />
     </div>
   );
 };
@@ -62,14 +64,15 @@ export const Services = () => {
     <div className="min-h-screen bg-gray-50 pt-20">
       <div className="max-w-7xl mx-auto px-4 py-16">
         <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-gray-900 mb-8">Our Services</h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-8">CRED Services</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Comprehensive solutions for financial investigation, fraud detection, and asset recovery.
+            Comprehensive crypto regulatory enforcement, investigation, and compliance solutions.
           </p>
         </div>
         
         <ServicesSection detailed={true} />
       </div>
+      <LiveChat />
     </div>
   );
 };
@@ -84,7 +87,7 @@ export const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert('Thank you for your message. We will respond within 24 hours.');
+    alert('Thank you for your message. Our CRED team will respond within 24 hours.');
     setFormData({ name: '', email: '', subject: '', message: '' });
   };
 
@@ -92,8 +95,8 @@ export const Contact = () => {
     <div className="min-h-screen bg-gray-50 pt-20">
       <div className="max-w-7xl mx-auto px-4 py-16">
         <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-gray-900 mb-8">Contact Us</h1>
-          <p className="text-xl text-gray-600">Get in touch with our expert team</p>
+          <h1 className="text-4xl font-bold text-gray-900 mb-8">Contact CRED</h1>
+          <p className="text-xl text-gray-600">Get in touch with our crypto enforcement experts</p>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
@@ -102,11 +105,11 @@ export const Contact = () => {
             <div className="space-y-4">
               <div className="flex items-center">
                 <div className="w-12 h-12 bg-blue-900 rounded-lg flex items-center justify-center mr-4">
-                  <span className="text-white text-xl">📍</span>
+                  <span className="text-white text-xl">🏛️</span>
                 </div>
                 <div>
-                  <div className="font-semibold text-gray-900">Headquarters</div>
-                  <div className="text-gray-600">1600 Pennsylvania Avenue NW, Washington, DC 20500</div>
+                  <div className="font-semibold text-gray-900">CRED Headquarters</div>
+                  <div className="text-gray-600">100 Crypto Enforcement Plaza, Washington, DC 20515</div>
                 </div>
               </div>
               <div className="flex items-center">
@@ -114,8 +117,8 @@ export const Contact = () => {
                   <span className="text-white text-xl">📞</span>
                 </div>
                 <div>
-                  <div className="font-semibold text-gray-900">Phone</div>
-                  <div className="text-gray-600">+1 (555) JUSTICE</div>
+                  <div className="font-semibold text-gray-900">Emergency Hotline</div>
+                  <div className="text-gray-600">+1 (800) CRYPTO-1</div>
                 </div>
               </div>
               <div className="flex items-center">
@@ -124,7 +127,7 @@ export const Contact = () => {
                 </div>
                 <div>
                   <div className="font-semibold text-gray-900">Email</div>
-                  <div className="text-gray-600">contact@globaljusticeauthority.com</div>
+                  <div className="text-gray-600">enforcement@cred.gov</div>
                 </div>
               </div>
             </div>
@@ -182,6 +185,7 @@ export const Contact = () => {
           </div>
         </div>
       </div>
+      <LiveChat />
     </div>
   );
 };
@@ -197,9 +201,12 @@ export const Navigation = ({ isLoggedIn, user, onLogin, onLogout }) => {
           <div className="flex items-center">
             <Link to="/" className="flex items-center">
               <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center mr-3">
-                <span className="text-white text-xl font-bold">⚖️</span>
+                <span className="text-white text-xl font-bold">🛡️</span>
               </div>
-              <span className="text-xl font-bold">Global Justice Authority</span>
+              <div>
+                <span className="text-xl font-bold">CRED</span>
+                <div className="text-xs text-gray-300">Crypto Regulatory Enforcement Division</div>
+              </div>
             </Link>
           </div>
           
@@ -214,7 +221,7 @@ export const Navigation = ({ isLoggedIn, user, onLogin, onLogout }) => {
               to="/about" 
               className={`hover:text-blue-400 transition duration-300 ${location.pathname === '/about' ? 'text-blue-400' : ''}`}
             >
-              ABOUT US
+              ABOUT CRED
             </Link>
             <Link 
               to="/services" 
@@ -284,22 +291,23 @@ export const Hero = () => {
       {/* Content */}
       <div className="relative z-10 text-center text-white max-w-5xl mx-auto px-4">
         <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
-          Welcome to the Global<br />
-          <span className="text-blue-400">Justice Authority</span>
+          Welcome to <span className="text-blue-400">CRED</span><br />
+          <span className="text-3xl md:text-4xl">Crypto Regulatory Enforcement Division</span>
         </h1>
         <p className="text-xl md:text-2xl mb-12 max-w-4xl mx-auto leading-relaxed">
-          At Global Justice Authority, we specialize in providing cutting-edge solutions to detect, prevent, and 
-          investigate financial crimes within the digital space. Our expert team of analysts, investigators, and 
-          legal specialists work tirelessly to protect your assets and safeguard the integrity of financial 
-          technology. Whether you're facing issues with fraudulent transactions, cyber financial crimes, money 
-          laundering, or asset recovery, we leverage advanced tools and proven strategies to bring transparency, 
-          accountability, and justice to the financial ecosystem. With a focus on innovation and regulatory 
-          compliance, we help our clients navigate the complex world of digital finance with confidence. 
-          Let us be your first line of defense in the fight against financial crime.
+          At CRED, we specialize in providing cutting-edge solutions to detect, prevent, and investigate 
+          cryptocurrency crimes within the digital space. Our expert team of regulatory analysts, investigators, 
+          and legal specialists work tirelessly to protect your crypto assets and ensure compliance with 
+          federal regulations. Whether you're facing issues with fraudulent crypto transactions, regulatory 
+          violations, money laundering investigations, or digital asset recovery, we leverage advanced blockchain 
+          analysis tools and proven enforcement strategies to bring transparency, accountability, and justice to 
+          the cryptocurrency ecosystem. With a focus on regulatory compliance and cutting-edge investigation 
+          techniques, we help our clients navigate the complex world of crypto regulations with confidence. 
+          Let CRED be your first line of defense against cryptocurrency crime.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <button className="bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition duration-300 transform hover:scale-105">
-            Submit a Claim
+            Report Crypto Crime
           </button>
           <button className="border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-slate-800 transition duration-300 transform hover:scale-105">
             Learn More
@@ -315,34 +323,34 @@ export const ServicesSection = ({ detailed = false }) => {
   const services = [
     {
       icon: '🔍',
-      title: 'Financial Investigation',
+      title: 'Crypto Investigation',
       description: detailed 
-        ? 'Comprehensive forensic analysis of financial transactions, identifying patterns of suspicious activity and tracking fund movements across multiple platforms and jurisdictions.' 
-        : 'Financial crimes are everywhere. It\'s important to be careful in the digital space, but if you\'ve lost your money to financial fraud, we can help you on the road to asset recovery.',
+        ? 'Advanced blockchain analysis and cryptocurrency forensics to trace illegal transactions, identify bad actors, and recover stolen digital assets through regulatory enforcement channels.' 
+        : 'Cryptocurrency crimes are everywhere. It\'s important to be careful in the crypto space, but if you\'ve lost your coins to crypto fraud, CRED can help you on the road to digital asset recovery.',
       image: 'https://images.unsplash.com/photo-1660732106134-f3009a1e90ea?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzl8MHwxfHNlYXJjaHwxfHxkaWdpdGFsJTIwc2VjdXJpdHl8ZW58MHx8fGJsdWV8MTc1MzA5NDU5NHww&ixlib=rb-4.1.0&q=85'
     },
     {
       icon: '🛡️',
-      title: 'Fraud Detection',
+      title: 'Crypto Compliance',
       description: detailed
-        ? 'Advanced monitoring systems and AI-powered analysis to detect fraudulent activities in real-time, protecting your assets before damage occurs.'
-        : 'Is your financial platform the real deal? Is that investment opportunity legitimate? The digital landscape can seem like a jungle and you may find yourself asking, "Is this a scam?"',
+        ? 'Real-time monitoring and compliance solutions for cryptocurrency exchanges, DeFi protocols, and blockchain businesses to ensure regulatory adherence and prevent violations.'
+        : 'Is your crypto exchange compliant? Is that DeFi protocol legitimate? The cryptocurrency landscape can seem like the wild west and you may find yourself asking, "Is this platform regulated?"',
       image: 'https://images.unsplash.com/photo-1593407089396-93f0c7a575f0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzl8MHwxfHNlYXJjaHwyfHxkaWdpdGFsJTIwc2VjdXJpdHl8ZW58MHx8fGJsdWV8MTc1MzA5NDU5NHww&ixlib=rb-4.1.0&q=85'
     },
     {
       icon: '💰',
       title: 'Asset Recovery',
       description: detailed
-        ? 'Specialized recovery services for stolen or misappropriated assets, utilizing legal channels and advanced tracing techniques to recover your funds.'
-        : 'Have you lost your assets to a fake platform? Did a financial merchant never deliver your investment returns? Fight back with asset recovery methods that will get your money back.',
+        ? 'Specialized recovery services for stolen or misappropriated cryptocurrency assets, utilizing legal enforcement channels and advanced blockchain tracing to recover your digital funds.'
+        : 'Have you lost your crypto to a fake exchange? Did a DeFi protocol rug pull and steal your tokens? Fight back with CRED\'s crypto recovery methods that will get your digital assets back.',
       image: 'https://images.unsplash.com/photo-1619806677949-cbae91e82cea?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzV8MHwxfHNlYXJjaHwxfHxjb3VydGhvdXNlfGVufDB8fHxibHVlfDE3NTMwOTQ1ODd8MA&ixlib=rb-4.1.0&q=85'
     },
     {
       icon: '📋',
-      title: 'Investigation Report',
+      title: 'Enforcement Report',
       description: detailed
-        ? 'Detailed forensic reports that provide comprehensive analysis of financial crimes, suitable for legal proceedings and regulatory compliance.'
-        : 'We will summarize our extensive financial investigation results in a report that will give you a head start with law enforcement recovery. Our investigation reports are crucial to getting authorities interested in your case.',
+        ? 'Detailed regulatory enforcement reports that provide comprehensive analysis of cryptocurrency violations, suitable for legal proceedings and regulatory compliance submissions.'
+        : 'We will summarize our extensive crypto investigation results in an enforcement report that will give you a head start with regulatory authorities. Our enforcement reports are crucial to getting federal attention.',
       image: 'https://images.unsplash.com/photo-1720480916424-ff20c676d61d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzV8MHwxfHNlYXJjaHwyfHxjb3VydGhvdXNlfGVufDB8fHxibHVlfDE3NTMwOTQ1ODd8MA&ixlib=rb-4.1.0&q=85'
     }
   ];
@@ -352,8 +360,8 @@ export const ServicesSection = ({ detailed = false }) => {
       <div className="max-w-7xl mx-auto px-4">
         {!detailed && (
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-8">Our Services</h2>
-            <p className="text-xl text-gray-600">Comprehensive solutions for financial investigation and justice</p>
+            <h2 className="text-4xl font-bold text-gray-900 mb-8">CRED Services</h2>
+            <p className="text-xl text-gray-600">Comprehensive crypto enforcement and regulatory compliance solutions</p>
           </div>
         )}
         
@@ -381,27 +389,27 @@ export const AboutSection = () => {
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
-            <h2 className="text-4xl font-bold text-gray-900 mb-8">Protecting Justice in the Digital Age</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-8">Protecting Justice in the Crypto Age</h2>
             <p className="text-gray-700 mb-6 text-lg">
-              With over a decade of experience in financial investigation and law enforcement, Global Justice Authority 
-              stands at the forefront of digital crime prevention and asset recovery.
+              With over a decade of experience in cryptocurrency enforcement and regulatory compliance, CRED 
+              stands at the forefront of digital asset crime prevention and recovery.
             </p>
             <p className="text-gray-700 mb-8 text-lg">
-              Our team combines traditional investigative expertise with cutting-edge technology to deliver results 
-              that matter. We've successfully recovered millions in assets and brought justice to countless victims 
-              of financial crimes.
+              Our team combines traditional law enforcement expertise with cutting-edge blockchain technology to deliver results 
+              that matter. We've successfully recovered over $120 million in cryptocurrency assets and brought justice to countless victims 
+              of crypto crimes.
             </p>
             <div className="grid grid-cols-3 gap-4 text-center">
               <div>
-                <div className="text-3xl font-bold text-blue-900">500+</div>
-                <div className="text-gray-600">Cases Solved</div>
+                <div className="text-3xl font-bold text-blue-900">750+</div>
+                <div className="text-gray-600">Crypto Cases</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-blue-900">$50M+</div>
+                <div className="text-3xl font-bold text-blue-900">$120M+</div>
                 <div className="text-gray-600">Recovered</div>
               </div>
               <div>
-                <div className="text-3xl font-bold text-blue-900">98%</div>
+                <div className="text-3xl font-bold text-blue-900">99%</div>
                 <div className="text-gray-600">Success Rate</div>
               </div>
             </div>
@@ -424,20 +432,20 @@ export const ContactSection = () => {
   return (
     <div className="py-20 bg-slate-800 text-white">
       <div className="max-w-7xl mx-auto px-4 text-center">
-        <h2 className="text-4xl font-bold mb-8">Ready to Seek Justice?</h2>
+        <h2 className="text-4xl font-bold mb-8">Ready to Report Crypto Crime?</h2>
         <p className="text-xl mb-8 max-w-3xl mx-auto">
-          Don't let financial criminals get away with your hard-earned assets. Contact our expert team today 
-          and take the first step towards recovery and justice.
+          Don't let cryptocurrency criminals get away with your hard-earned digital assets. Contact CRED today 
+          and take the first step towards recovery and regulatory enforcement.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link 
             to="/contact"
             className="bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition duration-300 transform hover:scale-105"
           >
-            Contact Us Now
+            Contact CRED Now
           </Link>
           <button className="border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-slate-800 transition duration-300 transform hover:scale-105">
-            Emergency Hotline
+            Emergency Crypto Hotline
           </button>
         </div>
       </div>
@@ -461,13 +469,13 @@ export const LoginModal = ({ isOpen, onClose, onLogin }) => {
     // Mock user data - in real app this would call an API
     const userData = {
       id: 1,
-      name: formData.name || 'John Smith',
+      name: formData.name || 'Agent Smith',
       email: formData.email,
-      role: 'Premium Member',
+      role: 'CRED Premium Member',
       joinDate: '2025-01-01',
-      totalInvestment: 25000,
-      activeInvestments: 3,
-      returns: 2850
+      totalInvestment: 150000,
+      activeInvestments: 4,
+      returns: 18500
     };
     
     onLogin(userData);
@@ -485,9 +493,14 @@ export const LoginModal = ({ isOpen, onClose, onLogin }) => {
           ×
         </button>
         
-        <h2 className="text-2xl font-bold text-center mb-8">
-          {isLoginMode ? 'Sign In' : 'Sign Up'}
-        </h2>
+        <div className="text-center mb-8">
+          <div className="w-16 h-16 bg-blue-600 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <span className="text-white text-2xl font-bold">🛡️</span>
+          </div>
+          <h2 className="text-2xl font-bold">
+            {isLoginMode ? 'CRED Sign In' : 'CRED Sign Up'}
+          </h2>
+        </div>
         
         <form onSubmit={handleSubmit}>
           {!isLoginMode && (
@@ -542,7 +555,7 @@ export const LoginModal = ({ isOpen, onClose, onLogin }) => {
             type="submit"
             className="w-full bg-blue-900 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-800 transition duration-300 mb-4"
           >
-            {isLoginMode ? 'Sign In' : 'Sign Up'}
+            {isLoginMode ? 'Sign In to CRED' : 'Join CRED'}
           </button>
         </form>
         
@@ -551,7 +564,7 @@ export const LoginModal = ({ isOpen, onClose, onLogin }) => {
             onClick={() => setIsLoginMode(!isLoginMode)}
             className="text-blue-600 hover:text-blue-800 font-semibold"
           >
-            {isLoginMode ? "Don't have an account? Sign Up" : "Already have an account? Sign In"}
+            {isLoginMode ? "Don't have an account? Join CRED" : "Already have an account? Sign In"}
           </button>
         </div>
       </div>
@@ -569,13 +582,18 @@ export const Dashboard = ({ user }) => {
         {/* Header */}
         <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
           <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">Welcome back, {user.name}!</h1>
-              <p className="text-gray-600 mt-2">Member since {user.joinDate}</p>
+            <div className="flex items-center">
+              <div className="w-16 h-16 bg-blue-600 rounded-lg flex items-center justify-center mr-6">
+                <span className="text-white text-2xl font-bold">🛡️</span>
+              </div>
+              <div>
+                <h1 className="text-3xl font-bold text-gray-900">Welcome back, {user.name}!</h1>
+                <p className="text-gray-600 mt-1">{user.role} • Member since {user.joinDate}</p>
+              </div>
             </div>
             <div className="text-right">
-              <div className="text-2xl font-bold text-green-600">${user.totalInvestment.toLocaleString()}</div>
-              <div className="text-gray-600">Total Investment</div>
+              <div className="text-3xl font-bold text-green-600">${user.totalInvestment.toLocaleString()}</div>
+              <div className="text-gray-600">Total Investment Portfolio</div>
             </div>
           </div>
         </div>
@@ -585,8 +603,8 @@ export const Dashboard = ({ user }) => {
           <div className="flex border-b">
             {[
               { id: 'overview', label: 'Overview' },
-              { id: 'investments', label: 'Secure Investments' },
-              { id: 'reports', label: 'Investigation Reports' },
+              { id: 'investments', label: 'Premium Investments' },
+              { id: 'reports', label: 'Enforcement Reports' },
               { id: 'profile', label: 'Profile' }
             ].map(tab => (
               <button
@@ -611,6 +629,7 @@ export const Dashboard = ({ user }) => {
           </div>
         </div>
       </div>
+      <LiveChat />
     </div>
   );
 };
@@ -619,20 +638,24 @@ export const Dashboard = ({ user }) => {
 const DashboardOverview = ({ user }) => {
   return (
     <div>
-      <h2 className="text-2xl font-bold text-gray-900 mb-8">Dashboard Overview</h2>
+      <h2 className="text-2xl font-bold text-gray-900 mb-8">CRED Dashboard Overview</h2>
       
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
         <div className="bg-blue-50 p-6 rounded-lg">
           <div className="text-2xl font-bold text-blue-900">{user.activeInvestments}</div>
           <div className="text-blue-700">Active Investments</div>
         </div>
         <div className="bg-green-50 p-6 rounded-lg">
           <div className="text-2xl font-bold text-green-900">${user.returns.toLocaleString()}</div>
-          <div className="text-green-700">Total Returns</div>
+          <div className="text-green-700">Total Returns (3mo)</div>
         </div>
         <div className="bg-purple-50 p-6 rounded-lg">
-          <div className="text-2xl font-bold text-purple-900">+12.4%</div>
-          <div className="text-purple-700">Average ROI</div>
+          <div className="text-2xl font-bold text-purple-900">+15.8%</div>
+          <div className="text-purple-700">Average APY</div>
+        </div>
+        <div className="bg-orange-50 p-6 rounded-lg">
+          <div className="text-2xl font-bold text-orange-900">24/7</div>
+          <div className="text-orange-700">Lawyer Access</div>
         </div>
       </div>
 
@@ -641,9 +664,10 @@ const DashboardOverview = ({ user }) => {
           <h3 className="text-xl font-bold text-gray-900 mb-4">Recent Activity</h3>
           <div className="space-y-4">
             {[
-              { action: 'Investment in Justice Fund', amount: '+$5,000', date: '2025-01-20' },
-              { action: 'Return from Security Bond', amount: '+$850', date: '2025-01-18' },
-              { action: 'Investigation Report Generated', amount: 'Complete', date: '2025-01-15' }
+              { action: 'Premium Investment: Elite Enforcement Fund', amount: '+$50,000', date: '2025-01-20' },
+              { action: 'Quarterly Return: Crypto Recovery Fund', amount: '+$8,500', date: '2025-01-18' },
+              { action: 'Lawyer Consultation: Asset Recovery Case', amount: 'Completed', date: '2025-01-15' },
+              { action: 'Enforcement Report Generated', amount: 'Complete', date: '2025-01-12' }
             ].map((activity, index) => (
               <div key={index} className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
                 <div>
@@ -664,9 +688,9 @@ const DashboardOverview = ({ user }) => {
           <h3 className="text-xl font-bold text-gray-900 mb-4">Investment Portfolio</h3>
           <div className="space-y-4">
             {[
-              { name: 'Justice Development Fund', value: '$15,000', growth: '+8.2%' },
-              { name: 'Security Infrastructure Bond', value: '$7,500', growth: '+15.1%' },
-              { name: 'Legal Technology Investment', value: '$2,500', growth: '+22.3%' }
+              { name: 'Elite Enforcement Fund', value: '$100,000', growth: '+18.2%' },
+              { name: 'Crypto Recovery Premium', value: '$35,000', growth: '+22.5%' },
+              { name: 'Regulatory Compliance Bond', value: '$15,000', growth: '+12.8%' }
             ].map((investment, index) => (
               <div key={index} className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
                 <div>
@@ -683,73 +707,125 @@ const DashboardOverview = ({ user }) => {
   );
 };
 
-// Investment Dashboard
+// Investment Dashboard with Premium Packages
 export const InvestmentDashboard = ({ user }) => {
   const [selectedInvestment, setSelectedInvestment] = useState(null);
   
   const investmentOptions = [
     {
       id: 1,
-      name: 'Justice Development Fund',
-      description: 'Invest in the development of justice infrastructure and legal technology solutions.',
-      minInvestment: 1000,
-      expectedReturn: '8-12%',
-      duration: '12 months',
+      name: 'Standard Enforcement Fund',
+      description: 'Basic cryptocurrency enforcement and recovery investment with solid returns.',
+      minInvestment: 10000,
+      expectedReturn: '12-15%',
+      duration: '3 months',
       riskLevel: 'Medium',
+      apy: '15%',
+      features: ['Basic enforcement support', 'Quarterly reports', 'Email support'],
       image: 'https://images.unsplash.com/photo-1648077195645-c122696bc331?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDJ8MHwxfHNlYXJjaHwzfHxqdXN0aWNlJTIwYXV0aG9yaXR5fGVufDB8fHxibHVlfDE3NTMwOTQ1NjV8MA&ixlib=rb-4.1.0&q=85'
     },
     {
       id: 2,
-      name: 'Security Infrastructure Bond',
-      description: 'Government-backed securities focused on cybersecurity and digital infrastructure.',
-      minInvestment: 5000,
-      expectedReturn: '6-10%',
-      duration: '24 months',
-      riskLevel: 'Low',
+      name: 'Premium Crypto Recovery',
+      description: 'Advanced crypto recovery operations with enhanced legal support and faster processing.',
+      minInvestment: 50000,
+      expectedReturn: '18-22%',
+      duration: '3 months',
+      riskLevel: 'Medium',
+      apy: '22%',
+      features: ['Priority case handling', 'Monthly reports', 'Phone & chat support', 'Basic legal consultation'],
       image: 'https://images.unsplash.com/photo-1660732106134-f3009a1e90ea?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzl8MHwxfHNlYXJjaHwxfHxkaWdpdGFsJTIwc2VjdXJpdHl8ZW58MHx8fGJsdWV8MTc1MzA5NDU5NHww&ixlib=rb-4.1.0&q=85'
     },
     {
       id: 3,
-      name: 'Legal Technology Venture',
-      description: 'High-growth investment in cutting-edge legal and investigation technologies.',
-      minInvestment: 2500,
-      expectedReturn: '15-25%',
-      duration: '36 months',
+      name: '🔥 ELITE ENFORCEMENT FUND',
+      description: 'Ultra-premium crypto enforcement package with direct lawyer access, 24/7 priority support, and maximum APY returns.',
+      minInvestment: 100000,
+      expectedReturn: '25-35%',
+      duration: '3 months',
       riskLevel: 'High',
+      apy: '35%',
+      premium: true,
+      features: [
+        '🏆 Direct chat with CRED lawyers 24/7',
+        '⚡ Priority enforcement processing',
+        '📊 Weekly detailed reports',
+        '🔒 Personal case manager assigned',
+        '📞 Dedicated hotline access',
+        '💼 VIP legal consultation included',
+        '🚨 Emergency response team',
+        '📈 Highest APY guaranteed'
+      ],
       image: 'https://images.unsplash.com/photo-1593407089396-93f0c7a575f0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzl8MHwxfHNlYXJjaHwyfHxkaWdpdGFsJTIwc2VjdXJpdHl8ZW58MHx8fGJsdWV8MTc1MzA5NDU5NHww&ixlib=rb-4.1.0&q=85'
     }
   ];
 
   const handleInvest = (investment) => {
-    alert(`Investment submitted for ${investment.name}. Our team will contact you within 24 hours to complete the secure transaction.`);
+    if (investment.premium) {
+      alert(`🔥 ELITE PACKAGE SELECTED! 
+      
+Investment: ${investment.name}
+Amount: $${investment.minInvestment.toLocaleString()}+
+Duration: ${investment.duration}
+Expected APY: ${investment.apy}
+
+✅ 24/7 Lawyer Chat Access ACTIVATED
+✅ Priority Enforcement Processing
+✅ Personal Case Manager Assigned
+✅ VIP Legal Consultation Included
+
+Our premium team will contact you within 1 hour to complete this elite investment setup.`);
+    } else {
+      alert(`Investment submitted for ${investment.name}. Our team will contact you within 24 hours to complete the secure transaction.`);
+    }
   };
 
   return (
     <div>
       <div className="flex justify-between items-center mb-8">
-        <h2 className="text-2xl font-bold text-gray-900">Secure Investment Opportunities</h2>
+        <div>
+          <h2 className="text-2xl font-bold text-gray-900">CRED Premium Investment Packages</h2>
+          <p className="text-gray-600 mt-2">All packages feature 3-month terms with guaranteed high APY returns</p>
+        </div>
         <div className="text-right">
           <div className="text-sm text-gray-600">Available Balance</div>
-          <div className="text-2xl font-bold text-green-600">$50,000</div>
+          <div className="text-2xl font-bold text-green-600">$500,000</div>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {investmentOptions.map(investment => (
-          <div key={investment.id} className="bg-white border rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition duration-300">
-            <div className="h-48 bg-cover bg-center" style={{backgroundImage: `url(${investment.image})`}}></div>
+          <div key={investment.id} className={`bg-white border rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition duration-300 ${investment.premium ? 'ring-4 ring-yellow-400 relative' : ''}`}>
+            {investment.premium && (
+              <div className="absolute top-4 right-4 bg-yellow-400 text-black px-3 py-1 rounded-full text-xs font-bold z-10">
+                ⭐ PREMIUM
+              </div>
+            )}
+            <div className="h-48 bg-cover bg-center relative" style={{backgroundImage: `url(${investment.image})`}}>
+              {investment.premium && (
+                <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/20 to-orange-500/20"></div>
+              )}
+            </div>
             <div className="p-6">
-              <h3 className="text-xl font-bold text-gray-900 mb-3">{investment.name}</h3>
+              <h3 className={`text-xl font-bold mb-3 ${investment.premium ? 'text-yellow-600' : 'text-gray-900'}`}>
+                {investment.name}
+              </h3>
               <p className="text-gray-600 mb-4 text-sm">{investment.description}</p>
               
               <div className="space-y-2 mb-6">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Min. Investment:</span>
-                  <span className="font-semibold">${investment.minInvestment.toLocaleString()}</span>
+                  <span className="font-semibold">${investment.minInvestment.toLocaleString()}+</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Expected Return:</span>
                   <span className="font-semibold text-green-600">{investment.expectedReturn}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">APY:</span>
+                  <span className={`font-bold text-lg ${investment.premium ? 'text-yellow-600' : 'text-green-600'}`}>
+                    {investment.apy}
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Duration:</span>
@@ -758,23 +834,64 @@ export const InvestmentDashboard = ({ user }) => {
                 <div className="flex justify-between">
                   <span className="text-gray-600">Risk Level:</span>
                   <span className={`font-semibold ${
-                    investment.riskLevel === 'Low' ? 'text-green-600' :
                     investment.riskLevel === 'Medium' ? 'text-yellow-600' : 'text-red-600'
                   }`}>
                     {investment.riskLevel}
                   </span>
                 </div>
               </div>
+
+              {/* Features List */}
+              <div className="mb-6">
+                <h4 className="font-semibold text-gray-900 mb-2">Package Features:</h4>
+                <ul className="space-y-1">
+                  {investment.features.map((feature, index) => (
+                    <li key={index} className={`text-xs ${investment.premium ? 'text-gray-700' : 'text-gray-600'} flex items-center`}>
+                      <span className={`mr-2 ${investment.premium ? 'text-yellow-500' : 'text-green-500'}`}>
+                        {investment.premium ? '⭐' : '✓'}
+                      </span>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
               
               <button 
                 onClick={() => handleInvest(investment)}
-                className="w-full bg-blue-900 text-white py-3 px-4 rounded-lg font-semibold hover:bg-blue-800 transition duration-300"
+                className={`w-full py-3 px-4 rounded-lg font-semibold transition duration-300 ${
+                  investment.premium 
+                    ? 'bg-gradient-to-r from-yellow-400 to-orange-500 text-black hover:from-yellow-500 hover:to-orange-600 shadow-lg' 
+                    : 'bg-blue-900 text-white hover:bg-blue-800'
+                }`}
               >
-                Invest Securely
+                {investment.premium ? '🔥 INVEST ELITE' : 'Invest Securely'}
               </button>
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Premium Benefits Banner */}
+      <div className="mt-8 bg-gradient-to-r from-yellow-50 to-orange-50 border border-yellow-200 rounded-lg p-6">
+        <h3 className="text-xl font-bold text-yellow-800 mb-3">🏆 ELITE PACKAGE EXCLUSIVE BENEFITS</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="flex items-center text-yellow-700">
+            <span className="text-2xl mr-3">💬</span>
+            <span><strong>24/7 Lawyer Chat:</strong> Direct access to CRED legal experts</span>
+          </div>
+          <div className="flex items-center text-yellow-700">
+            <span className="text-2xl mr-3">⚡</span>
+            <span><strong>Priority Processing:</strong> Your cases get immediate attention</span>
+          </div>
+          <div className="flex items-center text-yellow-700">
+            <span className="text-2xl mr-3">🎯</span>
+            <span><strong>35% APY:</strong> Highest guaranteed returns in 3 months</span>
+          </div>
+          <div className="flex items-center text-yellow-700">
+            <span className="text-2xl mr-3">🔒</span>
+            <span><strong>Personal Manager:</strong> Dedicated case management</span>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -785,44 +902,57 @@ const ReportsSection = ({ user }) => {
   const reports = [
     {
       id: 1,
-      title: 'Financial Transaction Analysis Report',
+      title: 'Cryptocurrency Enforcement Action Report',
       date: '2025-01-20',
       status: 'Completed',
-      type: 'Investigation',
-      description: 'Comprehensive analysis of suspicious financial activities detected in Q4 2024.'
+      type: 'Enforcement',
+      description: 'Comprehensive analysis of cryptocurrency violations and regulatory enforcement actions taken in Q4 2024.'
     },
     {
       id: 2,
-      title: 'Asset Recovery Progress Report',
+      title: 'Digital Asset Recovery Progress Report',
       date: '2025-01-18',
       status: 'In Progress',
       type: 'Recovery',
-      description: 'Status update on ongoing asset recovery operations for Case #JA-2024-156.'
+      description: 'Status update on ongoing crypto asset recovery operations for Case #CRED-2024-256.'
     },
     {
       id: 3,
-      title: 'Cybersecurity Threat Assessment',
+      title: 'Blockchain Security Compliance Audit',
       date: '2025-01-15',
       status: 'Completed',
-      type: 'Security',
-      description: 'Detailed security analysis and recommendations for digital asset protection.'
+      type: 'Compliance',
+      description: 'Detailed compliance audit and recommendations for cryptocurrency exchange security protocols.'
+    },
+    {
+      id: 4,
+      title: 'Elite Package: Priority Investigation Report',
+      date: '2025-01-12',
+      status: 'Completed',
+      type: 'Elite Premium',
+      description: 'Exclusive high-priority investigation report for Elite package members with detailed forensic analysis.'
     }
   ];
 
   const downloadReport = (reportId) => {
-    alert(`Downloading report #${reportId}. The secure document will be available in your downloads folder.`);
+    alert(`Downloading CRED enforcement report #${reportId}. The secure document will be available in your downloads folder.`);
   };
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-gray-900 mb-8">Investigation Reports</h2>
+      <h2 className="text-2xl font-bold text-gray-900 mb-8">CRED Enforcement Reports</h2>
       
       <div className="space-y-6">
         {reports.map(report => (
-          <div key={report.id} className="bg-gray-50 p-6 rounded-lg border">
+          <div key={report.id} className={`p-6 rounded-lg border ${report.type === 'Elite Premium' ? 'bg-gradient-to-r from-yellow-50 to-orange-50 border-yellow-200' : 'bg-gray-50'}`}>
             <div className="flex justify-between items-start mb-4">
               <div className="flex-1">
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">{report.title}</h3>
+                <div className="flex items-center mb-2">
+                  <h3 className="text-xl font-semibold text-gray-900 mr-3">{report.title}</h3>
+                  {report.type === 'Elite Premium' && (
+                    <span className="bg-yellow-400 text-black px-2 py-1 rounded-full text-xs font-bold">⭐ ELITE</span>
+                  )}
+                </div>
                 <p className="text-gray-600 mb-3">{report.description}</p>
                 <div className="flex items-center space-x-4 text-sm text-gray-500">
                   <span>Date: {report.date}</span>
@@ -841,7 +971,9 @@ const ReportsSection = ({ user }) => {
                 disabled={report.status !== 'Completed'}
                 className={`ml-4 px-4 py-2 rounded-lg font-semibold transition duration-300 ${
                   report.status === 'Completed'
-                    ? 'bg-blue-900 text-white hover:bg-blue-800'
+                    ? report.type === 'Elite Premium'
+                      ? 'bg-gradient-to-r from-yellow-400 to-orange-500 text-black hover:from-yellow-500 hover:to-orange-600'
+                      : 'bg-blue-900 text-white hover:bg-blue-800'
                     : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                 }`}
               >
@@ -861,21 +993,22 @@ const ProfileSection = ({ user }) => {
   const [profileData, setProfileData] = useState({
     name: user.name,
     email: user.email,
-    phone: '+1 (555) 123-4567',
-    address: '123 Justice Street, Washington DC 20001',
+    phone: '+1 (555) CRED-911',
+    address: '100 Crypto Enforcement Plaza, Washington DC 20515',
     notifications: true,
-    twoFactor: true
+    twoFactor: true,
+    eliteAccess: true
   });
 
   const handleSave = () => {
     setEditMode(false);
-    alert('Profile updated successfully!');
+    alert('CRED profile updated successfully!');
   };
 
   return (
     <div>
       <div className="flex justify-between items-center mb-8">
-        <h2 className="text-2xl font-bold text-gray-900">Profile Settings</h2>
+        <h2 className="text-2xl font-bold text-gray-900">CRED Profile Settings</h2>
         <button 
           onClick={() => editMode ? handleSave() : setEditMode(true)}
           className="bg-blue-900 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-800 transition duration-300"
@@ -887,7 +1020,7 @@ const ProfileSection = ({ user }) => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="space-y-6">
           <div>
-            <label className="block text-gray-700 font-semibold mb-2">Full Name</label>
+            <label className="block text-gray-700 font-semibold mb-2">Agent Name</label>
             <input
               type="text"
               value={profileData.name}
@@ -909,7 +1042,7 @@ const ProfileSection = ({ user }) => {
           </div>
           
           <div>
-            <label className="block text-gray-700 font-semibold mb-2">Phone</label>
+            <label className="block text-gray-700 font-semibold mb-2">Emergency Hotline</label>
             <input
               type="tel"
               value={profileData.phone}
@@ -933,12 +1066,12 @@ const ProfileSection = ({ user }) => {
         
         <div className="space-y-6">
           <div className="bg-gray-50 p-6 rounded-lg">
-            <h3 className="text-xl font-semibold text-gray-900 mb-4">Account Security</h3>
+            <h3 className="text-xl font-semibold text-gray-900 mb-4">Security Settings</h3>
             
             <div className="flex justify-between items-center mb-4">
               <div>
-                <div className="font-semibold text-gray-900">Email Notifications</div>
-                <div className="text-gray-600 text-sm">Receive updates about your investments</div>
+                <div className="font-semibold text-gray-900">Enforcement Notifications</div>
+                <div className="text-gray-600 text-sm">Receive updates about your cases</div>
               </div>
               <button
                 onClick={() => setProfileData({...profileData, notifications: !profileData.notifications})}
@@ -953,7 +1086,7 @@ const ProfileSection = ({ user }) => {
               </button>
             </div>
             
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center mb-4">
               <div>
                 <div className="font-semibold text-gray-900">Two-Factor Authentication</div>
                 <div className="text-gray-600 text-sm">Enhanced security for your account</div>
@@ -970,32 +1103,160 @@ const ProfileSection = ({ user }) => {
                 }`} />
               </button>
             </div>
+
+            <div className="flex justify-between items-center">
+              <div>
+                <div className="font-semibold text-yellow-700">⭐ Elite Lawyer Access</div>
+                <div className="text-gray-600 text-sm">24/7 direct chat with CRED lawyers</div>
+              </div>
+              <div className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">
+                Active
+              </div>
+            </div>
           </div>
           
-          <div className="bg-gray-50 p-6 rounded-lg">
-            <h3 className="text-xl font-semibold text-gray-900 mb-4">Account Statistics</h3>
+          <div className="bg-gradient-to-r from-yellow-50 to-orange-50 p-6 rounded-lg border border-yellow-200">
+            <h3 className="text-xl font-semibold text-yellow-800 mb-4">Account Statistics</h3>
             <div className="space-y-3">
               <div className="flex justify-between">
-                <span className="text-gray-600">Member Since:</span>
+                <span className="text-gray-700">CRED Member Since:</span>
                 <span className="font-semibold">{user.joinDate}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">Account Type:</span>
-                <span className="font-semibold text-blue-600">{user.role}</span>
+                <span className="text-gray-700">Account Type:</span>
+                <span className="font-semibold text-yellow-600">{user.role}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">Total Investments:</span>
+                <span className="text-gray-700">Active Investments:</span>
                 <span className="font-semibold">{user.activeInvestments}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">Success Rate:</span>
-                <span className="font-semibold text-green-600">98.5%</span>
+                <span className="text-gray-700">Success Rate:</span>
+                <span className="font-semibold text-green-600">99.2%</span>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+  );
+};
+
+// Live Chat Component
+export const LiveChat = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState([
+    { id: 1, text: "Hello! I'm Agent Sarah from CRED. How can I assist you with your crypto enforcement needs today?", sender: 'agent', time: '10:30' },
+  ]);
+  const [inputMessage, setInputMessage] = useState('');
+
+  const handleSendMessage = () => {
+    if (inputMessage.trim()) {
+      const newMessage = {
+        id: messages.length + 1,
+        text: inputMessage,
+        sender: 'user',
+        time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+      };
+      setMessages([...messages, newMessage]);
+      setInputMessage('');
+      
+      // Simulate agent response
+      setTimeout(() => {
+        const agentResponse = {
+          id: messages.length + 2,
+          text: "Thank you for your message. Our crypto enforcement specialists are reviewing your case. For immediate assistance with elite packages, please mention your investment tier.",
+          sender: 'agent',
+          time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+        };
+        setMessages(prev => [...prev, agentResponse]);
+      }, 2000);
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSendMessage();
+    }
+  };
+
+  return (
+    <>
+      {/* Chat Button */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-lg transition duration-300 transform hover:scale-110"
+        >
+          {isOpen ? (
+            <span className="text-xl">✕</span>
+          ) : (
+            <span className="text-xl">💬</span>
+          )}
+        </button>
+      </div>
+
+      {/* Chat Window */}
+      {isOpen && (
+        <div className="fixed bottom-24 right-6 w-80 bg-white rounded-lg shadow-2xl border z-50">
+          {/* Chat Header */}
+          <div className="bg-blue-600 text-white p-4 rounded-t-lg">
+            <div className="flex items-center">
+              <div className="w-8 h-8 bg-blue-800 rounded-full flex items-center justify-center mr-3">
+                <span className="text-sm">🛡️</span>
+              </div>
+              <div>
+                <div className="font-semibold">CRED Live Support</div>
+                <div className="text-xs text-blue-200">● Online - Response time: ~2 min</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Chat Messages */}
+          <div className="h-64 overflow-y-auto p-4 space-y-3">
+            {messages.map(message => (
+              <div key={message.id} className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
+                <div className={`max-w-xs p-3 rounded-lg ${
+                  message.sender === 'user' 
+                    ? 'bg-blue-600 text-white' 
+                    : 'bg-gray-100 text-gray-800'
+                }`}>
+                  <div className="text-sm">{message.text}</div>
+                  <div className={`text-xs mt-1 ${
+                    message.sender === 'user' ? 'text-blue-200' : 'text-gray-500'
+                  }`}>
+                    {message.time}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Chat Input */}
+          <div className="border-t p-4">
+            <div className="flex space-x-2">
+              <input
+                type="text"
+                value={inputMessage}
+                onChange={(e) => setInputMessage(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder="Ask about crypto enforcement..."
+                className="flex-1 p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+              />
+              <button
+                onClick={handleSendMessage}
+                className="bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition duration-300"
+              >
+                <span className="text-sm">📤</span>
+              </button>
+            </div>
+            <div className="text-xs text-gray-500 mt-2 text-center">
+              🔒 Secure chat • Elite members get priority support
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
@@ -1008,12 +1269,15 @@ export const Footer = () => {
           <div>
             <div className="flex items-center mb-4">
               <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center mr-3">
-                <span className="text-white text-xl font-bold">⚖️</span>
+                <span className="text-white text-xl font-bold">🛡️</span>
               </div>
-              <span className="text-xl font-bold">Global Justice Authority</span>
+              <div>
+                <span className="text-xl font-bold">CRED</span>
+                <div className="text-xs text-gray-400">Crypto Regulatory Enforcement</div>
+              </div>
             </div>
             <p className="text-gray-400 mb-4">
-              Protecting justice and integrity in the digital financial ecosystem.
+              Protecting justice and regulatory compliance in the cryptocurrency ecosystem.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-gray-400 hover:text-white transition duration-300">📧</a>
@@ -1023,19 +1287,19 @@ export const Footer = () => {
           </div>
           
           <div>
-            <h3 className="text-lg font-semibold mb-4">Services</h3>
+            <h3 className="text-lg font-semibold mb-4">CRED Services</h3>
             <ul className="space-y-2 text-gray-400">
-              <li><a href="#" className="hover:text-white transition duration-300">Financial Investigation</a></li>
-              <li><a href="#" className="hover:text-white transition duration-300">Fraud Detection</a></li>
+              <li><a href="#" className="hover:text-white transition duration-300">Crypto Investigation</a></li>
+              <li><a href="#" className="hover:text-white transition duration-300">Compliance Monitoring</a></li>
               <li><a href="#" className="hover:text-white transition duration-300">Asset Recovery</a></li>
-              <li><a href="#" className="hover:text-white transition duration-300">Investigation Reports</a></li>
+              <li><a href="#" className="hover:text-white transition duration-300">Enforcement Reports</a></li>
             </ul>
           </div>
           
           <div>
-            <h3 className="text-lg font-semibold mb-4">Company</h3>
+            <h3 className="text-lg font-semibold mb-4">Agency</h3>
             <ul className="space-y-2 text-gray-400">
-              <li><Link to="/about" className="hover:text-white transition duration-300">About Us</Link></li>
+              <li><Link to="/about" className="hover:text-white transition duration-300">About CRED</Link></li>
               <li><Link to="/contact" className="hover:text-white transition duration-300">Contact</Link></li>
               <li><a href="#" className="hover:text-white transition duration-300">Privacy Policy</a></li>
               <li><a href="#" className="hover:text-white transition duration-300">Terms of Service</a></li>
@@ -1043,19 +1307,19 @@ export const Footer = () => {
           </div>
           
           <div>
-            <h3 className="text-lg font-semibold mb-4">Contact Info</h3>
+            <h3 className="text-lg font-semibold mb-4">Contact CRED</h3>
             <ul className="space-y-2 text-gray-400">
-              <li>📍 1600 Pennsylvania Avenue NW</li>
-              <li>Washington, DC 20500</li>
-              <li>📞 +1 (555) JUSTICE</li>
-              <li>✉️ contact@globaljusticeauthority.com</li>
+              <li>🏛️ 100 Crypto Enforcement Plaza</li>
+              <li>Washington, DC 20515</li>
+              <li>📞 +1 (800) CRYPTO-1</li>
+              <li>✉️ enforcement@cred.gov</li>
             </ul>
           </div>
         </div>
         
         <div className="border-t border-gray-800 mt-12 pt-8 text-center">
           <p className="text-gray-400">
-            © 2025 Global Justice Authority. All rights reserved. | Protecting justice in the digital age.
+            © 2025 CRED - Crypto Regulatory Enforcement Division. All rights reserved. | Securing the crypto ecosystem.
           </p>
         </div>
       </div>
