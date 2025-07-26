@@ -529,40 +529,40 @@ export const CryptoPricesSection = ({ prices }) => {
   );
 };
 
-// Services Section (Mobile-friendly)
+// Updated Services Section with Romance Scam and Phishing Recovery
 export const ServicesSection = ({ detailed = false }) => {
   const services = [
     {
-      icon: '🔍',
-      title: 'Crypto Investigation',
+      icon: '💔',
+      title: 'Romance Scam Recovery',
       description: detailed 
-        ? 'Advanced blockchain analysis and cryptocurrency forensics to trace illegal transactions, identify bad actors, and recover stolen digital assets through regulatory enforcement channels.' 
-        : 'Cryptocurrency crimes are everywhere. CRED can help you recover your stolen crypto through advanced blockchain analysis and regulatory enforcement.',
-      image: 'https://images.unsplash.com/photo-1660732106134-f3009a1e90ea?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzl8MHwxfHNlYXJjaHwxfHxkaWdpdGFsJTIwc2VjdXJpdHl8ZW58MHx8fGJsdWV8MTc1MzA5NDU5NHww&ixlib=rb-4.1.0&q=85'
+        ? 'Specialized recovery for romance scam victims. Our team tracks cryptocurrency payments made to romance scammers using advanced blockchain analysis and works with international law enforcement to freeze and recover stolen funds.' 
+        : 'Victim of a romance scam? Our experts specialize in tracking and recovering cryptocurrency sent to romance scammers. We\'ve helped over 1,200 victims recover their stolen funds.',
+      image: 'https://images.unsplash.com/photo-1593407089396-93f0c7a575f0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHwxfHxkaWdpdGFsJTIwZm9yZW5zaWNzfGVufDB8fHxibHVlfDE3NTM1NjY2OTl8MA&ixlib=rb-4.1.0&q=85'
     },
     {
-      icon: '🛡️',
-      title: 'Regulatory Compliance',
+      icon: '🎣',
+      title: 'Phishing Recovery',
       description: detailed
-        ? 'Real-time monitoring and compliance solutions for cryptocurrency exchanges, DeFi protocols, and blockchain businesses to ensure regulatory adherence and prevent violations.'
-        : 'Is your crypto platform compliant? CRED ensures your digital assets meet all federal regulatory requirements and compliance standards.',
-      image: 'https://images.unsplash.com/photo-1593407089396-93f0c7a575f0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzl8MHwxfHNlYXJjaHwyfHxkaWdpdGFsJTIwc2VjdXJpdHl8ZW58MHx8fGJsdWV8MTc1MzA5NDU5NHww&ixlib=rb-4.1.0&q=85'
+        ? 'Emergency response for phishing attack victims. We provide immediate wallet security, track stolen assets across multiple blockchains, and coordinate with exchanges to freeze criminal accounts before funds are moved.'
+        : 'Fell for a phishing attack? Act fast! Our emergency response team can freeze stolen crypto within hours and trace funds through complex blockchain networks to recover your assets.',
+      image: 'https://images.unsplash.com/photo-1596267356606-b0e18c11c6d1?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHw0fHxkaWdpdGFsJTIwZm9yZW5zaWNzfGVufDB8fHxibHVlfDE3NTM1NjY2OTl8MA&ixlib=rb-4.1.0&q=85'
+    },
+    {
+      icon: '🔍',
+      title: 'Crypto Investigation',
+      description: detailed
+        ? 'Advanced blockchain forensics and cryptocurrency investigation services. We analyze transaction patterns, identify criminal networks, and provide detailed forensic reports for legal proceedings and law enforcement cooperation.'
+        : 'Comprehensive blockchain analysis and crypto forensics. Our investigators use advanced tools to trace transactions, identify bad actors, and build cases for successful asset recovery.',
+      image: 'https://images.unsplash.com/photo-1597781914467-a5b93258e748?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODB8MHwxfHNlYXJjaHwxfHxjcnlwdG8lMjBpbnZlc3RpZ2F0aW9ufGVufDB8fHxibHVlfDE3NTM1NjY2OTN8MA&ixlib=rb-4.1.0&q=85'
     },
     {
       icon: '💰',
       title: 'Asset Recovery',
       description: detailed
-        ? 'Specialized recovery services for stolen or misappropriated cryptocurrency assets, utilizing legal enforcement channels and advanced blockchain tracing to recover your digital funds.'
-        : 'Lost crypto to scammers? CRED uses federal enforcement powers and advanced tracing to recover your stolen digital assets.',
-      image: 'https://images.unsplash.com/photo-1619806677949-cbae91e82cea?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzV8MHwxfHNlYXJjaHwxfHxjb3VydGhvdXNlfGVufDB8fHxibHVlfDE3NTMwOTQ1ODd8MA&ixlib=rb-4.1.0&q=85'
-    },
-    {
-      icon: '📋',
-      title: 'Enforcement Reports',
-      description: detailed
-        ? 'Detailed regulatory enforcement reports that provide comprehensive analysis of cryptocurrency violations, suitable for legal proceedings and regulatory compliance submissions.'
-        : 'CRED provides comprehensive enforcement reports that give you documentation needed for legal proceedings and regulatory submissions.',
-      image: 'https://images.unsplash.com/photo-1720480916424-ff20c676d61d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzV8MHwxfHNlYXJjaHwyfHxjb3VydGhvdXNlfGVufDB8fHxibHVlfDE3NTMwOTQ1ODd8MA&ixlib=rb-4.1.0&q=85'
+        ? 'Professional cryptocurrency asset recovery using legal enforcement channels. We work with international law enforcement, exchanges, and legal authorities to recover and return stolen digital assets to rightful owners.'
+        : 'Federal-powered cryptocurrency asset recovery. CRED works with exchanges and law enforcement agencies worldwide to freeze criminal accounts and return stolen crypto to victims.',
+      image: 'https://images.pexels.com/photos/8728559/pexels-photo-8728559.jpeg'
     }
   ];
 
@@ -571,8 +571,8 @@ export const ServicesSection = ({ detailed = false }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {!detailed && (
           <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6 sm:mb-8">CRED Services</h2>
-            <p className="text-lg sm:text-xl text-gray-600">Comprehensive crypto enforcement and regulatory compliance</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6 sm:mb-8">CRED Specialized Services</h2>
+            <p className="text-lg sm:text-xl text-gray-600">Expert recovery for romance scams, phishing attacks, and crypto fraud</p>
           </div>
         )}
         
@@ -584,9 +584,44 @@ export const ServicesSection = ({ detailed = false }) => {
                 <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">{service.icon}</div>
                 <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">{service.title}</h3>
                 <p className="text-gray-600 text-sm leading-relaxed">{service.description}</p>
+                
+                {/* Action Button for each service */}
+                <div className="mt-4">
+                  <button className={`w-full py-2 px-4 rounded-lg text-sm font-semibold transition duration-300 ${
+                    index === 0 ? 'bg-red-600 text-white hover:bg-red-700' :
+                    index === 1 ? 'bg-orange-600 text-white hover:bg-orange-700' :
+                    index === 2 ? 'bg-blue-600 text-white hover:bg-blue-700' :
+                    'bg-green-600 text-white hover:bg-green-700'
+                  }`}>
+                    Get Help Now
+                  </button>
+                </div>
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Success Stats */}
+        <div className="mt-12 bg-white rounded-lg shadow-lg p-6 sm:p-8">
+          <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6 text-center">CRED Recovery Success Rate</h3>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+            <div className="p-4 bg-red-50 rounded-lg">
+              <div className="text-2xl sm:text-3xl font-bold text-red-600">1,200+</div>
+              <div className="text-xs sm:text-sm text-red-700">Romance Scam Cases</div>
+            </div>
+            <div className="p-4 bg-orange-50 rounded-lg">
+              <div className="text-2xl sm:text-3xl font-bold text-orange-600">850+</div>
+              <div className="text-xs sm:text-sm text-orange-700">Phishing Recoveries</div>
+            </div>
+            <div className="p-4 bg-blue-50 rounded-lg">
+              <div className="text-2xl sm:text-3xl font-bold text-blue-600">$200M+</div>
+              <div className="text-xs sm:text-sm text-blue-700">Total Recovered</div>
+            </div>
+            <div className="p-4 bg-green-50 rounded-lg">
+              <div className="text-2xl sm:text-3xl font-bold text-green-600">94%</div>
+              <div className="text-xs sm:text-sm text-green-700">Success Rate</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
