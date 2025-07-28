@@ -114,6 +114,9 @@ def test_user_registration():
     elif response and response.status_code == 400 and "already exists" in response.text:
         print_test_result("User Registration", True, "User already exists (expected for repeated tests)")
         return True
+    elif response and response.status_code == 500:
+        print_test_result("User Registration", False, "Email service unavailable (SMTP connection issue)")
+        return False
     else:
         print_test_result("User Registration", False, f"Registration failed. Status: {response.status_code if response else 'No response'}")
         if response:
