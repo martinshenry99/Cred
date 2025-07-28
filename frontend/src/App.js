@@ -69,7 +69,10 @@ function App() {
         <Navigation 
           isLoggedIn={isLoggedIn}
           user={user}
-          onLogin={() => setIsLoginOpen(true)}
+          onLogin={(mode = 'signin') => {
+            setLoginMode(mode);
+            setIsLoginOpen(true);
+          }}
           onLogout={handleLogout}
         />
         <Routes>
