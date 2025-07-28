@@ -173,6 +173,9 @@ def test_forgot_password():
     elif response and response.status_code == 404:
         print_test_result("Forgot Password", True, "User not found (expected for non-existent users)")
         return True
+    elif response and response.status_code == 500:
+        print_test_result("Forgot Password", False, "Email service unavailable (SMTP connection issue)")
+        return False
     else:
         print_test_result("Forgot Password", False, f"Forgot password failed. Status: {response.status_code if response else 'No response'}")
         if response:
