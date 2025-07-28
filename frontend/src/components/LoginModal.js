@@ -8,13 +8,15 @@ export const LoginModal = ({ isOpen, onClose, onLogin }) => {
   const [isLoginMode, setIsLoginMode] = useState(true);
   const [showOTPVerification, setShowOTPVerification] = useState(false);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [showPasswordReset, setShowPasswordReset] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
     name: '',
     phone: '',
     confirmPassword: '',
-    otp: ''
+    otp: '',
+    newPassword: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
