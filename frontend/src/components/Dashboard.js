@@ -109,7 +109,360 @@ export const Dashboard = ({ user, cryptoPrices }) => {
   );
 };
 
-// Report Submission Form
+// Modern Overview Section
+const OverviewSection = ({ user, userReports, investments, cryptoPrices }) => {
+  const totalInvestment = investments.reduce((sum, inv) => sum + (inv.amount || 0), 0);
+  const totalReturns = investments.reduce((sum, inv) => sum + (inv.returns || 0), 0);
+  const activeReports = userReports.filter(r => r.status !== 'completed').length;
+
+  return (
+    <div className="space-y-6">
+      {/* Welcome Message */}
+      <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-6 text-white">
+        <h2 className="text-2xl font-bold mb-2">Welcome to CRED Elite Dashboard</h2>
+        <p className="text-blue-100">Manage your investments, track investigations, and access premium features</p>
+      </div>
+
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm text-gray-600">Portfolio Value</p>
+              <p className="text-2xl font-bold text-gray-900">${totalInvestment.toLocaleString()}</p>
+            </div>
+            <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+              <span className="text-green-600 text-xl">💰</span>
+            </div>
+          </div>
+          <div className="mt-2 text-sm text-green-600">+12.5% this month</div>
+        </div>
+
+        <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm text-gray-600">Total Returns</p>
+              <p className="text-2xl font-bold text-gray-900">${totalReturns.toLocaleString()}</p>
+            </div>
+            <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+              <span className="text-blue-600 text-xl">📈</span>
+            </div>
+          </div>
+          <div className="mt-2 text-sm text-blue-600">+8.2% yield</div>
+        </div>
+
+        <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm text-gray-600">Active Reports</p>
+              <p className="text-2xl font-bold text-gray-900">{activeReports}</p>
+            </div>
+            <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+              <span className="text-orange-600 text-xl">📋</span>
+            </div>
+          </div>
+          <div className="mt-2 text-sm text-orange-600">{userReports.length} total</div>
+        </div>
+
+        <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm text-gray-600">Member Status</p>
+              <p className="text-2xl font-bold text-gray-900">Elite</p>
+            </div>
+            <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+              <span className="text-purple-600 text-xl">⭐</span>
+            </div>
+          </div>
+          <div className="mt-2 text-sm text-purple-600">Premium access</div>
+        </div>
+      </div>
+
+      {/* Live Crypto Prices */}
+      <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Live Crypto Prices</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-gradient-to-r from-orange-500 to-red-500 rounded-lg p-4 text-white">
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="text-sm opacity-90">Bitcoin</div>
+                <div className="text-2xl font-bold">${cryptoPrices.btc?.toLocaleString() || '50,000'}</div>
+              </div>
+              <div className="text-3xl">₿</div>
+            </div>
+          </div>
+          <div className="bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg p-4 text-white">
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="text-sm opacity-90">Ethereum</div>
+                <div className="text-2xl font-bold">${cryptoPrices.eth?.toLocaleString() || '3,000'}</div>
+              </div>
+              <div className="text-3xl">Ξ</div>
+            </div>
+          </div>
+          <div className="bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg p-4 text-white">
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="text-sm opacity-90">Tether</div>
+                <div className="text-2xl font-bold">${cryptoPrices.usdt?.toFixed(2) || '1.00'}</div>
+              </div>
+              <div className="text-3xl">₮</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Recent Activity */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Investments</h3>
+          <div className="space-y-4">
+            {investments.slice(0, 3).map((investment, index) => (
+              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <div>
+                  <div className="font-medium text-gray-900">{investment.package_name}</div>
+                  <div className="text-sm text-gray-500">${investment.amount?.toLocaleString()}</div>
+                </div>
+                <div className="text-right">
+                  <div className="text-sm text-green-600">+{investment.returns || 0}%</div>
+                  <div className="text-xs text-gray-500">{investment.crypto_type?.toUpperCase()}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Reports</h3>
+          <div className="space-y-4">
+            {userReports.slice(0, 3).map((report, index) => (
+              <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <div>
+                  <div className="font-medium text-gray-900">{report.title}</div>
+                  <div className="text-sm text-gray-500">{report.category}</div>
+                </div>
+                <div className="text-right">
+                  <div className={`text-sm px-2 py-1 rounded-full ${
+                    report.status === 'completed' ? 'bg-green-100 text-green-800' :
+                    report.status === 'in_progress' ? 'bg-blue-100 text-blue-800' :
+                    'bg-yellow-100 text-yellow-800'
+                  }`}>
+                    {report.status}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Modern Deposit Section
+const DepositSection = () => {
+  const [selectedCrypto, setSelectedCrypto] = useState('btc');
+  const [depositAmount, setDepositAmount] = useState('');
+  const [showQR, setShowQR] = useState(false);
+
+  const cryptoOptions = [
+    {
+      id: 'btc',
+      name: 'Bitcoin',
+      symbol: 'BTC',
+      icon: '₿',
+      address: 'bc1qcr3nkt4aq3zdpc8tp3nuyteu4v5ayz2pllp99j',
+      color: 'from-orange-500 to-yellow-500',
+      network: 'Bitcoin Network'
+    },
+    {
+      id: 'eth',
+      name: 'Ethereum',
+      symbol: 'ETH',
+      icon: 'Ξ',
+      address: '0x52CF4b2A2398a83F761d3f3C81e79e64BAb9b43d',
+      color: 'from-blue-500 to-purple-500',
+      network: 'Ethereum Network'
+    },
+    {
+      id: 'usdt',
+      name: 'Tether',
+      symbol: 'USDT',
+      icon: '₮',
+      address: 'TP9cjBbFXXX4JSkGgcBLsjvRZ9VjA55zTG',
+      color: 'from-green-500 to-emerald-500',
+      network: 'Tron Network'
+    }
+  ];
+
+  const selectedCryptoData = cryptoOptions.find(c => c.id === selectedCrypto);
+
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text);
+    alert('Address copied to clipboard!');
+  };
+
+  const handleDeposit = async () => {
+    if (!depositAmount) {
+      alert('Please enter deposit amount');
+      return;
+    }
+
+    try {
+      await axios.post(`${API}/deposits/create`, {
+        amount: parseFloat(depositAmount),
+        crypto_type: selectedCrypto,
+        address: selectedCryptoData.address
+      });
+      
+      alert('Deposit request created! Please send the crypto to the provided address.');
+      setDepositAmount('');
+    } catch (error) {
+      alert('Failed to create deposit request: ' + (error.response?.data?.detail || error.message));
+    }
+  };
+
+  return (
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-green-600 to-blue-600 rounded-2xl p-6 text-white">
+        <h2 className="text-2xl font-bold mb-2">💰 Crypto Deposit</h2>
+        <p className="text-green-100">Deposit cryptocurrency to your CRED account for investments</p>
+      </div>
+
+      {/* Crypto Selection */}
+      <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Select Cryptocurrency</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {cryptoOptions.map((crypto) => (
+            <button
+              key={crypto.id}
+              onClick={() => setSelectedCrypto(crypto.id)}
+              className={`p-4 rounded-xl border-2 transition-all ${
+                selectedCrypto === crypto.id
+                  ? 'border-blue-500 bg-blue-50'
+                  : 'border-gray-200 hover:border-gray-300'
+              }`}
+            >
+              <div className={`w-12 h-12 bg-gradient-to-r ${crypto.color} rounded-lg flex items-center justify-center mx-auto mb-3`}>
+                <span className="text-white text-2xl font-bold">{crypto.icon}</span>
+              </div>
+              <div className="text-center">
+                <div className="font-semibold text-gray-900">{crypto.name}</div>
+                <div className="text-sm text-gray-500">{crypto.symbol}</div>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Deposit Details */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Deposit Form */}
+        <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Deposit Amount</h3>
+          
+          <div className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Amount (USD)
+              </label>
+              <input
+                type="number"
+                value={depositAmount}
+                onChange={(e) => setDepositAmount(e.target.value)}
+                placeholder="Enter amount in USD"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+
+            <div className="bg-gray-50 rounded-lg p-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm text-gray-600">Network:</span>
+                <span className="text-sm font-medium text-gray-900">{selectedCryptoData.network}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-gray-600">Cryptocurrency:</span>
+                <span className="text-sm font-medium text-gray-900">{selectedCryptoData.name}</span>
+              </div>
+            </div>
+
+            <button
+              onClick={handleDeposit}
+              className="w-full bg-gradient-to-r from-green-600 to-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-green-700 hover:to-blue-700 transition-all duration-300 transform hover:scale-105"
+            >
+              Create Deposit Request
+            </button>
+          </div>
+        </div>
+
+        {/* Address & QR Code */}
+        <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Deposit Address</h3>
+          
+          <div className="space-y-4">
+            <div className={`bg-gradient-to-r ${selectedCryptoData.color} rounded-lg p-4 text-white`}>
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm opacity-90">{selectedCryptoData.name} Address</span>
+                <span className="text-2xl">{selectedCryptoData.icon}</span>
+              </div>
+              <div className="font-mono text-sm break-all bg-white bg-opacity-20 rounded p-2">
+                {selectedCryptoData.address}
+              </div>
+            </div>
+
+            <div className="flex space-x-2">
+              <button
+                onClick={() => copyToClipboard(selectedCryptoData.address)}
+                className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                📋 Copy Address
+              </button>
+              <button
+                onClick={() => setShowQR(!showQR)}
+                className="flex-1 bg-gray-600 text-white py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors"
+              >
+                📱 QR Code
+              </button>
+            </div>
+
+            {showQR && (
+              <div className="bg-gray-50 rounded-lg p-4 text-center">
+                <div className="w-32 h-32 bg-white border-2 border-gray-300 rounded-lg mx-auto mb-2 flex items-center justify-center">
+                  <span className="text-gray-500 text-xs">QR Code</span>
+                </div>
+                <p className="text-sm text-gray-600">Scan to get deposit address</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Important Notes */}
+      <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6">
+        <h3 className="text-lg font-semibold text-yellow-800 mb-3">⚠️ Important Deposit Instructions</h3>
+        <div className="space-y-2 text-sm text-yellow-700">
+          <div className="flex items-start">
+            <span className="mr-2">•</span>
+            <span>Only send {selectedCryptoData.name} to this address</span>
+          </div>
+          <div className="flex items-start">
+            <span className="mr-2">•</span>
+            <span>Minimum deposit: $100 USD equivalent</span>
+          </div>
+          <div className="flex items-start">
+            <span className="mr-2">•</span>
+            <span>Deposits are processed within 1-6 confirmations</span>
+          </div>
+          <div className="flex items-start">
+            <span className="mr-2">•</span>
+            <span>Contact support if your deposit doesn't appear within 24 hours</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 const ReportSubmissionForm = ({ onSubmit }) => {
   const [formData, setFormData] = useState({
     title: '',
