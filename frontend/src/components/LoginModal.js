@@ -382,10 +382,17 @@ export const LoginModal = ({ isOpen, onClose, onLogin }) => {
                 setError('');
                 setFormData({ ...formData, password: '', confirmPassword: '', name: '', phone: '' });
               }}
-              className="text-blue-600 hover:text-blue-800 font-semibold text-sm"
+              className={`font-semibold text-sm transition duration-300 ${
+                isLoginMode ? 'text-green-600 hover:text-green-800' : 'text-blue-600 hover:text-blue-800'
+              }`}
             >
-              {isLoginMode ? "Don't have an account? Join CRED" : "Already have an account? Sign In"}
+              {isLoginMode ? "New to CRED? Create Account" : "Already a member? Sign In"}
             </button>
+            {!isLoginMode && (
+              <p className="text-xs text-gray-500 mt-2">
+                Join thousands of professionals in crypto enforcement
+              </p>
+            )}
           </div>
         )}
         
