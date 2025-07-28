@@ -138,15 +138,31 @@ export const LoginModal = ({ isOpen, onClose, onLogin }) => {
         </button>
         
         <div className="text-center mb-6 sm:mb-8">
-          <div className="w-12 h-12 sm:w-16 sm:h-16 bg-blue-600 rounded-lg flex items-center justify-center mx-auto mb-4">
-            <span className="text-white text-xl sm:text-2xl font-bold">🛡️</span>
+          <div className={`w-12 h-12 sm:w-16 sm:h-16 rounded-lg flex items-center justify-center mx-auto mb-4 ${
+            showForgotPassword ? 'bg-orange-600' :
+            showPasswordReset ? 'bg-green-600' :
+            showOTPVerification ? 'bg-purple-600' :
+            isLoginMode ? 'bg-blue-600' : 'bg-green-600'
+          }`}>
+            <span className="text-white text-xl sm:text-2xl font-bold">
+              {showForgotPassword ? '🔑' :
+               showPasswordReset ? '🔒' :
+               showOTPVerification ? '📧' :
+               isLoginMode ? '🛡️' : '✨'}
+            </span>
           </div>
           <h2 className="text-xl sm:text-2xl font-bold">
             {showForgotPassword ? 'Reset Password' : 
              showPasswordReset ? 'Create New Password' :
              showOTPVerification ? 'Verify OTP' : 
-             (isLoginMode ? 'CRED Sign In' : 'Join CRED')}
+             (isLoginMode ? 'CRED Sign In' : 'Join CRED Team')}
           </h2>
+          <p className="text-gray-600 text-sm mt-2">
+            {showForgotPassword ? 'Enter your email to receive reset instructions' :
+             showPasswordReset ? 'Enter OTP and create a new secure password' :
+             showOTPVerification ? 'Check your email for the verification code' :
+             isLoginMode ? 'Access your secure CRED dashboard' : 'Become a member of the crypto enforcement community'}
+          </p>
         </div>
 
         {error && (
