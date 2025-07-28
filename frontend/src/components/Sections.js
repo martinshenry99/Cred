@@ -223,39 +223,39 @@ export const ContactSection = () => {
 export const TestimonialsSection = () => {
   const testimonials = [
     {
-      name: "Sarah Mitchell",
+      name: "Elena Rossi",
       role: "Romance Scam Victim",
       image: "https://images.unsplash.com/photo-1494790108755-2616b2e9ce33?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHwxfHx3b21hbiUyMGJ1c2luZXNzfGVufDB8fHxibHVlfDE3NTM1NjY2OTl8MA&ixlib=rb-4.1.0&q=85",
-      content: "CRED helped me recover $45,000 that I lost to a romance scammer. Their team was professional, compassionate, and incredibly effective. I never thought I'd see my money again.",
+      content: "CRED helped me recover €45,000 that I lost to a romance scammer. Their team was professional, compassionate, and incredibly effective. I never thought I'd see my money again.",
       rating: 5,
-      amount: "$45,000",
+      amount: "€45,000",
       case: "Romance Scam"
     },
     {
-      name: "Michael Chen",
+      name: "Henrik Andersson",
       role: "Phishing Attack Victim",
       image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHwxfHxtYW4lMjBidXNpbmVzcyUyMHBvcnRyYWl0fGVufDB8fHxibHVlfDE3NTM1NjY2OTl8MA&ixlib=rb-4.1.0&q=85",
       content: "When I fell for a phishing attack and lost my crypto wallet, CRED's emergency response team froze the stolen funds within hours. They recovered 98% of my Bitcoin.",
       rating: 5,
-      amount: "$120,000",
+      amount: "€120,000",
       case: "Phishing Attack"
     },
     {
-      name: "Jessica Rodriguez",
+      name: "Marie Dubois",
       role: "Investment Fraud Victim",
       image: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHwxfHx3b21hbiUyMGJ1c2luZXNzfGVufDB8fHxibHVlfDE3NTM1NjY2OTl8MA&ixlib=rb-4.1.0&q=85",
       content: "The CRED investigation team tracked down the criminals who stole my crypto investments. Their forensic analysis was thorough and led to a successful recovery.",
       rating: 5,
-      amount: "$75,000",
+      amount: "€75,000",
       case: "Investment Fraud"
     },
     {
-      name: "David Thompson",
+      name: "Klaus Mueller",
       role: "Exchange Hack Victim",
       image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHwxfHxtYW4lMjBidXNpbmVzcyUyMHBvcnRyYWl0fGVufDB8fHxibHVlfDE3NTM1NjY2OTl8MA&ixlib=rb-4.1.0&q=85",
       content: "After a crypto exchange hack, CRED worked with international law enforcement to trace my stolen funds across multiple blockchains. Outstanding service!",
       rating: 5,
-      amount: "$200,000",
+      amount: "€200,000",
       case: "Exchange Hack"
     }
   ];
