@@ -169,6 +169,14 @@ class OTPVerification(BaseModel):
     email: EmailStr
     otp: str
 
+class ForgotPasswordRequest(BaseModel):
+    email: EmailStr
+
+class PasswordResetRequest(BaseModel):
+    email: EmailStr
+    otp: str
+    new_password: str
+
 class InvestmentRequest(BaseModel):
     package_id: str
     amount: float
