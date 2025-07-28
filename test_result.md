@@ -141,6 +141,18 @@ backend:
         agent: "main"
         comment: "Moved live crypto prices section to be displayed only in the logged-in interface under the investment section"
 
+  - task: "Add forgot password functionality"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/LoginModal.js, /app/backend/server.py"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Added complete forgot password functionality with OTP verification. Backend endpoints: /forgot-password and /reset-password. Frontend flows: email entry -> OTP verification -> password reset."
+
   - task: "Authentication flow fixes"
     implemented: true
     working: true
