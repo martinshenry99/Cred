@@ -143,6 +143,7 @@ export const LoginModal = ({ isOpen, onClose, onLogin }) => {
           </div>
           <h2 className="text-xl sm:text-2xl font-bold">
             {showForgotPassword ? 'Reset Password' : 
+             showPasswordReset ? 'Create New Password' :
              showOTPVerification ? 'Verify OTP' : 
              (isLoginMode ? 'CRED Sign In' : 'Join CRED')}
           </h2>
