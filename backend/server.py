@@ -302,11 +302,34 @@ async def register_user(user_data: UserRegistration):
     </html>
     """
     
-    # Send to both user and admin
-    await send_email(user_data.email, subject, body)
-    await send_email(os.environ['EMAIL_TO'], f"New CRED Registration: {user_data.name}", body)
-    
-    return {"message": "Registration successful. Please check your email for OTP verification."}
+    try:
+        await send_email(user_data.email, subject, body)
+        
+        # Send notification to admin
+        admin_subject = "New User Registration - CRED"
+        admin_body = f"""
+        <html>
+        <body style="font-family: Arial, sans-serif;">
+            <h2 style="color: #1e40af;">New User Registration</h2>
+            <p><strong>Name:</strong> {user_data.name}</p>
+            <p><strong>Email:</strong> {user_data.email}</p>
+            <p><strong>Phone:</strong> {user_data.phone or 'Not provided'}</p>
+            <p><strong>Registration Time:</strong> {datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC')}</p>
+            <p><strong>Status:</strong> Pending email verification</p>
+            <hr>
+            <p style="color: #64748b; font-size: 14px;">This is an automated notification from CRED system.</p>
+        </body>
+        </html>
+        """
+        
+        await send_email(os.environ.get('EMAIL_TO', 'cred.investigation@usa.com'), admin_subject, admin_body)
+        
+        return {"message": "Registration successful! Please check your email for OTP verification."}
+        
+    except Exception as e:
+        # Delete user if email fails
+        await db.users.delete_one({"_id": user_doc["_id"]})
+        raise HTTPException(status_code=500, detail="Failed to send verification email")
 
 @api_router.post("/verify-otp")
 async def verify_otp(verification: OTPVerification):
