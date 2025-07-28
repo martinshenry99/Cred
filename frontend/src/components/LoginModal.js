@@ -171,6 +171,43 @@ export const LoginModal = ({ isOpen, onClose, onLogin }) => {
                 <p className="text-xs text-gray-500 mt-2">We'll send reset instructions to this email</p>
               </div>
             </>
+          ) : showPasswordReset ? (
+            <>
+              <div className="mb-4">
+                <label className="block text-gray-700 font-semibold mb-2">OTP Code</label>
+                <input
+                  type="text"
+                  required
+                  maxLength="6"
+                  placeholder="Enter OTP from email"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-center text-xl tracking-widest"
+                  value={formData.otp}
+                  onChange={(e) => setFormData({...formData, otp: e.target.value.replace(/\D/g, '')})}
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 font-semibold mb-2">New Password</label>
+                <input
+                  type="password"
+                  required
+                  placeholder="Enter new password"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  value={formData.newPassword}
+                  onChange={(e) => setFormData({...formData, newPassword: e.target.value})}
+                />
+              </div>
+              <div className="mb-6">
+                <label className="block text-gray-700 font-semibold mb-2">Confirm New Password</label>
+                <input
+                  type="password"
+                  required
+                  placeholder="Confirm new password"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  value={formData.confirmPassword}
+                  onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
+                />
+              </div>
+            </>
           ) : showOTPVerification ? (
             <>
               <div className="mb-6">
@@ -270,6 +307,7 @@ export const LoginModal = ({ isOpen, onClose, onLogin }) => {
           >
             {isSubmitting ? 'Processing...' : (
               showForgotPassword ? 'Send Reset Instructions' :
+              showPasswordReset ? 'Reset Password' :
               showOTPVerification ? 'Verify OTP' : 
               (isLoginMode ? 'Sign In to CRED' : 'Join CRED')
             )}
