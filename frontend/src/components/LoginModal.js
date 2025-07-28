@@ -246,7 +246,7 @@ export const LoginModal = ({ isOpen, onClose, onLogin }) => {
           </button>
         </form>
         
-        {!showOTPVerification && (
+        {!showOTPVerification && !showForgotPassword && (
           <div className="text-center">
             <button
               onClick={() => {
@@ -257,6 +257,21 @@ export const LoginModal = ({ isOpen, onClose, onLogin }) => {
               className="text-blue-600 hover:text-blue-800 font-semibold text-sm"
             >
               {isLoginMode ? "Don't have an account? Join CRED" : "Already have an account? Sign In"}
+            </button>
+          </div>
+        )}
+        
+        {showForgotPassword && (
+          <div className="text-center">
+            <button
+              onClick={() => {
+                setShowForgotPassword(false);
+                setError('');
+                setFormData({ ...formData, email: '' });
+              }}
+              className="text-blue-600 hover:text-blue-800 font-semibold text-sm"
+            >
+              Back to Sign In
             </button>
           </div>
         )}
