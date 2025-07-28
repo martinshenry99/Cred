@@ -12,9 +12,9 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 function App() {
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [loginMode, setLoginMode] = useState('signin');
   const [cryptoPrices, setCryptoPrices] = useState({ btc: 50000, eth: 3000, usdt: 1 });
 
@@ -46,6 +46,32 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
+  return (
+    <div className="App">
+      <BrowserRouter>
+        <AppContent 
+          isLoggedIn={isLoggedIn}
+          user={user}
+          setUser={setUser}
+          setIsLoggedIn={setIsLoggedIn}
+          isLoginOpen={isLoginOpen}
+          setIsLoginOpen={setIsLoginOpen}
+          loginMode={loginMode}
+          setLoginMode={setLoginMode}
+          cryptoPrices={cryptoPrices}
+        />
+      </BrowserRouter>
+    </div>
+  );
+}
+
+function AppContent({ 
+  isLoggedIn, user, setUser, setIsLoggedIn, 
+  isLoginOpen, setIsLoginOpen, loginMode, setLoginMode, 
+  cryptoPrices 
+}) {
+  const navigate = useNavigate();
+
   const handleLogin = async (userData) => {
     setUser(userData.user);
     setIsLoggedIn(true);
@@ -53,6 +79,9 @@ function App() {
     localStorage.setItem('user', JSON.stringify(userData.user));
     axios.defaults.headers.common['Authorization'] = `Bearer ${userData.access_token}`;
     setIsLoginOpen(false);
+    
+    // Redirect to dashboard after successful login
+    navigate('/dashboard');
   };
 
   const handleLogout = () => {
@@ -61,43 +90,42 @@ function App() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     delete axios.defaults.headers.common['Authorization'];
+    navigate('/');
   };
 
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Navigation 
-          isLoggedIn={isLoggedIn}
-          user={user}
-          onLogin={(mode = 'signin') => {
-            setLoginMode(mode);
-            setIsLoginOpen(true);
-          }}
-          onLogout={handleLogout}
-        />
-        <Routes>
-          <Route path="/" element={<Home cryptoPrices={cryptoPrices} />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/dashboard" element={
-            isLoggedIn ? (
-              user?.is_admin ? 
-                <AdminDashboard user={user} /> : 
-                <Dashboard user={user} cryptoPrices={cryptoPrices} />
-            ) : <Home cryptoPrices={cryptoPrices} />
-          } />
-        </Routes>
-        {!isLoggedIn && <Footer />}
-        <LoginModal 
-          isOpen={isLoginOpen}
-          onClose={() => setIsLoginOpen(false)}
-          onLogin={handleLogin}
-          initialMode={loginMode}
-        />
-        <LiveChat />
-      </BrowserRouter>
-    </div>
+    <>
+      <Navigation 
+        isLoggedIn={isLoggedIn}
+        user={user}
+        onLogin={(mode = 'signin') => {
+          setLoginMode(mode);
+          setIsLoginOpen(true);
+        }}
+        onLogout={handleLogout}
+      />
+      <Routes>
+        <Route path="/" element={<Home cryptoPrices={cryptoPrices} />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/dashboard" element={
+          isLoggedIn ? (
+            user?.is_admin ? 
+              <AdminDashboard user={user} /> : 
+              <Dashboard user={user} cryptoPrices={cryptoPrices} />
+          ) : <Home cryptoPrices={cryptoPrices} />
+        } />
+      </Routes>
+      {!isLoggedIn && <Footer />}
+      <LoginModal 
+        isOpen={isLoginOpen}
+        onClose={() => setIsLoginOpen(false)}
+        onLogin={handleLogin}
+        initialMode={loginMode}
+      />
+      <LiveChat />
+    </>
   );
 }
 
