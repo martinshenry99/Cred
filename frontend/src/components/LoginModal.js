@@ -105,7 +105,18 @@ export const LoginModal = ({ isOpen, onClose, onLogin, initialMode = 'signin' })
         setShowOTPVerification(true);
       }
     } catch (error) {
-      setError(error.response?.data?.detail || error.message || 'An error occurred');
+      const errorMessage = error.response?.data?.detail || error.message || 'An error occurred';
+      
+      // Handle specific error cases
+      if (errorMessage.includes('Account not verified')) {
+        setError('Please verify your email first. Check your inbox for the OTP code and complete verification.');
+      } else if (errorMessage.includes('Invalid credentials')) {
+        setError('Invalid email or password. Please check your credentials and try again.');
+      } else if (errorMessage.includes('User not found')) {
+        setError('No account found with this email. Please sign up first.');
+      } else {
+        setError(errorMessage);
+      }
     } finally {
       setIsSubmitting(false);
     }
