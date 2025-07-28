@@ -126,7 +126,22 @@ export const LoginModal = ({ isOpen, onClose, onLogin }) => {
         )}
         
         <form onSubmit={handleSubmit}>
-          {showOTPVerification ? (
+          {showForgotPassword ? (
+            <>
+              <div className="mb-6">
+                <label className="block text-gray-700 font-semibold mb-2">Email Address</label>
+                <input
+                  type="email"
+                  required
+                  placeholder="Enter your email to reset password"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  value={formData.email}
+                  onChange={(e) => setFormData({...formData, email: e.target.value})}
+                />
+                <p className="text-xs text-gray-500 mt-2">We'll send reset instructions to this email</p>
+              </div>
+            </>
+          ) : showOTPVerification ? (
             <>
               <div className="mb-6">
                 <label className="block text-gray-700 font-semibold mb-2">Enter OTP</label>
@@ -203,6 +218,18 @@ export const LoginModal = ({ isOpen, onClose, onLogin }) => {
                   />
                 </div>
               )}
+              
+              {isLoginMode && (
+                <div className="mb-4 text-right">
+                  <button
+                    type="button"
+                    onClick={() => setShowForgotPassword(true)}
+                    className="text-blue-600 hover:text-blue-800 text-sm"
+                  >
+                    Forgot Password?
+                  </button>
+                </div>
+              )}
             </>
           )}
           
@@ -212,7 +239,9 @@ export const LoginModal = ({ isOpen, onClose, onLogin }) => {
             className="w-full bg-blue-900 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-800 transition duration-300 mb-4 disabled:opacity-50"
           >
             {isSubmitting ? 'Processing...' : (
-              showOTPVerification ? 'Verify OTP' : (isLoginMode ? 'Sign In to CRED' : 'Join CRED')
+              showForgotPassword ? 'Send Reset Instructions' :
+              showOTPVerification ? 'Verify OTP' : 
+              (isLoginMode ? 'Sign In to CRED' : 'Join CRED')
             )}
           </button>
         </form>
