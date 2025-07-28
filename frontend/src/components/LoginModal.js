@@ -33,9 +33,34 @@ export const LoginModal = ({ isOpen, onClose, onLogin }) => {
           email: formData.email
         });
         
-        alert('Password reset instructions have been sent to your email.');
+        alert('Password reset instructions have been sent to your email. Please check your email for the OTP.');
         setShowForgotPassword(false);
+        setShowPasswordReset(true);
+        
+      } else if (showPasswordReset) {
+        // Handle password reset with OTP
+        if (formData.newPassword !== formData.confirmPassword) {
+          throw new Error('New passwords do not match');
+        }
+        
+        const response = await axios.post(`${API}/reset-password`, {
+          email: formData.email,
+          otp: formData.otp,
+          new_password: formData.newPassword
+        });
+        
+        alert('Password reset successful! You can now login with your new password.');
+        setShowPasswordReset(false);
         setIsLoginMode(true);
+        setFormData({ 
+          email: formData.email, 
+          password: '', 
+          name: '', 
+          phone: '', 
+          confirmPassword: '', 
+          otp: '', 
+          newPassword: '' 
+        });
         
       } else if (showOTPVerification) {
         // Verify OTP
