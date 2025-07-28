@@ -11,7 +11,6 @@ export const Home = ({ cryptoPrices }) => {
   return (
     <div className="min-h-screen">
       <Hero />
-      <CryptoPricesSection prices={cryptoPrices} />
       <ServicesSection />
       <TestimonialsSection />
       <AboutSection />
