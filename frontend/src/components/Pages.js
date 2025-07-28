@@ -209,8 +209,8 @@ export const Contact = () => {
                   <span className="text-white text-lg sm:text-xl">📞</span>
                 </div>
                 <div>
-                  <div className="font-semibold text-gray-900">Emergency Hotline</div>
-                  <div className="text-sm sm:text-base text-gray-600">+1 (800) CRYPTO-1</div>
+                  <div className="font-semibold text-gray-900">CRED Hotline</div>
+                  <div className="text-sm sm:text-base text-gray-600">+1 (226) 484-9213</div>
                 </div>
               </div>
               <div className="flex items-start">
@@ -219,7 +219,7 @@ export const Contact = () => {
                 </div>
                 <div>
                   <div className="font-semibold text-gray-900">Email</div>
-                  <div className="text-sm sm:text-base text-gray-600">enforcement@cred.gov</div>
+                  <div className="text-sm sm:text-base text-gray-600">cred.investigation@usa.com</div>
                 </div>
               </div>
             </div>
