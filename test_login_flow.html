@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CRED Login Flow Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .step { margin: 20px 0; padding: 15px; border-left: 4px solid #1e40af; background: #f8fafc; }
+        .success { border-left-color: #10b981; background: #f0fdf4; }
+        .error { border-left-color: #ef4444; background: #fef2f2; }
+        .code { background: #f3f4f6; padding: 2px 6px; border-radius: 4px; font-family: monospace; }
+        button { background: #1e40af; color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; }
+        button:hover { background: #1d4ed8; }
+        input, select { padding: 8px; margin: 5px; border: 1px solid #d1d5db; border-radius: 4px; }
+        .form-group { margin: 15px 0; }
+    </style>
+</head>
+<body>
+    <h1>🛡️ CRED Login Flow Test</h1>
+    
+    <div class="step">
+        <h3>Step 1: Register New User</h3>
+        <div class="form-group">
+            <input type="text" id="name" placeholder="Full Name" value="John Doe">
+            <input type="email" id="email" placeholder="Email" value="john.doe@example.com">
+            <input type="text" id="phone" placeholder="Phone" value="+1234567890">
+            <input type="password" id="password" placeholder="Password" value="Password123!">
+            <button onclick="registerUser()">Register</button>
+        </div>
+        <div id="registerResult"></div>
+    </div>
+    
+    <div class="step">
+        <h3>Step 2: Get OTP (Check Backend Logs)</h3>
+        <div class="form-group">
+            <input type="email" id="otpEmail" placeholder="Email" value="john.doe@example.com">
+            <button onclick="getOTP()">Get OTP from Database</button>
+        </div>
+        <div id="otpResult"></div>
+    </div>
+    
+    <div class="step">
+        <h3>Step 3: Verify OTP</h3>
+        <div class="form-group">
+            <input type="email" id="verifyEmail" placeholder="Email" value="john.doe@example.com">
+            <input type="text" id="otp" placeholder="OTP Code" maxlength="6">
+            <button onclick="verifyOTP()">Verify OTP</button>
+        </div>
+        <div id="verifyResult"></div>
+    </div>
+    
+    <div class="step">
+        <h3>Step 4: Login</h3>
+        <div class="form-group">
+            <input type="email" id="loginEmail" placeholder="Email" value="john.doe@example.com">
+            <input type="password" id="loginPassword" placeholder="Password" value="Password123!">
+            <button onclick="loginUser()">Login</button>
+        </div>
+        <div id="loginResult"></div>
+    </div>
+    
+    <div class="step">
+        <h3>Step 5: Test Admin Login</h3>
+        <div class="form-group">
+            <button onclick="loginAdmin()">Login as Admin</button>
+        </div>
+        <div id="adminResult"></div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:8001/api';
+        
+        function showResult(elementId, message, isSuccess = true) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `<div class="${isSuccess ? 'success' : 'error'}">${message}</div>`;
+        }
+        
+        async function registerUser() {
+            try {
+                const response = await fetch(`${API_BASE}/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: document.getElementById('name').value,
+                        email: document.getElementById('email').value,
+                        phone: document.getElementById('phone').value,
+                        password: document.getElementById('password').value
+                    })
+                });
+                
+                const data = await response.json();
+                if (response.ok) {
+                    showResult('registerResult', `✅ ${data.message}`);
+                } else {
+                    showResult('registerResult', `❌ ${data.detail}`, false);
+                }
+            } catch (error) {
+                showResult('registerResult', `❌ Error: ${error.message}`, false);
+            }
+        }
+        
+        async function getOTP() {
+            try {
+                const response = await fetch(`${API_BASE}/debug/get-otp`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: document.getElementById('otpEmail').value
+                    })
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('otp').value = data.otp;
+                    showResult('otpResult', `✅ OTP: <code>${data.otp}</code>`);
+                } else {
+                    showResult('otpResult', `❌ Check backend logs or database for OTP`, false);
+                }
+            } catch (error) {
+                showResult('otpResult', `❌ Error: ${error.message}`, false);
+            }
+        }
+        
+        async function verifyOTP() {
+            try {
+                const response = await fetch(`${API_BASE}/verify-otp`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: document.getElementById('verifyEmail').value,
+                        otp: document.getElementById('otp').value
+                    })
+                });
+                
+                const data = await response.json();
+                if (response.ok) {
+                    showResult('verifyResult', `✅ ${data.message}`);
+                } else {
+                    showResult('verifyResult', `❌ ${data.detail}`, false);
+                }
+            } catch (error) {
+                showResult('verifyResult', `❌ Error: ${error.message}`, false);
+            }
+        }
+        
+        async function loginUser() {
+            try {
+                const response = await fetch(`${API_BASE}/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: document.getElementById('loginEmail').value,
+                        password: document.getElementById('loginPassword').value
+                    })
+                });
+                
+                const data = await response.json();
+                if (response.ok) {
+                    showResult('loginResult', `✅ Login successful! User: ${data.user.name}`);
+                } else {
+                    showResult('loginResult', `❌ ${data.detail}`, false);
+                }
+            } catch (error) {
+                showResult('loginResult', `❌ Error: ${error.message}`, false);
+            }
+        }
+        
+        async function loginAdmin() {
+            try {
+                const response = await fetch(`${API_BASE}/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: 'admin@cred.gov',
+                        password: 'CredAdmin2025!'
+                    })
+                });
+                
+                const data = await response.json();
+                if (response.ok) {
+                    showResult('adminResult', `✅ Admin login successful! Admin: ${data.user.name}`);
+                } else {
+                    showResult('adminResult', `❌ ${data.detail}`, false);
+                }
+            } catch (error) {
+                showResult('adminResult', `❌ Error: ${error.message}`, false);
+            }
+        }
+    </script>
+</body>
+</html>
