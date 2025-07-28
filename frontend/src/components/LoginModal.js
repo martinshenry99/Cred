@@ -7,6 +7,7 @@ const API = `${BACKEND_URL}/api`;
 export const LoginModal = ({ isOpen, onClose, onLogin }) => {
   const [isLoginMode, setIsLoginMode] = useState(true);
   const [showOTPVerification, setShowOTPVerification] = useState(false);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
