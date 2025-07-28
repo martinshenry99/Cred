@@ -113,11 +113,13 @@ export const LoginModal = ({ isOpen, onClose, onLogin }) => {
       name: '',
       phone: '',
       confirmPassword: '',
-      otp: ''
+      otp: '',
+      newPassword: ''
     });
     setError('');
     setShowOTPVerification(false);
     setShowForgotPassword(false);
+    setShowPasswordReset(false);
   };
 
   if (!isOpen) return null;
