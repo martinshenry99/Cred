@@ -84,13 +84,13 @@ export const Navigation = ({ isLoggedIn, user, onLogin, onLogout }) => {
           {/* Desktop Auth Buttons */}
           <div className="hidden md:flex items-center space-x-4">
             <button 
-              onClick={onLogin}
+              onClick={() => onLogin('signin')}
               className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300"
             >
               Sign In
             </button>
             <button 
-              onClick={onLogin}
+              onClick={() => onLogin('signup')}
               className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition duration-300"
             >
               Sign Up
