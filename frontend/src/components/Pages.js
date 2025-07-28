@@ -13,7 +13,9 @@ export const Home = ({ cryptoPrices }) => {
       <Hero />
       <CryptoPricesSection prices={cryptoPrices} />
       <ServicesSection />
+      <TestimonialsSection />
       <AboutSection />
+      <FAQSection />
       <ContactSection />
       <LiveChat />
     </div>
