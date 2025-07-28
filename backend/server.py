@@ -334,17 +334,18 @@ async def register_user(user_data: UserRegistration):
 @api_router.post("/verify-otp")
 async def verify_otp(verification: OTPVerification):
     """Verify OTP and activate user account"""
-    # Check OTP
+    # Check OTP in temp storage
     otp_record = await db.temp_otps.find_one({
         "email": verification.email,
         "otp": verification.otp,
+        "type": "registration",
         "expires_at": {"$gt": datetime.utcnow()}
     })
     
     if not otp_record:
         raise HTTPException(status_code=400, detail="Invalid or expired OTP")
     
-    # Activate user
+    # Update user as verified
     result = await db.users.update_one(
         {"email": verification.email},
         {"$set": {"is_verified": True}}
@@ -352,10 +353,10 @@ async def verify_otp(verification: OTPVerification):
     
     if result.modified_count:
         # Clean up OTP
-        await db.temp_otps.delete_one({"email": verification.email})
-        return {"message": "Account verified successfully. You can now login."}
-    
-    raise HTTPException(status_code=400, detail="Failed to verify account")
+        await db.temp_otps.delete_one({"email": verification.email, "type": "registration"})
+        return {"message": "Account verified successfully!"}
+    else:
+        raise HTTPException(status_code=400, detail="Failed to verify account")
 
 @api_router.post("/login")
 async def login_user(login_data: UserLogin):
