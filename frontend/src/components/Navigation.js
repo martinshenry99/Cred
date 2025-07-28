@@ -143,7 +143,7 @@ export const Navigation = ({ isLoggedIn, user, onLogin, onLogout }) => {
               <div className="flex space-x-4 pt-4 border-t border-slate-600">
                 <button 
                   onClick={() => {
-                    onLogin();
+                    onLogin('signin');
                     setIsMobileMenuOpen(false);
                   }}
                   className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 flex-1"
@@ -152,7 +152,7 @@ export const Navigation = ({ isLoggedIn, user, onLogin, onLogout }) => {
                 </button>
                 <button 
                   onClick={() => {
-                    onLogin();
+                    onLogin('signup');
                     setIsMobileMenuOpen(false);
                   }}
                   className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition duration-300 flex-1"
