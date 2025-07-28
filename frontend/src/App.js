@@ -93,6 +93,7 @@ function App() {
           isOpen={isLoginOpen}
           onClose={() => setIsLoginOpen(false)}
           onLogin={handleLogin}
+          initialMode={loginMode}
         />
         <LiveChat />
       </BrowserRouter>
