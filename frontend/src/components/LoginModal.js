@@ -4,8 +4,8 @@ import axios from 'axios';
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
-export const LoginModal = ({ isOpen, onClose, onLogin }) => {
-  const [isLoginMode, setIsLoginMode] = useState(true);
+export const LoginModal = ({ isOpen, onClose, onLogin, initialMode = 'signin' }) => {
+  const [isLoginMode, setIsLoginMode] = useState(initialMode === 'signin');
   const [showOTPVerification, setShowOTPVerification] = useState(false);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [showPasswordReset, setShowPasswordReset] = useState(false);
@@ -20,6 +20,11 @@ export const LoginModal = ({ isOpen, onClose, onLogin }) => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
+
+  // Reset mode when initialMode changes
+  useEffect(() => {
+    setIsLoginMode(initialMode === 'signin');
+  }, [initialMode]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
