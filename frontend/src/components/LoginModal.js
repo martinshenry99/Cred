@@ -90,6 +90,7 @@ export const LoginModal = ({ isOpen, onClose, onLogin }) => {
     });
     setError('');
     setShowOTPVerification(false);
+    setShowForgotPassword(false);
   };
 
   if (!isOpen) return null;
