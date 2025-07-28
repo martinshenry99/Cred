@@ -720,55 +720,87 @@ async def create_investment(
         "amount": investment_data.amount,
         "crypto_type": investment_data.crypto_type,
         "transaction_hash": investment_data.transaction_hash,
-        "apy": package["apy"],
         "status": "pending_verification",
         "created_at": datetime.utcnow(),
-        "maturity_date": datetime.utcnow() + timedelta(days=60),
-        "returns": 0.0
+        "apy": package["apy"],
+        "returns": 0
     }
     
+    # Save to database
     await db.investments.insert_one(investment_doc)
     
-    # Update user stats
-    await db.users.update_one(
-        {"_id": current_user["_id"]},
-        {
-            "$inc": {
-                "total_investment": investment_data.amount,
-                "active_investments": 1
-            }
-        }
-    )
-    
-    # Send confirmation email
-    subject = f"CRED Investment Confirmation - {package['name']}"
+    # Send confirmation email to user
+    subject = "Investment Submitted - CRED"
     body = f"""
     <html>
-    <body>
-        <h2>Investment Submission Confirmed</h2>
-        <p>Dear {current_user['name']},</p>
-        <p>Your investment has been submitted and is pending verification.</p>
-        <p><strong>Investment Details:</strong></p>
-        <ul>
-            <li>Package: {package['name']}</li>
-            <li>Amount: ${investment_data.amount:,.2f}</li>
-            <li>Crypto Type: {investment_data.crypto_type.upper()}</li>
-            <li>APY: {package['apy']}</li>
-            <li>Duration: 60 days</li>
-            <li>Transaction Hash: {investment_data.transaction_hash}</li>
-            <li>Expected Maturity: {investment_doc['maturity_date'].strftime('%Y-%m-%d')}</li>
-        </ul>
-        <p>Our team will verify your transaction within 24 hours.</p>
-        <br>
-        <p>Best regards,<br>CRED Investment Team</p>
+    <body style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+        <div style="background: linear-gradient(135deg, #059669 0%, #10b981 100%); padding: 30px; border-radius: 10px; text-align: center; margin-bottom: 30px;">
+            <h1 style="color: white; margin: 0; font-size: 28px;">💰 CRED</h1>
+            <p style="color: #d1fae5; margin: 10px 0 0 0; font-size: 16px;">Investment Submitted</p>
+        </div>
+        
+        <div style="background: #f8fafc; padding: 30px; border-radius: 10px; margin-bottom: 30px;">
+            <h2 style="color: #059669; margin: 0 0 20px 0;">Investment Details</h2>
+            <p style="color: #64748b; line-height: 1.6;">
+                Dear {current_user["name"]},
+            </p>
+            <p style="color: #64748b; line-height: 1.6;">
+                Your investment has been successfully submitted and is awaiting verification.
+            </p>
+            
+            <div style="background: white; border: 2px solid #059669; border-radius: 8px; padding: 20px; margin: 25px 0;">
+                <div style="grid-template-columns: 1fr 1fr; display: grid; gap: 10px;">
+                    <div><strong>Package:</strong> {package["name"]}</div>
+                    <div><strong>Amount:</strong> ${investment_data.amount:,.2f}</div>
+                    <div><strong>Cryptocurrency:</strong> {investment_data.crypto_type.upper()}</div>
+                    <div><strong>Expected APY:</strong> {package["apy"]}</div>
+                </div>
+            </div>
+            
+            <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <p style="color: #92400e; margin: 0; font-size: 14px;">
+                    ⏳ Your investment is under review. You'll receive an email confirmation once verified (typically within 24 hours).
+                </p>
+            </div>
+        </div>
+        
+        <div style="text-align: center; color: #64748b; font-size: 14px; line-height: 1.6;">
+            <p>Questions? Contact us at <a href="mailto:cred.investigation@usa.com" style="color: #059669;">cred.investigation@usa.com</a></p>
+            <p>© 2025 CRED - Crypto Regulatory Enforcement Division</p>
+        </div>
     </body>
     </html>
     """
     
-    await send_email(current_user["email"], subject, body)
-    await send_email(os.environ['EMAIL_TO'], f"New Investment: {package['name']} - ${investment_data.amount}", body)
-    
-    return {"message": "Investment submitted successfully", "investment_id": investment_doc["_id"]}
+    try:
+        await send_email(current_user["email"], subject, body)
+        
+        # Send notification to admin
+        admin_subject = "New Investment Submitted - CRED"
+        admin_body = f"""
+        <html>
+        <body style="font-family: Arial, sans-serif;">
+            <h2 style="color: #059669;">New Investment Submitted</h2>
+            <p><strong>User:</strong> {current_user["name"]} ({current_user["email"]})</p>
+            <p><strong>Package:</strong> {package["name"]}</p>
+            <p><strong>Amount:</strong> ${investment_data.amount:,.2f}</p>
+            <p><strong>Cryptocurrency:</strong> {investment_data.crypto_type.upper()}</p>
+            <p><strong>Transaction Hash:</strong> {investment_data.transaction_hash}</p>
+            <p><strong>Submission Time:</strong> {datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC')}</p>
+            <p><strong>Status:</strong> Pending verification</p>
+            <hr>
+            <p style="color: #64748b; font-size: 14px;">Login to admin portal to verify this investment.</p>
+        </body>
+        </html>
+        """
+        
+        await send_email(os.environ.get('EMAIL_TO', 'cred.investigation@usa.com'), admin_subject, admin_body)
+        
+    except Exception as e:
+        logger.error(f"Failed to send investment notification emails: {e}")
+        # Don't fail the investment if email fails
+        
+    return {"message": "Investment submitted successfully. You will receive confirmation once verified."}
 
 @api_router.get("/investment/my-investments")
 async def get_user_investments(current_user: dict = Depends(get_current_user)):
