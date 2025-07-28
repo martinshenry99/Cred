@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { Hero } from './Hero';
-import { CryptoPricesSection } from './Sections';
-import { ServicesSection } from './Sections';
-import { AboutSection } from './Sections';
-import { ContactSection } from './Sections';
+import { CryptoPricesSection, ServicesSection, AboutSection, ContactSection, TestimonialsSection, FAQSection } from './Sections';
 import { LiveChat } from './Chat';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
