@@ -81,7 +81,9 @@ function AppContent({
     setIsLoginOpen(false);
     
     // Redirect to dashboard after successful login
-    navigate('/dashboard');
+    setTimeout(() => {
+      navigate('/dashboard');
+    }, 100);
   };
 
   const handleLogout = () => {
