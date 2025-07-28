@@ -15,6 +15,7 @@ function App() {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
+  const [loginMode, setLoginMode] = useState('signin');
   const [cryptoPrices, setCryptoPrices] = useState({ btc: 50000, eth: 3000, usdt: 1 });
 
   // Check login status on app load
