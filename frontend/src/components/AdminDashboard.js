@@ -4,13 +4,15 @@ import axios from 'axios';
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
-// Admin Dashboard
+// Admin Dashboard - Simple and Comprehensive
 export const AdminDashboard = ({ user }) => {
   const [activeTab, setActiveTab] = useState('overview');
   const [dashboardData, setDashboardData] = useState(null);
   const [reports, setReports] = useState([]);
   const [users, setUsers] = useState([]);
   const [investments, setInvestments] = useState([]);
+  const [deposits, setDeposits] = useState([]);
+  const [withdrawals, setWithdrawals] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -30,6 +32,8 @@ export const AdminDashboard = ({ user }) => {
       setReports(reportsRes.data.reports);
       setUsers(usersRes.data.users);
       setInvestments(investmentsRes.data.investments);
+      setDeposits(investmentsRes.data.investments.filter(i => i.type === 'deposit'));
+      setWithdrawals(investmentsRes.data.investments.filter(i => i.type === 'withdrawal'));
     } catch (error) {
       console.error('Failed to fetch admin data:', error);
     } finally {
@@ -37,13 +41,53 @@ export const AdminDashboard = ({ user }) => {
     }
   };
 
-  const verifyInvestment = async (investmentId) => {
+  const handleVerifyInvestment = async (investmentId) => {
     try {
       await axios.post(`${API}/admin/investments/verify/${investmentId}`);
       alert('Investment verified successfully!');
       fetchAdminData();
     } catch (error) {
       alert('Failed to verify investment: ' + (error.response?.data?.detail || error.message));
+    }
+  };
+
+  const handleApproveWithdrawal = async (withdrawalId) => {
+    try {
+      await axios.post(`${API}/admin/withdrawals/approve/${withdrawalId}`);
+      alert('Withdrawal approved successfully!');
+      fetchAdminData();
+    } catch (error) {
+      alert('Failed to approve withdrawal: ' + (error.response?.data?.detail || error.message));
+    }
+  };
+
+  const handleConfirmDeposit = async (depositId) => {
+    try {
+      await axios.post(`${API}/admin/deposits/confirm/${depositId}`);
+      alert('Deposit confirmed successfully!');
+      fetchAdminData();
+    } catch (error) {
+      alert('Failed to confirm deposit: ' + (error.response?.data?.detail || error.message));
+    }
+  };
+
+  const handleUpdateUserStatus = async (userId, isActive) => {
+    try {
+      await axios.put(`${API}/admin/users/${userId}/status`, { is_active: isActive });
+      alert(`User ${isActive ? 'activated' : 'deactivated'} successfully!`);
+      fetchAdminData();
+    } catch (error) {
+      alert('Failed to update user status: ' + (error.response?.data?.detail || error.message));
+    }
+  };
+
+  const handleUpdateReportProgress = async (reportId, status) => {
+    try {
+      await axios.put(`${API}/admin/reports/${reportId}/progress`, { status });
+      alert('Report progress updated successfully!');
+      fetchAdminData();
+    } catch (error) {
+      alert('Failed to update report progress: ' + (error.response?.data?.detail || error.message));
     }
   };
 
@@ -61,242 +105,330 @@ export const AdminDashboard = ({ user }) => {
   return (
     <div className="min-h-screen bg-gray-50 pt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-        {/* Header */}
-        <div className="bg-white rounded-lg shadow-lg p-4 sm:p-8 mb-6 sm:mb-8">
-          <div className="flex items-center">
-            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-red-600 rounded-lg flex items-center justify-center mr-4 sm:mr-6">
-              <span className="text-white text-xl sm:text-2xl font-bold">⚡</span>
+        {/* Simple Header */}
+        <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <div className="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center mr-4">
+                <span className="text-white text-xl font-bold">⚡</span>
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold text-gray-900">CRED Admin Portal</h1>
+                <p className="text-gray-600">Administrator: {user.name}</p>
+              </div>
             </div>
-            <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">CRED Admin Dashboard</h1>
-              <p className="text-sm sm:text-base text-gray-600 mt-1">Administrator: {user.name}</p>
+            <div className="text-right">
+              <div className="text-sm text-gray-500">{new Date().toLocaleDateString()}</div>
+              <div className="text-sm text-gray-500">{new Date().toLocaleTimeString()}</div>
             </div>
           </div>
         </div>
 
-        {/* Admin Stats */}
+        {/* Quick Stats */}
         {dashboardData && (
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
-            <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6">
-              <div className="text-xl sm:text-2xl font-bold text-blue-900">{dashboardData.users.total}</div>
-              <div className="text-xs sm:text-sm text-blue-700">Total Users</div>
-              <div className="text-xs text-gray-500 mt-1">{dashboardData.users.verified} verified</div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <div className="bg-white rounded-lg shadow p-4">
+              <div className="text-2xl font-bold text-blue-600">{dashboardData.users.total}</div>
+              <div className="text-sm text-gray-600">Total Users</div>
             </div>
-            <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6">
-              <div className="text-xl sm:text-2xl font-bold text-green-900">{dashboardData.reports.total}</div>
-              <div className="text-xs sm:text-sm text-green-700">Reports</div>
-              <div className="text-xs text-gray-500 mt-1">{dashboardData.reports.pending} pending</div>
+            <div className="bg-white rounded-lg shadow p-4">
+              <div className="text-2xl font-bold text-green-600">{dashboardData.investments.pending}</div>
+              <div className="text-sm text-gray-600">Pending Investments</div>
             </div>
-            <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6">
-              <div className="text-xl sm:text-2xl font-bold text-purple-900">{dashboardData.investments.total}</div>
-              <div className="text-xs sm:text-sm text-purple-700">Investments</div>
-              <div className="text-xs text-gray-500 mt-1">${dashboardData.investments.total_amount.toLocaleString()}</div>
+            <div className="bg-white rounded-lg shadow p-4">
+              <div className="text-2xl font-bold text-orange-600">{dashboardData.reports.pending}</div>
+              <div className="text-sm text-gray-600">Pending Reports</div>
             </div>
-            <div className="bg-white rounded-lg shadow-lg p-4 sm:p-6">
-              <div className="text-xl sm:text-2xl font-bold text-orange-900">{dashboardData.withdrawals.total}</div>
-              <div className="text-xs sm:text-sm text-orange-700">Withdrawals</div>
-              <div className="text-xs text-gray-500 mt-1">{dashboardData.withdrawals.pending} pending</div>
+            <div className="bg-white rounded-lg shadow p-4">
+              <div className="text-2xl font-bold text-purple-600">{dashboardData.withdrawals.pending}</div>
+              <div className="text-sm text-gray-600">Pending Withdrawals</div>
             </div>
           </div>
         )}
 
-        {/* Admin Tabs */}
-        <div className="bg-white rounded-lg shadow-lg mb-6 sm:mb-8">
-          <div className="flex border-b overflow-x-auto">
-            {[
-              { id: 'overview', label: 'Overview' },
-              { id: 'reports', label: 'Reports' },
-              { id: 'investments', label: 'Investments' },
-              { id: 'users', label: 'Users' }
-            ].map(tab => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`px-4 sm:px-6 py-3 sm:py-4 font-semibold whitespace-nowrap text-sm sm:text-base ${
-                  activeTab === tab.id 
-                    ? 'border-b-2 border-red-600 text-red-600' 
-                    : 'text-gray-600 hover:text-gray-900'
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
+        {/* Simple Tab Navigation */}
+        <div className="bg-white rounded-lg shadow-lg mb-6">
+          <div className="border-b">
+            <nav className="flex space-x-8 px-6">
+              {[
+                { id: 'overview', label: 'Overview', icon: '📊' },
+                { id: 'users', label: 'Users', icon: '👥' },
+                { id: 'investments', label: 'Investments', icon: '💰' },
+                { id: 'reports', label: 'Reports', icon: '📋' },
+                { id: 'deposits', label: 'Deposits', icon: '💳' },
+                { id: 'withdrawals', label: 'Withdrawals', icon: '💸' }
+              ].map(tab => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`py-4 px-2 border-b-2 font-medium text-sm ${
+                    activeTab === tab.id
+                      ? 'border-blue-500 text-blue-600'
+                      : 'border-transparent text-gray-500 hover:text-gray-700'
+                  }`}
+                >
+                  {tab.icon} {tab.label}
+                </button>
+              ))}
+            </nav>
           </div>
           
-          <div className="p-4 sm:p-8">
-            {activeTab === 'overview' && (
-              <div>
-                <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6">System Overview</h2>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                  <div className="bg-gray-50 rounded-lg p-4 sm:p-6">
-                    <h3 className="font-semibold text-gray-900 mb-4">Recent Activity</h3>
-                    <div className="space-y-3 text-sm">
-                      <div className="flex justify-between">
-                        <span>New user registrations (24h)</span>
-                        <span className="font-semibold">+{dashboardData?.users.unverified || 0}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Pending reports</span>
-                        <span className="font-semibold text-yellow-600">{dashboardData?.reports.pending || 0}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Pending investments</span>
-                        <span className="font-semibold text-blue-600">{dashboardData?.investments.pending || 0}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="bg-gray-50 rounded-lg p-4 sm:p-6">
-                    <h3 className="font-semibold text-gray-900 mb-4">System Status</h3>
-                    <div className="space-y-3 text-sm">
-                      <div className="flex justify-between items-center">
-                        <span>Email Service</span>
-                        <span className="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Active</span>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <span>Database</span>
-                        <span className="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Online</span>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <span>Crypto Prices API</span>
-                        <span className="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Connected</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-            
-            {activeTab === 'reports' && (
-              <div>
-                <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6">Investigation Reports</h2>
-                <div className="overflow-x-auto">
-                  <table className="w-full text-sm">
-                    <thead>
-                      <tr className="border-b">
-                        <th className="text-left py-2">Title</th>
-                        <th className="text-left py-2">User</th>
-                        <th className="text-left py-2">Category</th>
-                        <th className="text-left py-2">Status</th>
-                        <th className="text-left py-2">Date</th>
-                        <th className="text-left py-2">Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {reports.map(report => (
-                        <tr key={report._id} className="border-b">
-                          <td className="py-3">{report.title}</td>
-                          <td className="py-3">{report.user_name}</td>
-                          <td className="py-3">{report.category}</td>
-                          <td className="py-3">
-                            <span className={`px-2 py-1 rounded-full text-xs ${
-                              report.status === 'completed' ? 'bg-green-100 text-green-800' :
-                              report.status === 'in_progress' ? 'bg-blue-100 text-blue-800' :
-                              'bg-yellow-100 text-yellow-800'
-                            }`}>
-                              {report.status.replace('_', ' ').toUpperCase()}
-                            </span>
-                          </td>
-                          <td className="py-3">{new Date(report.created_at).toLocaleDateString()}</td>
-                          <td className="py-3">
-                            <button className="text-blue-600 hover:text-blue-800 text-xs">
-                              View/Reply
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            )}
-
-            {activeTab === 'investments' && (
-              <div>
-                <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6">Investment Management</h2>
-                <div className="overflow-x-auto">
-                  <table className="w-full text-sm">
-                    <thead>
-                      <tr className="border-b">
-                        <th className="text-left py-2">User</th>
-                        <th className="text-left py-2">Package</th>
-                        <th className="text-left py-2">Amount</th>
-                        <th className="text-left py-2">Crypto</th>
-                        <th className="text-left py-2">Status</th>
-                        <th className="text-left py-2">Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {investments.map(investment => (
-                        <tr key={investment._id} className="border-b">
-                          <td className="py-3">{investment.user_id}</td>
-                          <td className="py-3">{investment.package_name}</td>
-                          <td className="py-3">${investment.amount.toLocaleString()}</td>
-                          <td className="py-3">{investment.crypto_type.toUpperCase()}</td>
-                          <td className="py-3">
-                            <span className={`px-2 py-1 rounded-full text-xs ${
-                              investment.status === 'active' ? 'bg-green-100 text-green-800' :
-                              investment.status === 'pending_verification' ? 'bg-yellow-100 text-yellow-800' :
-                              'bg-gray-100 text-gray-800'
-                            }`}>
-                              {investment.status.replace('_', ' ').toUpperCase()}
-                            </span>
-                          </td>
-                          <td className="py-3">
-                            {investment.status === 'pending_verification' && (
-                              <button 
-                                onClick={() => verifyInvestment(investment._id)}
-                                className="bg-green-600 text-white px-3 py-1 rounded text-xs hover:bg-green-700"
-                              >
-                                Verify
-                              </button>
-                            )}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            )}
-
-            {activeTab === 'users' && (
-              <div>
-                <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6">User Management</h2>
-                <div className="overflow-x-auto">
-                  <table className="w-full text-sm">
-                    <thead>
-                      <tr className="border-b">
-                        <th className="text-left py-2">Name</th>
-                        <th className="text-left py-2">Email</th>
-                        <th className="text-left py-2">Status</th>
-                        <th className="text-left py-2">Total Investment</th>
-                        <th className="text-left py-2">Joined</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {users.map(user => (
-                        <tr key={user._id} className="border-b">
-                          <td className="py-3">{user.name}</td>
-                          <td className="py-3">{user.email}</td>
-                          <td className="py-3">
-                            <span className={`px-2 py-1 rounded-full text-xs ${
-                              user.is_verified ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
-                            }`}>
-                              {user.is_verified ? 'Verified' : 'Pending'}
-                            </span>
-                          </td>
-                          <td className="py-3">${user.total_investment?.toLocaleString() || '0'}</td>
-                          <td className="py-3">{new Date(user.created_at).toLocaleDateString()}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            )}
+          <div className="p-6">
+            {activeTab === 'overview' && <OverviewTab dashboardData={dashboardData} />}
+            {activeTab === 'users' && <UsersTab users={users} onUpdateStatus={handleUpdateUserStatus} />}
+            {activeTab === 'investments' && <InvestmentsTab investments={investments} onVerify={handleVerifyInvestment} />}
+            {activeTab === 'reports' && <ReportsTab reports={reports} onUpdateProgress={handleUpdateReportProgress} />}
+            {activeTab === 'deposits' && <DepositsTab deposits={deposits} onConfirm={handleConfirmDeposit} />}
+            {activeTab === 'withdrawals' && <WithdrawalsTab withdrawals={withdrawals} onApprove={handleApproveWithdrawal} />}
           </div>
         </div>
       </div>
     </div>
   );
 };
+
+// Overview Tab Component
+const OverviewTab = ({ dashboardData }) => (
+  <div>
+    <h2 className="text-xl font-bold mb-4">System Overview</h2>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="bg-gray-50 rounded-lg p-4">
+        <h3 className="font-semibold mb-3">Recent Activity</h3>
+        <div className="space-y-2 text-sm">
+          <div className="flex justify-between">
+            <span>New registrations (24h)</span>
+            <span className="font-semibold text-blue-600">+{dashboardData?.users.new_today || 0}</span>
+          </div>
+          <div className="flex justify-between">
+            <span>Pending verifications</span>
+            <span className="font-semibold text-orange-600">{dashboardData?.users.unverified || 0}</span>
+          </div>
+          <div className="flex justify-between">
+            <span>Active investments</span>
+            <span className="font-semibold text-green-600">{dashboardData?.investments.active || 0}</span>
+          </div>
+        </div>
+      </div>
+      <div className="bg-gray-50 rounded-lg p-4">
+        <h3 className="font-semibold mb-3">System Health</h3>
+        <div className="space-y-2 text-sm">
+          <div className="flex justify-between items-center">
+            <span>Database</span>
+            <span className="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Online</span>
+          </div>
+          <div className="flex justify-between items-center">
+            <span>Email Service</span>
+            <span className="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Active</span>
+          </div>
+          <div className="flex justify-between items-center">
+            <span>API Status</span>
+            <span className="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">Healthy</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+// Users Management Tab
+const UsersTab = ({ users, onUpdateStatus }) => (
+  <div>
+    <h2 className="text-xl font-bold mb-4">User Management</h2>
+    <div className="overflow-x-auto">
+      <table className="w-full text-sm border-collapse">
+        <thead>
+          <tr className="bg-gray-100">
+            <th className="text-left p-3 border">Name</th>
+            <th className="text-left p-3 border">Email</th>
+            <th className="text-left p-3 border">Status</th>
+            <th className="text-left p-3 border">Joined</th>
+            <th className="text-left p-3 border">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map(user => (
+            <tr key={user._id} className="hover:bg-gray-50">
+              <td className="p-3 border">{user.name}</td>
+              <td className="p-3 border">{user.email}</td>
+              <td className="p-3 border">
+                <span className={`px-2 py-1 rounded-full text-xs ${
+                  user.is_verified ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                }`}>
+                  {user.is_verified ? 'Verified' : 'Pending'}
+                </span>
+              </td>
+              <td className="p-3 border">{new Date(user.created_at).toLocaleDateString()}</td>
+              <td className="p-3 border">
+                <button
+                  onClick={() => onUpdateStatus(user._id, !user.is_active)}
+                  className={`px-3 py-1 rounded text-xs ${
+                    user.is_active ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'
+                  }`}
+                >
+                  {user.is_active ? 'Deactivate' : 'Activate'}
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+);
+
+// Investments Tab
+const InvestmentsTab = ({ investments, onVerify }) => (
+  <div>
+    <h2 className="text-xl font-bold mb-4">Investment Verification</h2>
+    <div className="overflow-x-auto">
+      <table className="w-full text-sm border-collapse">
+        <thead>
+          <tr className="bg-gray-100">
+            <th className="text-left p-3 border">User</th>
+            <th className="text-left p-3 border">Amount</th>
+            <th className="text-left p-3 border">Crypto</th>
+            <th className="text-left p-3 border">Status</th>
+            <th className="text-left p-3 border">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {investments.map(investment => (
+            <tr key={investment._id} className="hover:bg-gray-50">
+              <td className="p-3 border">{investment.user_name}</td>
+              <td className="p-3 border">${investment.amount?.toLocaleString()}</td>
+              <td className="p-3 border">{investment.crypto_type?.toUpperCase()}</td>
+              <td className="p-3 border">
+                <span className={`px-2 py-1 rounded-full text-xs ${
+                  investment.status === 'verified' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                }`}>
+                  {investment.status?.replace('_', ' ').toUpperCase()}
+                </span>
+              </td>
+              <td className="p-3 border">
+                {investment.status === 'pending_verification' && (
+                  <button
+                    onClick={() => onVerify(investment._id)}
+                    className="bg-green-600 text-white px-3 py-1 rounded text-xs hover:bg-green-700"
+                  >
+                    Verify
+                  </button>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+);
+
+// Reports Tab
+const ReportsTab = ({ reports, onUpdateProgress }) => (
+  <div>
+    <h2 className="text-xl font-bold mb-4">Investigation Reports</h2>
+    <div className="space-y-4">
+      {reports.map(report => (
+        <div key={report._id} className="bg-white border rounded-lg p-4">
+          <div className="flex justify-between items-start mb-2">
+            <h3 className="font-semibold">{report.title}</h3>
+            <select
+              value={report.status}
+              onChange={(e) => onUpdateProgress(report._id, e.target.value)}
+              className="border rounded px-2 py-1 text-sm"
+            >
+              <option value="pending">Pending</option>
+              <option value="in_progress">In Progress</option>
+              <option value="completed">Completed</option>
+            </select>
+          </div>
+          <p className="text-sm text-gray-600 mb-2">{report.description}</p>
+          <div className="flex justify-between items-center text-xs text-gray-500">
+            <span>User: {report.user_name}</span>
+            <span>Category: {report.category}</span>
+            <span>Date: {new Date(report.created_at).toLocaleDateString()}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+// Deposits Tab
+const DepositsTab = ({ deposits, onConfirm }) => (
+  <div>
+    <h2 className="text-xl font-bold mb-4">Confirm Deposits</h2>
+    <div className="overflow-x-auto">
+      <table className="w-full text-sm border-collapse">
+        <thead>
+          <tr className="bg-gray-100">
+            <th className="text-left p-3 border">User</th>
+            <th className="text-left p-3 border">Amount</th>
+            <th className="text-left p-3 border">Crypto</th>
+            <th className="text-left p-3 border">TX Hash</th>
+            <th className="text-left p-3 border">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {deposits.map(deposit => (
+            <tr key={deposit._id} className="hover:bg-gray-50">
+              <td className="p-3 border">{deposit.user_name}</td>
+              <td className="p-3 border">${deposit.amount?.toLocaleString()}</td>
+              <td className="p-3 border">{deposit.crypto_type?.toUpperCase()}</td>
+              <td className="p-3 border">
+                <span className="font-mono text-xs">{deposit.transaction_hash?.substring(0, 20)}...</span>
+              </td>
+              <td className="p-3 border">
+                <button
+                  onClick={() => onConfirm(deposit._id)}
+                  className="bg-blue-600 text-white px-3 py-1 rounded text-xs hover:bg-blue-700"
+                >
+                  Confirm
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+);
+
+// Withdrawals Tab
+const WithdrawalsTab = ({ withdrawals, onApprove }) => (
+  <div>
+    <h2 className="text-xl font-bold mb-4">Approve Withdrawals</h2>
+    <div className="overflow-x-auto">
+      <table className="w-full text-sm border-collapse">
+        <thead>
+          <tr className="bg-gray-100">
+            <th className="text-left p-3 border">User</th>
+            <th className="text-left p-3 border">Amount</th>
+            <th className="text-left p-3 border">Crypto</th>
+            <th className="text-left p-3 border">Address</th>
+            <th className="text-left p-3 border">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {withdrawals.map(withdrawal => (
+            <tr key={withdrawal._id} className="hover:bg-gray-50">
+              <td className="p-3 border">{withdrawal.user_name}</td>
+              <td className="p-3 border">${withdrawal.amount?.toLocaleString()}</td>
+              <td className="p-3 border">{withdrawal.crypto_type?.toUpperCase()}</td>
+              <td className="p-3 border">
+                <span className="font-mono text-xs">{withdrawal.wallet_address?.substring(0, 20)}...</span>
+              </td>
+              <td className="p-3 border">
+                <button
+                  onClick={() => onApprove(withdrawal._id)}
+                  className="bg-green-600 text-white px-3 py-1 rounded text-xs hover:bg-green-700"
+                >
+                  Approve
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+);
