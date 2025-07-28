@@ -25,7 +25,17 @@ export const LoginModal = ({ isOpen, onClose, onLogin }) => {
     setError('');
 
     try {
-      if (showOTPVerification) {
+      if (showForgotPassword) {
+        // Handle forgot password
+        const response = await axios.post(`${API}/forgot-password`, {
+          email: formData.email
+        });
+        
+        alert('Password reset instructions have been sent to your email.');
+        setShowForgotPassword(false);
+        setIsLoginMode(true);
+        
+      } else if (showOTPVerification) {
         // Verify OTP
         const response = await axios.post(`${API}/verify-otp`, {
           email: formData.email,
