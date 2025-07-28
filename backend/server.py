@@ -248,14 +248,18 @@ async def register_user(user_data: UserRegistration):
     # Create user
     user_doc = await create_user_document(user_data.dict())
     
-    # Generate OTP
+    # Generate OTP secret and 6-digit OTP
     totp = pyotp.TOTP(user_doc["otp_secret"])
     otp = totp.now()
     
-    # Store OTP temporarily (expires in 10 minutes)
+    # Ensure OTP is 6 digits
+    otp = f"{int(otp) % 1000000:06d}"
+    
+    # Store OTP with 10-minute expiration
     await db.temp_otps.insert_one({
         "email": user_data.email,
         "otp": otp,
+        "type": "registration",
         "expires_at": datetime.utcnow() + timedelta(minutes=10)
     })
     
