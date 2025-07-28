@@ -393,9 +393,10 @@ async def forgot_password(request: ForgotPasswordRequest):
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     
-    # Generate OTP
+    # Generate 6-digit OTP
     totp = pyotp.TOTP(user["otp_secret"])
     otp = totp.now()
+    otp = f"{int(otp) % 1000000:06d}"
     
     # Store OTP for password reset (expires in 10 minutes)
     await db.temp_otps.insert_one({
@@ -409,15 +410,39 @@ async def forgot_password(request: ForgotPasswordRequest):
     subject = "CRED Password Reset - OTP Required"
     body = f"""
     <html>
-    <body>
-        <h2>CRED Password Reset Request</h2>
-        <p>Dear {user["name"]},</p>
-        <p>We received a request to reset your CRED account password. Please use the following OTP to reset your password:</p>
-        <h3 style="color: #1e40af; font-size: 24px; letter-spacing: 3px;">{otp}</h3>
-        <p>This OTP will expire in 10 minutes.</p>
-        <p>If you didn't request this password reset, please ignore this email.</p>
-        <br>
-        <p>Best regards,<br>CRED Security Team</p>
+    <body style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+        <div style="background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%); padding: 30px; border-radius: 10px; text-align: center; margin-bottom: 30px;">
+            <h1 style="color: white; margin: 0; font-size: 28px;">🔑 CRED</h1>
+            <p style="color: #fed7aa; margin: 10px 0 0 0; font-size: 16px;">Password Reset Request</p>
+        </div>
+        
+        <div style="background: #f8fafc; padding: 30px; border-radius: 10px; margin-bottom: 30px;">
+            <h2 style="color: #f59e0b; margin: 0 0 20px 0;">Password Reset Request</h2>
+            <p style="color: #64748b; line-height: 1.6;">
+                Dear {user["name"]},
+            </p>
+            <p style="color: #64748b; line-height: 1.6;">
+                We received a request to reset your CRED account password. Please use the following OTP to reset your password:
+            </p>
+            
+            <div style="background: white; border: 2px solid #f59e0b; border-radius: 8px; padding: 20px; margin: 25px 0; text-align: center;">
+                <p style="color: #64748b; margin: 0 0 10px 0; font-size: 14px;">Reset Code</p>
+                <div style="font-size: 32px; font-weight: bold; color: #f59e0b; letter-spacing: 8px; font-family: 'Courier New', monospace;">
+                    {otp}
+                </div>
+            </div>
+            
+            <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <p style="color: #92400e; margin: 0; font-size: 14px;">
+                    ⚠️ This code expires in 10 minutes. If you didn't request this password reset, please ignore this email.
+                </p>
+            </div>
+        </div>
+        
+        <div style="text-align: center; color: #64748b; font-size: 14px; line-height: 1.6;">
+            <p>Need help? Contact our support team at <a href="mailto:cred.investigation@usa.com" style="color: #f59e0b;">cred.investigation@usa.com</a></p>
+            <p>© 2025 CRED - Crypto Regulatory Enforcement Division</p>
+        </div>
     </body>
     </html>
     """
