@@ -100,42 +100,35 @@ async def get_current_admin(user: dict = Depends(get_current_user)):
         raise HTTPException(status_code=403, detail="Admin access required")
     return user
 
-async def send_email(to: str, subject: str, body: str, attachments: List[str] = None):
-    """Send email using SMTP"""
+async def send_email(to_email: str, subject: str, body: str):
+    """Send email using Gmail SMTP with proper SSL/TLS configuration"""
     try:
-        msg = MIMEMultipart()
-        msg['From'] = os.environ['EMAIL_FROM']
-        msg['To'] = to
+        # Create message
+        msg = MIMEMultipart('alternative')
+        msg['From'] = os.environ.get('EMAIL_FROM', 'CRED <hulosub4@gmail.com>')
+        msg['To'] = to_email
         msg['Subject'] = subject
         
-        msg.attach(MIMEText(body, 'html'))
+        # Create HTML part
+        html_part = MIMEText(body, 'html')
+        msg.attach(html_part)
         
-        # Add attachments if any
-        if attachments:
-            for attachment_path in attachments:
-                if os.path.exists(attachment_path):
-                    with open(attachment_path, "rb") as attachment:
-                        part = MIMEBase('application', 'octet-stream')
-                        part.set_payload(attachment.read())
-                        encoders.encode_base64(part)
-                        part.add_header(
-                            'Content-Disposition',
-                            f'attachment; filename= {os.path.basename(attachment_path)}'
-                        )
-                        msg.attach(part)
+        # Connect to Gmail SMTP with proper SSL/TLS
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()  # Enable TLS
+        server.login(os.environ.get('EMAIL_FROM', 'hulosub4@gmail.com').split('<')[1].split('>')[0], 
+                    os.environ.get('EMAIL_PASSWORD', 'pozc oqml eyhk fprz'))
         
-        await aiosmtplib.send(
-            msg,
-            hostname=os.environ['SMTP_SERVER'],
-            port=int(os.environ['SMTP_PORT']),
-            username=os.environ['EMAIL_FROM'],
-            password=os.environ['EMAIL_PASSWORD'],
-            use_tls=True
-        )
-        logger.info(f"Email sent successfully to {to}")
+        # Send email
+        server.send_message(msg)
+        server.quit()
+        
+        logger.info(f"Email sent successfully to {to_email}")
+        return True
+        
     except Exception as e:
-        logger.error(f"Failed to send email: {str(e)}")
-        raise
+        logger.error(f"Failed to send email to {to_email}: {str(e)}")
+        return False
 
 async def get_crypto_prices():
     """Get live crypto prices from CoinGecko API"""
