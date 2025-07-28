@@ -113,7 +113,9 @@ export const LoginModal = ({ isOpen, onClose, onLogin }) => {
             <span className="text-white text-xl sm:text-2xl font-bold">🛡️</span>
           </div>
           <h2 className="text-xl sm:text-2xl font-bold">
-            {showOTPVerification ? 'Verify OTP' : (isLoginMode ? 'CRED Sign In' : 'Join CRED')}
+            {showForgotPassword ? 'Reset Password' : 
+             showOTPVerification ? 'Verify OTP' : 
+             (isLoginMode ? 'CRED Sign In' : 'Join CRED')}
           </h2>
         </div>
 
