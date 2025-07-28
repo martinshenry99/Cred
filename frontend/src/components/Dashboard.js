@@ -6,7 +6,7 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 export const Dashboard = ({ user, cryptoPrices }) => {
-  const [activeTab, setActiveTab] = useState('reports');
+  const [activeTab, setActiveTab] = useState('overview');
   const [userReports, setUserReports] = useState([]);
   const [investments, setInvestments] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -32,58 +32,78 @@ export const Dashboard = ({ user, cryptoPrices }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-        {/* Header */}
-        <div className="bg-white rounded-lg shadow-lg p-4 sm:p-8 mb-6 sm:mb-8">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-center mb-4 sm:mb-0">
-              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-blue-600 rounded-lg flex items-center justify-center mr-4 sm:mr-6">
-                <span className="text-white text-xl sm:text-2xl font-bold">🛡️</span>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
+      {/* Modern Header */}
+      <div className="bg-white shadow-lg border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+            <div className="flex items-center mb-4 lg:mb-0">
+              <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center mr-6 shadow-lg">
+                <span className="text-white text-2xl font-bold">🛡️</span>
               </div>
               <div>
-                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Welcome, {user.name}!</h1>
-                <p className="text-sm sm:text-base text-gray-600 mt-1">CRED Member since {new Date(user.created_at || '2025-01-01').toLocaleDateString()}</p>
+                <h1 className="text-3xl font-bold text-gray-900">Welcome back, {user.name}!</h1>
+                <p className="text-gray-600 mt-1">CRED Elite Member • {new Date().toLocaleDateString()}</p>
               </div>
             </div>
-            <div className="text-left sm:text-right">
-              <div className="text-2xl sm:text-3xl font-bold text-green-600">${user.total_investment?.toLocaleString() || '0'}</div>
-              <div className="text-sm sm:text-base text-gray-600">Total Investment</div>
+            
+            {/* Quick Stats */}
+            <div className="grid grid-cols-3 gap-4 lg:gap-6">
+              <div className="bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl p-4 text-white text-center shadow-lg">
+                <div className="text-2xl font-bold">${user.total_investment?.toLocaleString() || '0'}</div>
+                <div className="text-sm opacity-90">Total Investment</div>
+              </div>
+              <div className="bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl p-4 text-white text-center shadow-lg">
+                <div className="text-2xl font-bold">{userReports.length || 0}</div>
+                <div className="text-sm opacity-90">Active Reports</div>
+              </div>
+              <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl p-4 text-white text-center shadow-lg">
+                <div className="text-2xl font-bold">{investments.length || 0}</div>
+                <div className="text-sm opacity-90">Investments</div>
+              </div>
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Tabs */}
-        <div className="bg-white rounded-lg shadow-lg mb-6 sm:mb-8">
-          <div className="flex border-b overflow-x-auto">
-            {[
-              { id: 'reports', label: 'Submit Report' },
-              { id: 'investments', label: 'Investments' },
-              { id: 'my-reports', label: 'My Reports' },
-              { id: 'profile', label: 'Profile' }
-            ].map(tab => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`px-4 sm:px-6 py-3 sm:py-4 font-semibold whitespace-nowrap text-sm sm:text-base ${
-                  activeTab === tab.id 
-                    ? 'border-b-2 border-blue-600 text-blue-600' 
-                    : 'text-gray-600 hover:text-gray-900'
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
+      {/* Navigation Tabs */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+        <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+          <div className="border-b border-gray-200">
+            <nav className="flex space-x-8 px-6 overflow-x-auto">
+              {[
+                { id: 'overview', label: 'Overview', icon: '📊' },
+                { id: 'deposit', label: 'Deposit', icon: '💰' },
+                { id: 'investments', label: 'Investments', icon: '📈' },
+                { id: 'reports', label: 'Reports', icon: '📋' },
+                { id: 'profile', label: 'Profile', icon: '👤' }
+              ].map(tab => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`flex items-center py-4 px-2 border-b-2 font-semibold text-sm transition-colors ${
+                    activeTab === tab.id
+                      ? 'border-blue-600 text-blue-600'
+                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  }`}
+                >
+                  <span className="mr-2">{tab.icon}</span>
+                  {tab.label}
+                </button>
+              ))}
+            </nav>
           </div>
           
-          <div className="p-4 sm:p-8">
-            {activeTab === 'reports' && <ReportSubmissionForm onSubmit={fetchUserData} />}
+          <div className="p-6">
+            {activeTab === 'overview' && <OverviewSection user={user} userReports={userReports} investments={investments} cryptoPrices={cryptoPrices} />}
+            {activeTab === 'deposit' && <DepositSection />}
             {activeTab === 'investments' && <InvestmentDashboard user={user} cryptoPrices={cryptoPrices} />}
-            {activeTab === 'my-reports' && <UserReports reports={userReports} onUpdate={fetchUserData} />}
+            {activeTab === 'reports' && <ReportSubmissionForm onSubmit={fetchUserData} />}
             {activeTab === 'profile' && <ProfileSection user={user} />}
           </div>
         </div>
       </div>
+      
       <LiveChat />
     </div>
   );
