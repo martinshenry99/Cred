@@ -31,25 +31,9 @@ export const CryptoPricesSection = ({ prices }) => {
   );
 };
 
-// Updated Services Section with Romance Scam and Phishing Recovery
+// Updated Services Section with Romance Scam and Phishing Recovery in smaller layout
 export const ServicesSection = ({ detailed = false }) => {
-  const services = [
-    {
-      icon: '💔',
-      title: 'Romance Scam Recovery',
-      description: detailed 
-        ? 'Specialized recovery for romance scam victims. Our team tracks cryptocurrency payments made to romance scammers using advanced blockchain analysis and works with international law enforcement to freeze and recover stolen funds.' 
-        : 'Victim of a romance scam? Our experts specialize in tracking and recovering cryptocurrency sent to romance scammers. We\'ve helped over 1,200 victims recover their stolen funds.',
-      image: 'https://images.unsplash.com/photo-1593407089396-93f0c7a575f0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHwxfHxkaWdpdGFsJTIwZm9yZW5zaWNzfGVufDB8fHxibHVlfDE3NTM1NjY2OTl8MA&ixlib=rb-4.1.0&q=85'
-    },
-    {
-      icon: '🎣',
-      title: 'Phishing Recovery',
-      description: detailed
-        ? 'Emergency response for phishing attack victims. We provide immediate wallet security, track stolen assets across multiple blockchains, and coordinate with exchanges to freeze criminal accounts before funds are moved.'
-        : 'Fell for a phishing attack? Act fast! Our emergency response team can freeze stolen crypto within hours and trace funds through complex blockchain networks to recover your assets.',
-      image: 'https://images.unsplash.com/photo-1596267356606-b0e18c11c6d1?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHw0fHxkaWdpdGFsJTIwZm9yZW5zaWNzfGVufDB8fHxibHVlfDE3NTM1NjY2OTl8MA&ixlib=rb-4.1.0&q=85'
-    },
+  const primaryServices = [
     {
       icon: '🔍',
       title: 'Crypto Investigation',
@@ -68,43 +52,78 @@ export const ServicesSection = ({ detailed = false }) => {
     }
   ];
 
+  const specializedServices = [
+    {
+      icon: '💔',
+      title: 'Romance Scam Recovery',
+      description: 'Specialized recovery for romance scam victims. Expert tracking and recovery of cryptocurrency sent to romance scammers.',
+      image: 'https://images.unsplash.com/photo-1593407089396-93f0c7a575f0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHwxfHxkaWdpdGFsJTIwZm9yZW5zaWNzfGVufDB8fHxibHVlfDE3NTM1NjY2OTl8MA&ixlib=rb-4.1.0&q=85'
+    },
+    {
+      icon: '🎣',
+      title: 'Phishing Recovery',
+      description: 'Emergency response for phishing attack victims. Immediate wallet security and asset tracking across blockchains.',
+      image: 'https://images.unsplash.com/photo-1596267356606-b0e18c11c6d1?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHw0fHxkaWdpdGFsJTIwZm9yZW5zaWNzfGVufDB8fHxibHVlfDE3NTM1NjY2OTl8MA&ixlib=rb-4.1.0&q=85'
+    }
+  ];
+
   return (
     <div className={`${detailed ? '' : 'py-12 sm:py-20'} bg-gray-50`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {!detailed && (
           <div className="text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6 sm:mb-8">CRED Specialized Services</h2>
-            <p className="text-lg sm:text-xl text-gray-600">Expert recovery for romance scams, phishing attacks, and crypto fraud</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6 sm:mb-8">CRED Core Services</h2>
+            <p className="text-lg sm:text-xl text-gray-600">Professional cryptocurrency enforcement and investigation services</p>
           </div>
         )}
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 sm:gap-8">
-          {services.map((service, index) => (
+        {/* Primary Services - Larger Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 mb-12">
+          {primaryServices.map((service, index) => (
             <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition duration-300 transform hover:scale-105">
-              <div className="h-32 sm:h-48 bg-cover bg-center" style={{backgroundImage: `url(${service.image})`}}></div>
-              <div className="p-4 sm:p-6">
-                <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">{service.icon}</div>
-                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">{service.title}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">{service.description}</p>
+              <div className="h-48 sm:h-64 bg-cover bg-center" style={{backgroundImage: `url(${service.image})`}}></div>
+              <div className="p-6 sm:p-8">
+                <div className="text-4xl sm:text-5xl mb-4 sm:mb-6">{service.icon}</div>
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">{service.title}</h3>
+                <p className="text-gray-600 leading-relaxed mb-6">{service.description}</p>
                 
-                {/* Action Button for each service */}
-                <div className="mt-4">
-                  <button className={`w-full py-2 px-4 rounded-lg text-sm font-semibold transition duration-300 ${
-                    index === 0 ? 'bg-red-600 text-white hover:bg-red-700' :
-                    index === 1 ? 'bg-orange-600 text-white hover:bg-orange-700' :
-                    index === 2 ? 'bg-blue-600 text-white hover:bg-blue-700' :
-                    'bg-green-600 text-white hover:bg-green-700'
-                  }`}>
-                    Get Help Now
-                  </button>
-                </div>
+                <button className={`w-full py-3 px-6 rounded-lg font-semibold transition duration-300 ${
+                  index === 0 ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-green-600 text-white hover:bg-green-700'
+                }`}>
+                  Start Investigation
+                </button>
               </div>
             </div>
           ))}
         </div>
 
+        {/* Specialized Services - Smaller Layout */}
+        <div className="mb-12">
+          <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 sm:mb-8 text-center">Specialized Recovery Services</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {specializedServices.map((service, index) => (
+              <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
+                <div className="h-32 sm:h-40 bg-cover bg-center" style={{backgroundImage: `url(${service.image})`}}></div>
+                <div className="p-4 sm:p-6">
+                  <div className="flex items-center mb-3">
+                    <div className="text-2xl sm:text-3xl mr-3">{service.icon}</div>
+                    <h4 className="text-lg sm:text-xl font-bold text-gray-900">{service.title}</h4>
+                  </div>
+                  <p className="text-gray-600 text-sm leading-relaxed mb-4">{service.description}</p>
+                  
+                  <button className={`w-full py-2 px-4 rounded-lg text-sm font-semibold transition duration-300 ${
+                    index === 0 ? 'bg-red-600 text-white hover:bg-red-700' : 'bg-orange-600 text-white hover:bg-orange-700'
+                  }`}>
+                    Get Help Now
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* Success Stats */}
-        <div className="mt-12 bg-white rounded-lg shadow-lg p-6 sm:p-8">
+        <div className="bg-white rounded-lg shadow-lg p-6 sm:p-8">
           <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6 text-center">CRED Recovery Success Rate</h3>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
             <div className="p-4 bg-red-50 rounded-lg">
