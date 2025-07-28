@@ -218,3 +218,204 @@ export const ContactSection = () => {
     </div>
   );
 };
+
+// Testimonials Section
+export const TestimonialsSection = () => {
+  const testimonials = [
+    {
+      name: "Sarah Mitchell",
+      role: "Romance Scam Victim",
+      image: "https://images.unsplash.com/photo-1494790108755-2616b2e9ce33?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHwxfHx3b21hbiUyMGJ1c2luZXNzfGVufDB8fHxibHVlfDE3NTM1NjY2OTl8MA&ixlib=rb-4.1.0&q=85",
+      content: "CRED helped me recover $45,000 that I lost to a romance scammer. Their team was professional, compassionate, and incredibly effective. I never thought I'd see my money again.",
+      rating: 5,
+      amount: "$45,000",
+      case: "Romance Scam"
+    },
+    {
+      name: "Michael Chen",
+      role: "Phishing Attack Victim",
+      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHwxfHxtYW4lMjBidXNpbmVzcyUyMHBvcnRyYWl0fGVufDB8fHxibHVlfDE3NTM1NjY2OTl8MA&ixlib=rb-4.1.0&q=85",
+      content: "When I fell for a phishing attack and lost my crypto wallet, CRED's emergency response team froze the stolen funds within hours. They recovered 98% of my Bitcoin.",
+      rating: 5,
+      amount: "$120,000",
+      case: "Phishing Attack"
+    },
+    {
+      name: "Jessica Rodriguez",
+      role: "Investment Fraud Victim",
+      image: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHwxfHx3b21hbiUyMGJ1c2luZXNzfGVufDB8fHxibHVlfDE3NTM1NjY2OTl8MA&ixlib=rb-4.1.0&q=85",
+      content: "The CRED investigation team tracked down the criminals who stole my crypto investments. Their forensic analysis was thorough and led to a successful recovery.",
+      rating: 5,
+      amount: "$75,000",
+      case: "Investment Fraud"
+    },
+    {
+      name: "David Thompson",
+      role: "Exchange Hack Victim",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHwxfHxtYW4lMjBidXNpbmVzcyUyMHBvcnRyYWl0fGVufDB8fHxibHVlfDE3NTM1NjY2OTl8MA&ixlib=rb-4.1.0&q=85",
+      content: "After a crypto exchange hack, CRED worked with international law enforcement to trace my stolen funds across multiple blockchains. Outstanding service!",
+      rating: 5,
+      amount: "$200,000",
+      case: "Exchange Hack"
+    }
+  ];
+
+  return (
+    <div className="py-12 sm:py-20 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6 sm:mb-8">Success Stories</h2>
+          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
+            Real testimonials from victims who successfully recovered their stolen crypto assets with CRED
+          </p>
+        </div>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {testimonials.map((testimonial, index) => (
+            <div key={index} className="bg-gray-50 rounded-lg p-6 sm:p-8 hover:shadow-lg transition duration-300">
+              <div className="flex items-center mb-4">
+                <img 
+                  src={testimonial.image} 
+                  alt={testimonial.name}
+                  className="w-16 h-16 rounded-full object-cover mr-4"
+                />
+                <div>
+                  <h4 className="text-lg font-semibold text-gray-900">{testimonial.name}</h4>
+                  <p className="text-sm text-gray-600">{testimonial.role}</p>
+                  <div className="flex items-center mt-1">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <span key={i} className="text-yellow-400">⭐</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              
+              <p className="text-gray-700 mb-4 italic">"{testimonial.content}"</p>
+              
+              <div className="flex justify-between items-center">
+                <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">
+                  Recovered: {testimonial.amount}
+                </span>
+                <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">
+                  {testimonial.case}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        <div className="text-center mt-12">
+          <div className="bg-blue-50 rounded-lg p-6 sm:p-8">
+            <h3 className="text-xl sm:text-2xl font-bold text-blue-900 mb-4">Join Our Success Stories</h3>
+            <p className="text-blue-700 mb-6">
+              Over 3,000 victims have successfully recovered their stolen cryptocurrency with CRED's help
+            </p>
+            <button className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300">
+              Start Your Recovery Today
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// FAQ Section
+export const FAQSection = () => {
+  const faqs = [
+    {
+      question: "How quickly can CRED respond to crypto theft?",
+      answer: "CRED's emergency response team can begin investigating within 2 hours of your report. For urgent cases like active phishing attacks, our team can start freezing stolen assets within the first hour."
+    },
+    {
+      question: "What types of cryptocurrency crimes does CRED handle?",
+      answer: "CRED investigates all types of crypto crimes including romance scams, phishing attacks, investment fraud, exchange hacks, ransomware payments, and other digital asset thefts."
+    },
+    {
+      question: "What is CRED's success rate for crypto recovery?",
+      answer: "CRED has a 94% success rate in cryptocurrency recovery cases. We've recovered over $200 million in stolen digital assets for victims worldwide."
+    },
+    {
+      question: "How does the crypto recovery process work?",
+      answer: "Our process involves immediate threat assessment, blockchain forensic analysis, asset tracking across multiple networks, coordination with exchanges and law enforcement, and legal recovery procedures."
+    },
+    {
+      question: "Is there a fee for CRED's services?",
+      answer: "Initial consultations are free. Our fees are contingency-based, meaning you only pay when we successfully recover your assets. We're transparent about all costs upfront."
+    },
+    {
+      question: "Can CRED help with international crypto theft cases?",
+      answer: "Yes, CRED works with international law enforcement agencies, exchanges, and legal authorities worldwide to recover stolen cryptocurrency regardless of geographic boundaries."
+    },
+    {
+      question: "What information do I need to provide to start a case?",
+      answer: "We need transaction details, wallet addresses, communication records with scammers, and any evidence of the theft. Our team will guide you through the documentation process."
+    },
+    {
+      question: "How long does the recovery process take?",
+      answer: "Recovery timelines vary depending on case complexity. Simple cases may be resolved in weeks, while complex international cases can take several months. We provide regular updates throughout the process."
+    }
+  ];
+
+  const [openIndex, setOpenIndex] = useState(null);
+
+  const toggleFAQ = (index) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
+  return (
+    <div className="py-12 sm:py-20 bg-gray-50">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6 sm:mb-8">Frequently Asked Questions</h2>
+          <p className="text-lg sm:text-xl text-gray-600">
+            Common questions about CRED's cryptocurrency recovery services
+          </p>
+        </div>
+        
+        <div className="space-y-4">
+          {faqs.map((faq, index) => (
+            <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden">
+              <button
+                onClick={() => toggleFAQ(index)}
+                className="w-full px-6 py-4 text-left hover:bg-gray-50 transition duration-300"
+              >
+                <div className="flex justify-between items-center">
+                  <h3 className="text-lg font-semibold text-gray-900 pr-4">{faq.question}</h3>
+                  <span className={`text-2xl text-blue-600 transition-transform duration-300 ${
+                    openIndex === index ? 'rotate-180' : ''
+                  }`}>
+                    ▼
+                  </span>
+                </div>
+              </button>
+              
+              {openIndex === index && (
+                <div className="px-6 pb-4">
+                  <p className="text-gray-700 leading-relaxed">{faq.answer}</p>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+        
+        <div className="text-center mt-12">
+          <div className="bg-blue-600 text-white rounded-lg p-6 sm:p-8">
+            <h3 className="text-xl sm:text-2xl font-bold mb-4">Still Have Questions?</h3>
+            <p className="mb-6">
+              Our expert team is available 24/7 to answer your questions and provide immediate assistance
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300">
+                Live Chat Support
+              </button>
+              <button className="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition duration-300">
+                Emergency Hotline
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
