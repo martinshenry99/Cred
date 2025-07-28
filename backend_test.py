@@ -13,10 +13,10 @@ import tempfile
 
 # Configuration
 BASE_URL = "https://85361486-0ec3-48ab-8270-8aafd18e8a45.preview.emergentagent.com/api"
-# Use existing user from database for testing
-TEST_USER_EMAIL = "john.doe@email.com"  # This user should exist from previous tests
+# Use existing verified user from database for testing
+TEST_USER_EMAIL = "sarah.johnson@email.com"  # This user exists and is now verified
 TEST_USER_PASSWORD = "SecurePass123!"
-TEST_USER_NAME = "John Doe"
+TEST_USER_NAME = "Sarah Johnson"
 TEST_USER_PHONE = "+1-555-0123"
 
 ADMIN_EMAIL = "admin@cred.gov"
