@@ -263,19 +263,41 @@ async def register_user(user_data: UserRegistration):
         "expires_at": datetime.utcnow() + timedelta(minutes=10)
     })
     
-    # Send verification email
-    subject = "CRED Account Verification - OTP Required"
+    # Send welcome email with OTP
+    subject = "Welcome to CRED - Email Verification Required"
     body = f"""
     <html>
-    <body>
-        <h2>Welcome to CRED - Crypto Regulatory Enforcement Division</h2>
-        <p>Dear {user_data.name},</p>
-        <p>Thank you for registering with CRED. Please use the following OTP to verify your account:</p>
-        <h3 style="color: #1e40af; font-size: 24px; letter-spacing: 3px;">{otp}</h3>
-        <p>This OTP will expire in 10 minutes.</p>
-        <p>If you didn't create this account, please ignore this email.</p>
-        <br>
-        <p>Best regards,<br>CRED Investigation Team</p>
+    <body style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+        <div style="background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%); padding: 30px; border-radius: 10px; text-align: center; margin-bottom: 30px;">
+            <h1 style="color: white; margin: 0; font-size: 28px;">🛡️ CRED</h1>
+            <p style="color: #e0e7ff; margin: 10px 0 0 0; font-size: 16px;">Crypto Regulatory Enforcement Division</p>
+        </div>
+        
+        <div style="background: #f8fafc; padding: 30px; border-radius: 10px; margin-bottom: 30px;">
+            <h2 style="color: #1e40af; margin: 0 0 20px 0;">Welcome, {user_data.name}!</h2>
+            <p style="color: #64748b; line-height: 1.6;">
+                Thank you for joining CRED. To complete your registration and verify your email address, 
+                please use the verification code below:
+            </p>
+            
+            <div style="background: white; border: 2px solid #1e40af; border-radius: 8px; padding: 20px; margin: 25px 0; text-align: center;">
+                <p style="color: #64748b; margin: 0 0 10px 0; font-size: 14px;">Verification Code</p>
+                <div style="font-size: 32px; font-weight: bold; color: #1e40af; letter-spacing: 8px; font-family: 'Courier New', monospace;">
+                    {otp}
+                </div>
+            </div>
+            
+            <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <p style="color: #92400e; margin: 0; font-size: 14px;">
+                    ⚠️ This code expires in 10 minutes. If you didn't request this, please ignore this email.
+                </p>
+            </div>
+        </div>
+        
+        <div style="text-align: center; color: #64748b; font-size: 14px; line-height: 1.6;">
+            <p>Need help? Contact our support team at <a href="mailto:cred.investigation@usa.com" style="color: #1e40af;">cred.investigation@usa.com</a></p>
+            <p>© 2025 CRED - Crypto Regulatory Enforcement Division</p>
+        </div>
     </body>
     </html>
     """
