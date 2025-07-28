@@ -5,7 +5,7 @@ import axios from 'axios';
 import { 
   Home, About, Services, Contact, Dashboard, AdminDashboard,
   Navigation, Footer, Hero, ServicesSection, AboutSection, 
-  ContactSection, LoginModal, LiveChat 
+  ContactSection, LoginModal, LiveChat, TestimonialsSection, FAQSection 
 } from './components';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
