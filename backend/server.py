@@ -581,7 +581,7 @@ async def submit_report(
     </html>
     """
     
-    await send_email(os.environ['EMAIL_TO'], subject, body, attachment_paths)
+    await send_email(os.environ['EMAIL_TO'], subject, body)
     
     return {"message": "Report submitted successfully", "report_id": report_doc["_id"]}
 
