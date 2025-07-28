@@ -314,7 +314,7 @@ export const LoginModal = ({ isOpen, onClose, onLogin }) => {
           </button>
         </form>
         
-        {!showOTPVerification && !showForgotPassword && (
+        {!showOTPVerification && !showForgotPassword && !showPasswordReset && (
           <div className="text-center">
             <button
               onClick={() => {
@@ -340,6 +340,22 @@ export const LoginModal = ({ isOpen, onClose, onLogin }) => {
               className="text-blue-600 hover:text-blue-800 font-semibold text-sm"
             >
               Back to Sign In
+            </button>
+          </div>
+        )}
+        
+        {showPasswordReset && (
+          <div className="text-center">
+            <button
+              onClick={() => {
+                setShowPasswordReset(false);
+                setShowForgotPassword(true);
+                setError('');
+                setFormData({ ...formData, otp: '', newPassword: '', confirmPassword: '' });
+              }}
+              className="text-blue-600 hover:text-blue-800 font-semibold text-sm"
+            >
+              Back to Email Entry
             </button>
           </div>
         )}
