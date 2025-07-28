@@ -335,6 +335,94 @@ async def login_user(login_data: UserLogin):
         }
     }
 
+@api_router.post("/forgot-password")
+async def forgot_password(request: ForgotPasswordRequest):
+    """Send password reset OTP to user's email"""
+    # Check if user exists
+    user = await db.users.find_one({"email": request.email})
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    # Generate OTP
+    totp = pyotp.TOTP(user["otp_secret"])
+    otp = totp.now()
+    
+    # Store OTP for password reset (expires in 10 minutes)
+    await db.temp_otps.insert_one({
+        "email": request.email,
+        "otp": otp,
+        "type": "password_reset",
+        "expires_at": datetime.utcnow() + timedelta(minutes=10)
+    })
+    
+    # Send password reset email
+    subject = "CRED Password Reset - OTP Required"
+    body = f"""
+    <html>
+    <body>
+        <h2>CRED Password Reset Request</h2>
+        <p>Dear {user["name"]},</p>
+        <p>We received a request to reset your CRED account password. Please use the following OTP to reset your password:</p>
+        <h3 style="color: #1e40af; font-size: 24px; letter-spacing: 3px;">{otp}</h3>
+        <p>This OTP will expire in 10 minutes.</p>
+        <p>If you didn't request this password reset, please ignore this email.</p>
+        <br>
+        <p>Best regards,<br>CRED Security Team</p>
+    </body>
+    </html>
+    """
+    
+    await send_email(request.email, subject, body)
+    
+    return {"message": "Password reset instructions sent to your email"}
+
+@api_router.post("/reset-password")
+async def reset_password(request: PasswordResetRequest):
+    """Reset user password with OTP verification"""
+    # Check OTP
+    otp_record = await db.temp_otps.find_one({
+        "email": request.email,
+        "otp": request.otp,
+        "type": "password_reset",
+        "expires_at": {"$gt": datetime.utcnow()}
+    })
+    
+    if not otp_record:
+        raise HTTPException(status_code=400, detail="Invalid or expired OTP")
+    
+    # Update password
+    password_hash = hash_password(request.new_password)
+    result = await db.users.update_one(
+        {"email": request.email},
+        {"$set": {"password_hash": password_hash}}
+    )
+    
+    if result.modified_count:
+        # Clean up OTP
+        await db.temp_otps.delete_one({"email": request.email, "type": "password_reset"})
+        
+        # Send confirmation email
+        user = await db.users.find_one({"email": request.email})
+        subject = "CRED Password Reset Successful"
+        body = f"""
+        <html>
+        <body>
+            <h2>CRED Password Reset Successful</h2>
+            <p>Dear {user["name"]},</p>
+            <p>Your CRED account password has been successfully reset.</p>
+            <p>You can now login with your new password.</p>
+            <p>If you didn't perform this action, please contact our support team immediately.</p>
+            <br>
+            <p>Best regards,<br>CRED Security Team</p>
+        </body>
+        </html>
+        """
+        
+        await send_email(request.email, subject, body)
+        return {"message": "Password reset successful. You can now login with your new password."}
+    
+    raise HTTPException(status_code=400, detail="Failed to reset password")
+
 @api_router.get("/user/profile")
 async def get_user_profile(current_user: dict = Depends(get_current_user)):
     """Get user profile"""
