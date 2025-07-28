@@ -110,6 +110,17 @@ export const LoginModal = ({ isOpen, onClose, onLogin, initialMode = 'signin' })
       // Handle specific error cases
       if (errorMessage.includes('Account not verified')) {
         setError('Please verify your email first. Check your inbox for the OTP code and complete verification.');
+        
+        // Show a "Resend OTP" option
+        const resendOTP = confirm('Account not verified. Would you like to resend the verification email?');
+        if (resendOTP) {
+          try {
+            await axios.post(`${API}/resend-otp`, { email: formData.email });
+            alert('Verification email resent! Please check your inbox.');
+          } catch (resendError) {
+            console.error('Failed to resend OTP:', resendError);
+          }
+        }
       } else if (errorMessage.includes('Invalid credentials')) {
         setError('Invalid email or password. Please check your credentials and try again.');
       } else if (errorMessage.includes('User not found')) {
