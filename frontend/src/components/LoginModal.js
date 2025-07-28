@@ -244,11 +244,14 @@ export const LoginModal = ({ isOpen, onClose, onLogin }) => {
             <>
               {!isLoginMode && (
                 <div className="mb-4 sm:mb-6">
-                  <label className="block text-gray-700 font-semibold mb-2">Full Name</label>
+                  <label className="block text-gray-700 font-semibold mb-2">
+                    Full Name <span className="text-red-500">*</span>
+                  </label>
                   <input
                     type="text"
                     required
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="Enter your full name"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                     value={formData.name}
                     onChange={(e) => setFormData({...formData, name: e.target.value})}
                   />
@@ -256,11 +259,16 @@ export const LoginModal = ({ isOpen, onClose, onLogin }) => {
               )}
               
               <div className="mb-4 sm:mb-6">
-                <label className="block text-gray-700 font-semibold mb-2">Email</label>
+                <label className="block text-gray-700 font-semibold mb-2">
+                  Email Address <span className="text-red-500">*</span>
+                </label>
                 <input
                   type="email"
                   required
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder={isLoginMode ? "Enter your email" : "Enter your email address"}
+                  className={`w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent ${
+                    isLoginMode ? 'focus:ring-blue-500' : 'focus:ring-green-500'
+                  }`}
                   value={formData.email}
                   onChange={(e) => setFormData({...formData, email: e.target.value})}
                 />
@@ -268,34 +276,49 @@ export const LoginModal = ({ isOpen, onClose, onLogin }) => {
 
               {!isLoginMode && (
                 <div className="mb-4 sm:mb-6">
-                  <label className="block text-gray-700 font-semibold mb-2">Phone (Optional)</label>
+                  <label className="block text-gray-700 font-semibold mb-2">
+                    Phone Number <span className="text-gray-400">(Optional)</span>
+                  </label>
                   <input
                     type="tel"
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="Enter your phone number"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                     value={formData.phone}
                     onChange={(e) => setFormData({...formData, phone: e.target.value})}
                   />
+                  <p className="text-xs text-gray-500 mt-1">For urgent case notifications</p>
                 </div>
               )}
               
               <div className="mb-4 sm:mb-6">
-                <label className="block text-gray-700 font-semibold mb-2">Password</label>
+                <label className="block text-gray-700 font-semibold mb-2">
+                  Password <span className="text-red-500">*</span>
+                </label>
                 <input
                   type="password"
                   required
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder={isLoginMode ? "Enter your password" : "Create a secure password"}
+                  className={`w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent ${
+                    isLoginMode ? 'focus:ring-blue-500' : 'focus:ring-green-500'
+                  }`}
                   value={formData.password}
                   onChange={(e) => setFormData({...formData, password: e.target.value})}
                 />
+                {!isLoginMode && (
+                  <p className="text-xs text-gray-500 mt-1">Must be at least 8 characters with numbers and letters</p>
+                )}
               </div>
               
               {!isLoginMode && (
                 <div className="mb-4 sm:mb-6">
-                  <label className="block text-gray-700 font-semibold mb-2">Confirm Password</label>
+                  <label className="block text-gray-700 font-semibold mb-2">
+                    Confirm Password <span className="text-red-500">*</span>
+                  </label>
                   <input
                     type="password"
                     required
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="Confirm your password"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
                     value={formData.confirmPassword}
                     onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
                   />
@@ -313,19 +336,40 @@ export const LoginModal = ({ isOpen, onClose, onLogin }) => {
                   </button>
                 </div>
               )}
+              
+              {!isLoginMode && (
+                <div className="mb-6">
+                  <div className="flex items-center">
+                    <input
+                      type="checkbox"
+                      id="terms"
+                      required
+                      className="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500"
+                    />
+                    <label htmlFor="terms" className="ml-2 text-sm text-gray-700">
+                      I agree to the <a href="#" className="text-green-600 hover:text-green-800">Terms of Service</a> and <a href="#" className="text-green-600 hover:text-green-800">Privacy Policy</a>
+                    </label>
+                  </div>
+                </div>
+              )}
             </>
           )}
           
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-blue-900 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-800 transition duration-300 mb-4 disabled:opacity-50"
+            className={`w-full py-3 px-6 rounded-lg font-semibold transition duration-300 mb-4 disabled:opacity-50 ${
+              showForgotPassword ? 'bg-orange-600 hover:bg-orange-700 text-white' :
+              showPasswordReset ? 'bg-green-600 hover:bg-green-700 text-white' :
+              showOTPVerification ? 'bg-purple-600 hover:bg-purple-700 text-white' :
+              isLoginMode ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'bg-green-600 hover:bg-green-700 text-white'
+            }`}
           >
             {isSubmitting ? 'Processing...' : (
               showForgotPassword ? 'Send Reset Instructions' :
               showPasswordReset ? 'Reset Password' :
               showOTPVerification ? 'Verify OTP' : 
-              (isLoginMode ? 'Sign In to CRED' : 'Join CRED')
+              (isLoginMode ? 'Sign In to CRED' : 'Create CRED Account')
             )}
           </button>
         </form>
