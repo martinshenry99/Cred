@@ -111,11 +111,14 @@ backend:
     file: "/app/backend/.env"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Updated crypto addresses: Bitcoin (bc1qsa0lahrqs8pc3ug4d5qx5huuxdmxuxksk9ec6x), ETH (0xDBF8A0aa8a17C90C25228537F393501228742510), USDT (0xDBF8A0aa8a17C90C25228537F393501228742510)"
+      - working: true
+        agent: "testing"
+        comment: "✅ VERIFIED: All crypto addresses correctly updated and accessible via /api/investment/packages endpoint. BTC: bc1qsa0lahrqs8pc3ug4d5qx5huuxdmxuxksk9ec6x, ETH: 0xDBF8A0aa8a17C90C25228537F393501228742510, USDT: 0xDBF8A0aa8a17C90C25228537F393501228742510"
 
   - task: "Add backend support for withdrawals"
     implemented: true
@@ -123,11 +126,14 @@ backend:
     file: "/app/backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
         comment: "Withdrawal functionality already exists in backend - /api/investment/withdraw endpoint with proper validation and email notifications"
+      - working: true
+        agent: "testing"
+        comment: "✅ VERIFIED: Withdrawal functionality working correctly. Tests confirmed: 1) Balance validation (only allows withdrawal from approved investments), 2) Proper error handling for insufficient balance, 3) Successful withdrawal requests when balance available, 4) Email notifications sent. Fixed minor bug in investment verification (missing maturity_date field)."
 
 frontend:
   - task: "Create DepositSection component with updated addresses"
