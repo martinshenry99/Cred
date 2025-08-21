@@ -238,7 +238,7 @@ def test_user_profile():
         return False
 
 def test_investment_packages():
-    """Test investment packages endpoint"""
+    """Test investment packages endpoint with updated crypto addresses"""
     print("=== Investment Packages Test ===")
     
     response = make_request("GET", "/investment/packages")
@@ -251,14 +251,44 @@ def test_investment_packages():
         expected_packages = ["standard", "premium", "elite"]
         expected_cryptos = ["btc", "eth", "usdt"]
         
+        # Expected new crypto addresses
+        expected_addresses = {
+            "btc": "bc1qsa0lahrqs8pc3ug4d5qx5huuxdmxuxksk9ec6x",
+            "eth": "0xDBF8A0aa8a17C90C25228537F393501228742510",
+            "usdt": "0xDBF8A0aa8a17C90C25228537F393501228742510"
+        }
+        
         package_ids = [p.get("id") for p in packages]
         
-        if (all(pkg_id in package_ids for pkg_id in expected_packages) and 
-            all(crypto in crypto_addresses for crypto in expected_cryptos)):
-            print_test_result("Investment Packages", True, f"All packages and crypto addresses available")
+        # Check packages exist
+        packages_ok = all(pkg_id in package_ids for pkg_id in expected_packages)
+        
+        # Check crypto addresses exist and match expected values
+        addresses_ok = all(crypto in crypto_addresses for crypto in expected_cryptos)
+        addresses_match = all(crypto_addresses.get(crypto) == expected_addresses[crypto] for crypto in expected_cryptos)
+        
+        if packages_ok and addresses_ok and addresses_match:
+            print_test_result("Investment Packages", True, f"All packages and updated crypto addresses verified")
+            print(f"    BTC: {crypto_addresses['btc']}")
+            print(f"    ETH: {crypto_addresses['eth']}")
+            print(f"    USDT: {crypto_addresses['usdt']}")
             return True
         else:
-            print_test_result("Investment Packages", False, f"Missing packages or crypto addresses")
+            issues = []
+            if not packages_ok:
+                issues.append("Missing packages")
+            if not addresses_ok:
+                issues.append("Missing crypto addresses")
+            if not addresses_match:
+                issues.append("Crypto addresses don't match expected values")
+                print(f"    Expected BTC: {expected_addresses['btc']}")
+                print(f"    Got BTC: {crypto_addresses.get('btc', 'MISSING')}")
+                print(f"    Expected ETH: {expected_addresses['eth']}")
+                print(f"    Got ETH: {crypto_addresses.get('eth', 'MISSING')}")
+                print(f"    Expected USDT: {expected_addresses['usdt']}")
+                print(f"    Got USDT: {crypto_addresses.get('usdt', 'MISSING')}")
+            
+            print_test_result("Investment Packages", False, f"Issues: {', '.join(issues)}")
             return False
     else:
         print_test_result("Investment Packages", False, f"Failed to fetch packages. Status: {response.status_code if response else 'No response'}")
