@@ -204,24 +204,21 @@ frontend:
 
 metadata:
   created_by: "main_agent"
-  version: "1.0"
-  test_sequence: 1
+  version: "1.1"
+  test_sequence: 2
   run_ui: false
 
 test_plan:
   current_focus:
-    - "Test complete application functionality"
-    - "Verify component splitting didn't break functionality"
-    - "Check authentication flow"
-    - "Validate crypto addresses"
+    - "Test updated crypto addresses in backend"
+    - "Test new deposit section functionality"
+    - "Test new withdraw section functionality"
+    - "Verify admin-approved balance calculations"
+    - "Test overall dashboard functionality"
   stuck_tasks: []
   test_all: true
   test_priority: "high_first"
 
 agent_communication:
   - agent: "main"
-    message: "Successfully completed Phase 1 of the plan by splitting the large components.js file (2193 lines) into smaller, manageable components. The application structure is now more maintainable and should resolve the 'Argument list too long' error. Ready for backend testing to ensure all functionality is working correctly."
-  - agent: "testing"
-    message: "Comprehensive backend testing completed. Results: 12/13 tests passed (92.3% success rate). CRITICAL FINDINGS: 1) Core backend functionality is working perfectly - authentication, investments, reports, admin portal, database operations, and crypto prices all functional. 2) Email service is failing due to SMTP connection issues (SSL version mismatch with Gmail), affecting user registration, forgot password, and notification features. 3) This is an infrastructure/configuration issue, not a code logic problem. 4) All business logic, API endpoints, JWT authentication, database operations, and admin features are working correctly. 5) The application is ready for production except for the email service configuration issue."
-  - agent: "testing"
-    message: "USER REGISTRATION FLOW TESTING COMPLETED with requested test data (John Test / john.test@example.com). RESULTS: ✅ Admin login working perfectly (admin@cred.gov / CredAdmin2025!). ✅ Admin access and dashboard fully functional. ✅ OTP verification logic working (correctly rejects invalid OTPs). ✅ Login flow properly blocks unverified users. ❌ User registration fails due to SMTP email service issues - user is NOT created in database when email fails (by design). ❌ Email configuration has SSL/TLS connection problems with Gmail SMTP. CONCLUSION: Core authentication and business logic is 100% functional. Only infrastructure email service prevents new user registrations. All existing functionality works perfectly."
+    message: "Successfully implemented all user requested changes: 1) Updated crypto addresses in backend .env 2) Created modular DepositSection, WithdrawSection, and OverviewSection components 3) Removed hardcoded $500,000 balance 4) Added withdraw tab to dashboard 5) Fixed CRED logo content blocking with responsive adjustments 6) Available balance now only shows admin-approved funds. Ready for backend testing to verify updated crypto addresses and withdrawal functionality."
