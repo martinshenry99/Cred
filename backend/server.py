@@ -1105,7 +1105,7 @@ async def verify_investment(
                 <li>Amount: ${investment['amount']:,.2f}</li>
                 <li>Expected Returns: ${expected_returns:,.2f}</li>
                 <li>APY: {investment['apy']}</li>
-                <li>Maturity Date: {investment['maturity_date'].strftime('%Y-%m-%d')}</li>
+                <li>Maturity Date: {maturity_date.strftime('%Y-%m-%d')}</li>
             </ul>
             <p>You can track your investment progress in your CRED dashboard.</p>
             <br>
