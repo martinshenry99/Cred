@@ -2,7 +2,7 @@ import React from 'react';
 
 export const Hero = () => {
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       {/* Modern Background with Overlay */}
       <div className="absolute inset-0">
         <div 
@@ -22,14 +22,14 @@ export const Hero = () => {
       </div>
       
       {/* Main Content */}
-      <div className="relative z-10 text-center text-white max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 text-center text-white max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         {/* Badge */}
         <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-600/20 border border-blue-400/30 backdrop-blur-sm mb-6">
           <span className="text-sm font-medium text-blue-300">🛡️ Official Government Agency</span>
         </div>
         
         {/* Main Heading */}
-        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 sm:mb-8 leading-tight">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 sm:mb-8 leading-tight">
           Welcome to{' '}
           <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
             CRED
@@ -37,47 +37,47 @@ export const Hero = () => {
         </h1>
         
         {/* Subtitle */}
-        <p className="text-xl sm:text-2xl md:text-3xl mb-4 sm:mb-6 text-blue-200 font-light">
+        <p className="text-lg sm:text-xl md:text-2xl mb-4 sm:mb-6 text-blue-200 font-light">
           Crypto Regulatory Enforcement Division
         </p>
         
         {/* Description */}
-        <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-8 sm:mb-12 max-w-4xl mx-auto leading-relaxed text-gray-300">
+        <p className="text-sm sm:text-base md:text-lg lg:text-xl mb-6 sm:mb-8 max-w-4xl mx-auto leading-relaxed text-gray-300">
           Leading the fight against cryptocurrency crime with cutting-edge blockchain forensics, 
           international law enforcement coordination, and{' '}
           <span className="text-cyan-400 font-semibold">94% recovery success rate</span>
         </p>
         
         {/* Stats */}
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-6 sm:gap-12 mb-8 sm:mb-12">
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-8 mb-6 sm:mb-8">
           <div className="text-center">
-            <div className="text-2xl sm:text-3xl font-bold text-cyan-400">$200M+</div>
-            <div className="text-sm text-gray-400">Recovered</div>
+            <div className="text-xl sm:text-2xl font-bold text-cyan-400">$200M+</div>
+            <div className="text-xs sm:text-sm text-gray-400">Recovered</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl sm:text-3xl font-bold text-green-400">3,000+</div>
-            <div className="text-sm text-gray-400">Cases Solved</div>
+            <div className="text-xl sm:text-2xl font-bold text-green-400">3,000+</div>
+            <div className="text-xs sm:text-sm text-gray-400">Cases Solved</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl sm:text-3xl font-bold text-purple-400">24/7</div>
-            <div className="text-sm text-gray-400">Support</div>
+            <div className="text-xl sm:text-2xl font-bold text-purple-400">24/7</div>
+            <div className="text-xs sm:text-sm text-gray-400">Support</div>
           </div>
         </div>
         
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md sm:max-w-none mx-auto">
-          <button className="group relative bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl">
+        <div className="flex flex-col sm:flex-row gap-3 justify-center max-w-md sm:max-w-none mx-auto mb-8">
+          <button className="group relative bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-6 py-3 rounded-lg text-sm sm:text-base font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl">
             <span className="relative z-10">🚨 Report Crypto Crime</span>
             <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-cyan-700 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
           </button>
           
-          <button className="group relative border-2 border-white/30 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 transform hover:scale-105 backdrop-blur-sm hover:bg-white/10">
+          <button className="group relative border-2 border-white/30 text-white px-6 py-3 rounded-lg text-sm sm:text-base font-semibold transition-all duration-300 transform hover:scale-105 backdrop-blur-sm hover:bg-white/10">
             <span className="relative z-10">📊 Investment Portal</span>
           </button>
         </div>
         
         {/* Trust Indicators */}
-        <div className="mt-12 flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-8 text-sm text-gray-400">
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-6 text-xs sm:text-sm text-gray-400">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 bg-green-400 rounded-full"></span>
             <span>Licensed & Regulated</span>
