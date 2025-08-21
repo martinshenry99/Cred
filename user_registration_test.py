@@ -11,7 +11,7 @@ import os
 from datetime import datetime
 
 # Configuration - Using the exact test data provided by user
-BASE_URL = "https://85361486-0ec3-48ab-8270-8aafd18e8a45.preview.emergentagent.com/api"
+BASE_URL = "https://secure-invest-3.preview.emergentagent.com/api"
 
 # Test user data as specified by user
 TEST_USER_DATA = {

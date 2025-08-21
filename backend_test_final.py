@@ -12,7 +12,7 @@ from datetime import datetime
 import tempfile
 
 # Configuration
-BASE_URL = "https://85361486-0ec3-48ab-8270-8aafd18e8a45.preview.emergentagent.com/api"
+BASE_URL = "https://secure-invest-3.preview.emergentagent.com/api"
 # Use existing verified user from database for testing
 TEST_USER_EMAIL = "sarah.johnson@email.com"  # This user exists and is now verified
 TEST_USER_PASSWORD = "SecurePass123!"
