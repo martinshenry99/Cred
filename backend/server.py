@@ -1068,6 +1068,7 @@ async def verify_investment(
     # Calculate expected returns (APY for 60 days)
     apy_decimal = float(investment["apy"].rstrip('%')) / 100
     expected_returns = investment["amount"] * (apy_decimal * (60/365))
+    maturity_date = datetime.utcnow() + timedelta(days=60)
     
     await db.investments.update_one(
         {"_id": investment_id},
@@ -1076,7 +1077,8 @@ async def verify_investment(
                 "status": "active",
                 "verified_at": datetime.utcnow(),
                 "expected_returns": expected_returns,
-                "returns": expected_returns
+                "returns": expected_returns,
+                "maturity_date": maturity_date
             }
         }
     )
