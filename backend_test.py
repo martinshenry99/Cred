@@ -658,6 +658,7 @@ def run_all_tests():
     if user_token:
         test_results.append(("Create Investment", test_create_investment()))
         test_results.append(("User Investments", test_user_investments()))
+        test_results.append(("Withdrawal Functionality", test_withdrawal_functionality()))
     
     # Report tests
     if user_token:
