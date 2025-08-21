@@ -102,158 +102,83 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Complete the pending tasks for the CRED application: 1) Split large components.js file to overcome 'Argument list too long' error 2) Add romance scam and phishing recovery services 3) Move live crypto prices to logged-in interface 4) Fix authentication flow issues 5) Update crypto addresses 6) Provide admin portal credentials"
+user_problem_statement: "Complete the pending tasks for the CRED application: 1) Update crypto addresses with new Bitcoin, ETH, and USDT addresses 2) Add withdraw section to dashboard 3) Remove hardcoded $500,000 available balance 4) Fix CRED logo blocking content 5) Only show admin-approved funds in available balance 6) Create modern, slick dashboard design"
 
 backend:
-  - task: "Split large components.js file"
+  - task: "Update crypto addresses in backend .env"
     implemented: true
     working: true
-    file: "/app/frontend/src/components/"
+    file: "/app/backend/.env"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
       - working: true
         agent: "main"
-        comment: "Successfully split large components.js file (2193 lines) into smaller, manageable files: Pages.js, Navigation.js, Hero.js, Sections.js, LoginModal.js, Dashboard.js, AdminDashboard.js, Chat.js, Footer.js, and index.js"
+        comment: "Updated crypto addresses: Bitcoin (bc1qsa0lahrqs8pc3ug4d5qx5huuxdmxuxksk9ec6x), ETH (0xDBF8A0aa8a17C90C25228537F393501228742510), USDT (0xDBF8A0aa8a17C90C25228537F393501228742510)"
 
-  - task: "Add romance scam and phishing recovery services"
+  - task: "Add backend support for withdrawals"
     implemented: true
     working: true
-    file: "/app/frontend/src/components/Sections.js"
+    file: "/app/backend/server.py"
     stuck_count: 0
-    priority: "medium"
-    needs_retesting: false
+    priority: "high"
+    needs_retesting: true
     status_history:
       - working: true
         agent: "main"
-        comment: "Added romance scam and phishing recovery services to ServicesSection component with appropriate imagery and descriptions"
-      - working: true
-        agent: "testing"
-        comment: "Backend testing completed successfully. All core API endpoints are working correctly. This is a frontend feature that doesn't require backend testing."
+        comment: "Withdrawal functionality already exists in backend - /api/investment/withdraw endpoint with proper validation and email notifications"
 
-  - task: "Move live crypto prices to logged-in interface"
+frontend:
+  - task: "Create DepositSection component with updated addresses"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/DepositSection.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Created standalone DepositSection component with updated crypto addresses and modern UI design"
+
+  - task: "Create WithdrawSection component"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/WithdrawSection.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Created WithdrawSection component with balance validation, only allowing withdrawal from admin-approved investments"
+
+  - task: "Create OverviewSection with admin-approved balance only"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/components/OverviewSection.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Created OverviewSection showing available balance from approved investments only, removed hardcoded $500,000"
+
+  - task: "Update Dashboard to use new modular components"
     implemented: true
     working: true
     file: "/app/frontend/src/components/Dashboard.js"
     stuck_count: 0
-    priority: "medium"
-    needs_retesting: false
+    priority: "high"
+    needs_retesting: true
     status_history:
       - working: true
         agent: "main"
-        comment: "Moved live crypto prices section to be displayed only in the logged-in interface under the investment section"
-      - working: true
-        agent: "testing"
-        comment: "Backend crypto prices API (/api/crypto-prices) is working perfectly. Returns live prices from CoinGecko API for BTC, ETH, and USDT. Frontend integration confirmed working."
+        comment: "Updated Dashboard to import and use OverviewSection, DepositSection, WithdrawSection. Added Withdraw tab to navigation. Removed hardcoded $500,000 balance from InvestmentDashboard"
 
-  - task: "Add forgot password functionality"
-    implemented: true
-    working: false
-    file: "/app/frontend/src/components/LoginModal.js, /app/backend/server.py"
-    stuck_count: 1
-    priority: "medium"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "main"
-        comment: "Added complete forgot password functionality with OTP verification. Backend endpoints: /forgot-password and /reset-password. Frontend flows: email entry -> OTP verification -> password reset."
-      - working: false
-        agent: "testing"
-        comment: "Backend endpoints /forgot-password and /reset-password are implemented correctly but failing due to SMTP connection issues. Error: 'SMTPConnectError: Error connecting to smtp.gmail.com on port 587: [SSL: WRONG_VERSION_NUMBER] wrong version number'. This is an infrastructure/email configuration issue, not a code logic issue."
-
-  - task: "Authentication flow fixes"
-    implemented: true
-    working: true
-    file: "/app/frontend/src/components/LoginModal.js"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "main"
-        comment: "Maintained existing authentication flow with OTP verification, login, and registration functionality"
-      - working: true
-        agent: "testing"
-        comment: "Authentication system working perfectly. User login (/api/login) and admin login tested successfully. JWT tokens are generated correctly. User profile endpoint (/api/user/profile) working. Admin authentication and access control working properly."
-
-  - task: "Update crypto addresses"
-    implemented: true
-    working: true
-    file: "/app/backend/server.py"
-    stuck_count: 0
-    priority: "medium"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "main"
-        comment: "Crypto addresses were updated in previous development cycle. Need to verify current addresses are in place"
-      - working: true
-        agent: "testing"
-        comment: "Crypto addresses confirmed working. Investment packages endpoint (/api/investment/packages) returns correct addresses: BTC: bc1qcr3nkt4aq3zdpc8tp3nuyteu4v5ayz2pllp99j, ETH: 0x52CF4b2A2398a83F761d3f3C81e79e64BAb9b43d, USDT: TP9cjBbFXXX4JSkGgcBLsjvRZ9VjA55zTG"
-
-  - task: "Investment System Backend"
-    implemented: true
-    working: true
-    file: "/app/backend/server.py"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "testing"
-        comment: "Investment system fully functional. Tested: /api/investment/packages (returns 3 packages: standard, premium, elite with correct crypto addresses), /api/investment/my-investments (user investment tracking working), admin investment management (/api/admin/investments) working. Investment creation would work but requires email service for notifications."
-
-  - task: "Report System Backend"
-    implemented: true
-    working: true
-    file: "/app/backend/server.py"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "testing"
-        comment: "Report system core functionality working. Tested: /api/reports/my-reports (user reports retrieval working), /api/admin/reports (admin report management working). Report submission would work but requires email service for notifications to admin."
-
-  - task: "Admin Portal Backend"
-    implemented: true
-    working: true
-    file: "/app/backend/server.py"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "testing"
-        comment: "Admin portal fully functional. Tested: /api/admin/dashboard (returns complete statistics for users, reports, investments, withdrawals), /api/admin/users (user management working), /api/admin/investments (investment management working), /api/admin/reports (report management working). Admin authentication working with proper access control."
-
-  - task: "Database Operations"
-    implemented: true
-    working: true
-    file: "/app/backend/server.py"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "testing"
-        comment: "Database operations working correctly. MongoDB connection established. User data storage, investment tracking, report management all functional. Tested with existing data - found 3 users, 1 investment, 1 report in database. All CRUD operations working properly."
-
-  - task: "Email System"
-    implemented: true
-    working: false
-    file: "/app/backend/server.py"
-    stuck_count: 1
-    priority: "high"
-    needs_retesting: false
-    status_history:
-      - working: false
-        agent: "testing"
-        comment: "Email system implemented but not functional due to SMTP connection issues. Error: 'SMTPConnectError: Error connecting to smtp.gmail.com on port 587: [SSL: WRONG_VERSION_NUMBER] wrong version number'. This affects user registration, forgot password, report notifications, and investment confirmations. This is an infrastructure/configuration issue, not a code logic issue."
-
-frontend:
-  - task: "Fix Welcome to CRED display"
+  - task: "Fix CRED logo blocking content on mobile and web"
     implemented: true
     working: true
     file: "/app/frontend/src/components/Hero.js"
@@ -263,19 +188,19 @@ frontend:
     status_history:
       - working: true
         agent: "main"
-        comment: "Hero component displays Welcome to CRED properly with responsive design"
+        comment: "Added pt-20 padding-top to Hero component and adjusted responsive text sizes to prevent content overlap with navigation"
 
-  - task: "Improve About Us and Services UI structure"
+  - task: "Update component exports"
     implemented: true
     working: true
-    file: "/app/frontend/src/components/"
+    file: "/app/frontend/src/components/index.js"
     stuck_count: 0
-    priority: "medium"
-    needs_retesting: true
+    priority: "low"
+    needs_retesting: false
     status_history:
       - working: true
         agent: "main"
-        comment: "Restructured About Us and Services sections for better mobile layouts in separate component files"
+        comment: "Added exports for OverviewSection, DepositSection, and WithdrawSection components"
 
 metadata:
   created_by: "main_agent"
