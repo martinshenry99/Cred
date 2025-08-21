@@ -741,7 +741,7 @@ async def get_investment_packages():
             "name": "ELITE ENFORCEMENT FUND",
             "description": "Ultra-premium crypto enforcement package with direct lawyer access, 24/7 priority support, and maximum APY returns.",
             "min_investment": 100000,
-            "apy": "35%",
+            "apy": "40%",
             "duration": "60 days",
             "premium": True,
             "features": [
