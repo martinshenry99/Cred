@@ -77,6 +77,7 @@ export const Dashboard = ({ user, cryptoPrices }) => {
               {[
                 { id: 'overview', label: 'Overview', icon: '📊' },
                 { id: 'deposit', label: 'Deposit', icon: '💰' },
+                { id: 'withdraw', label: 'Withdraw', icon: '💸' },
                 { id: 'investments', label: 'Investments', icon: '📈' },
                 { id: 'reports', label: 'Reports', icon: '📋' },
                 { id: 'profile', label: 'Profile', icon: '👤' }
@@ -100,6 +101,7 @@ export const Dashboard = ({ user, cryptoPrices }) => {
           <div className="p-6">
             {activeTab === 'overview' && <OverviewSection user={user} userReports={userReports} investments={investments} cryptoPrices={cryptoPrices} />}
             {activeTab === 'deposit' && <DepositSection />}
+            {activeTab === 'withdraw' && <WithdrawSection user={user} investments={investments} />}
             {activeTab === 'investments' && <InvestmentDashboard user={user} cryptoPrices={cryptoPrices} />}
             {activeTab === 'reports' && <ReportSubmissionForm onSubmit={fetchUserData} />}
             {activeTab === 'profile' && <ProfileSection user={user} />}
