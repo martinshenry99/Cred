@@ -7,10 +7,14 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 // Main Pages Components
-export const Home = ({ cryptoPrices }) => {
+export const Home = ({ cryptoPrices, user, onNavigateToDashboard, onShowLogin }) => {
   return (
     <div className="min-h-screen">
-      <Hero />
+      <Hero 
+        user={user}
+        onNavigateToDashboard={onNavigateToDashboard}
+        onShowLogin={onShowLogin}
+      />
       <ServicesSection />
       <TestimonialsSection />
       <AboutSection />
