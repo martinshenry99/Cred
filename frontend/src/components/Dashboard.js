@@ -4,6 +4,8 @@ import { LiveChat } from './Chat';
 import { OverviewSection } from './OverviewSection';
 import { DepositSection } from './DepositSection';
 import { WithdrawSection } from './WithdrawSection';
+import { ReportSubmissionForm } from './ReportSubmissionForm';
+import { ProfileSection } from './ProfileSection';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
