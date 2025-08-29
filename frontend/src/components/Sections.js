@@ -243,7 +243,16 @@ export const ContactSection = () => {
 };
 
 // Testimonials Section
-export const TestimonialsSection = () => {
+export const TestimonialsSection = ({ user, onNavigateToDashboard, onShowLogin }) => {
+  
+  const handleCTAClick = () => {
+    if (user) {
+      onNavigateToDashboard();
+    } else {
+      onShowLogin();
+    }
+  };
+
   const testimonials = [
     {
       name: "Elena Rossi",
