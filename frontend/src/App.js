@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { Navigation, Footer } from './components';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -45,13 +46,20 @@ function AppContent({
 
   return (
     <>
-      <nav style={{padding: '20px', background: '#333', color: 'white'}}>
-        <span>CRED Test Navigation</span>
-      </nav>
+      <Navigation 
+        isLoggedIn={isLoggedIn}
+        user={user}
+        onLogin={(mode = 'signin') => {
+          setLoginMode(mode);
+          setIsLoginOpen(true);
+        }}
+        onLogout={() => {}}
+      />
       <Routes>
         <Route path="/" element={<TestHome />} />
         <Route path="/about" element={<TestAbout />} />
       </Routes>
+      <Footer />
     </>
   );
 }
