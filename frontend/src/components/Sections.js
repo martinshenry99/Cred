@@ -32,7 +32,16 @@ export const CryptoPricesSection = ({ prices }) => {
 };
 
 // Updated Services Section with Romance Scam and Phishing Recovery in smaller layout
-export const ServicesSection = ({ detailed = false }) => {
+export const ServicesSection = ({ detailed = false, user, onNavigateToDashboard, onShowLogin }) => {
+  
+  const handleCTAClick = () => {
+    if (user) {
+      onNavigateToDashboard();
+    } else {
+      onShowLogin();
+    }
+  };
+
   const primaryServices = [
     {
       icon: '🔍',
