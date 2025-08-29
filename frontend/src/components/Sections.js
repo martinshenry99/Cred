@@ -325,8 +325,11 @@ export const TestimonialsSection = () => {
             <p className="text-blue-700 mb-6">
               Over 3,000 victims have successfully recovered their stolen cryptocurrency with CRED's help
             </p>
-            <button className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300">
-              Start Your Recovery Today
+            <button 
+              onClick={handleCTAClick}
+              className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300"
+            >
+              {user ? 'Visit Dashboard' : 'Start Your Recovery Today'}
             </button>
           </div>
         </div>
