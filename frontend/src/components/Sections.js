@@ -96,10 +96,13 @@ export const ServicesSection = ({ detailed = false, user, onNavigateToDashboard,
                 <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">{service.title}</h3>
                 <p className="text-gray-600 leading-relaxed mb-6">{service.description}</p>
                 
-                <button className={`w-full py-3 px-6 rounded-lg font-semibold transition duration-300 ${
-                  index === 0 ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-green-600 text-white hover:bg-green-700'
-                }`}>
-                  Start Investigation
+                <button 
+                  onClick={handleCTAClick}
+                  className={`w-full py-3 px-6 rounded-lg font-semibold transition duration-300 ${
+                    index === 0 ? 'bg-blue-600 text-white hover:bg-blue-700' : 'bg-green-600 text-white hover:bg-green-700'
+                  }`}
+                >
+                  {user ? 'Go to Dashboard' : 'Start Investigation'}
                 </button>
               </div>
             </div>
