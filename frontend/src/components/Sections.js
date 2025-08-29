@@ -165,7 +165,15 @@ export const ServicesSection = ({ detailed = false, user, onNavigateToDashboard,
 };
 
 // About Section (Mobile-friendly)
-export const AboutSection = () => {
+export const AboutSection = ({ user, onNavigateToDashboard, onShowLogin }) => {
+  
+  const handleCTAClick = () => {
+    if (user) {
+      onNavigateToDashboard();
+    } else {
+      onShowLogin();
+    }
+  };
   return (
     <div className="py-12 sm:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
