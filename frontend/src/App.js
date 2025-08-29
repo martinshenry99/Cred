@@ -95,6 +95,15 @@ function AppContent({
     navigate('/');
   };
 
+  const handleNavigateToDashboard = () => {
+    navigate('/dashboard');
+  };
+
+  const handleShowLogin = () => {
+    setLoginMode('signin');
+    setIsLoginOpen(true);
+  };
+
   return (
     <>
       <Navigation 
@@ -107,7 +116,14 @@ function AppContent({
         onLogout={handleLogout}
       />
       <Routes>
-        <Route path="/" element={<Home cryptoPrices={cryptoPrices} />} />
+        <Route path="/" element={
+          <Home 
+            cryptoPrices={cryptoPrices} 
+            user={user}
+            onNavigateToDashboard={handleNavigateToDashboard}
+            onShowLogin={handleShowLogin}
+          />
+        } />
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
         <Route path="/contact" element={<Contact />} />
@@ -116,7 +132,12 @@ function AppContent({
             user?.is_admin ? 
               <AdminDashboard user={user} /> : 
               <Dashboard user={user} cryptoPrices={cryptoPrices} />
-          ) : <Home cryptoPrices={cryptoPrices} />
+          ) : <Home 
+                cryptoPrices={cryptoPrices} 
+                user={user}
+                onNavigateToDashboard={handleNavigateToDashboard}
+                onShowLogin={handleShowLogin}
+              />
         } />
       </Routes>
       {!isLoggedIn && <Footer />}
