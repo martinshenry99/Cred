@@ -20,7 +20,11 @@ export const Home = ({ cryptoPrices, user, onNavigateToDashboard, onShowLogin })
         onNavigateToDashboard={onNavigateToDashboard}
         onShowLogin={onShowLogin}
       />
-      <TestimonialsSection />
+      <TestimonialsSection 
+        user={user}
+        onNavigateToDashboard={onNavigateToDashboard}
+        onShowLogin={onShowLogin}
+      />
       <AboutSection 
         user={user}
         onNavigateToDashboard={onNavigateToDashboard}
