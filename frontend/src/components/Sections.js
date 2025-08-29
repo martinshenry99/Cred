@@ -123,10 +123,13 @@ export const ServicesSection = ({ detailed = false, user, onNavigateToDashboard,
                   </div>
                   <p className="text-gray-600 text-sm leading-relaxed mb-4">{service.description}</p>
                   
-                  <button className={`w-full py-2 px-4 rounded-lg text-sm font-semibold transition duration-300 ${
-                    index === 0 ? 'bg-red-600 text-white hover:bg-red-700' : 'bg-orange-600 text-white hover:bg-orange-700'
-                  }`}>
-                    Get Help Now
+                  <button 
+                    onClick={handleCTAClick}
+                    className={`w-full py-2 px-4 rounded-lg text-sm font-semibold transition duration-300 ${
+                      index === 0 ? 'bg-red-600 text-white hover:bg-red-700' : 'bg-orange-600 text-white hover:bg-orange-700'
+                    }`}
+                  >
+                    {user ? 'Access Dashboard' : 'Get Help Now'}
                   </button>
                 </div>
               </div>
