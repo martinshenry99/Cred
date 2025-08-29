@@ -8,6 +8,8 @@ export { Dashboard, InvestmentDashboard } from './Dashboard';
 export { OverviewSection } from './OverviewSection';
 export { DepositSection } from './DepositSection';
 export { WithdrawSection } from './WithdrawSection';
+export { ReportSubmissionForm } from './ReportSubmissionForm';
+export { ProfileSection } from './ProfileSection';
 export { AdminDashboard } from './AdminDashboard';
 export { LiveChat } from './Chat';
 export { Footer } from './Footer';
