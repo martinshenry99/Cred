@@ -1,0 +1,23 @@
+# Railway ignore file
+node_modules/
+frontend/node_modules/
+frontend/.next/
+frontend/build/
+*.log
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.DS_Store
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+.mypy_cache/
+tests/
+backend_test.py
+backend_test_final.py
+user_registration_test.py
+test_*.py
+*.test.js
+test_*.html
