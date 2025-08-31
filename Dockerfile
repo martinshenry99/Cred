@@ -1,27 +1,29 @@
-# Multi-stage build for CRED Application
-FROM node:18-alpine AS frontend-build
+# Railway-optimized Dockerfile for CRED Application
+FROM node:20-alpine AS frontend-build
 
 # Build frontend
 WORKDIR /app/frontend
 COPY frontend/package.json frontend/yarn.lock ./
-RUN yarn install --frozen-lockfile
+RUN yarn install --frozen-lockfile --network-timeout 300000
 COPY frontend/ ./
 RUN yarn build
 
-# Backend stage
+# Backend stage with Python 3.11
 FROM python:3.11-slim
 
 # Set working directory
 WORKDIR /app
 
-# Install system dependencies
+# Install system dependencies (minimal)
 RUN apt-get update && apt-get install -y \
     gcc \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
 
-# Copy backend requirements and install Python dependencies
-COPY backend/requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy production requirements and install Python dependencies
+COPY backend/requirements-production.txt ./requirements.txt
+RUN pip install --no-cache-dir --upgrade pip \
+    && pip install --no-cache-dir -r requirements.txt
 
 # Copy backend code
 COPY backend/ ./backend/
@@ -35,9 +37,10 @@ RUN mkdir -p /app/uploads
 # Set environment variables
 ENV PYTHONPATH=/app
 ENV FRONTEND_BUILD_PATH=/app/frontend/build
+ENV PORT=8000
 
-# Expose port
-EXPOSE 8000
+# Expose port (Railway uses PORT env var)
+EXPOSE $PORT
 
-# Start command
-CMD ["uvicorn", "backend.server:app", "--host", "0.0.0.0", "--port", "8000"]
+# Start command for Railway
+CMD uvicorn backend.server:app --host 0.0.0.0 --port $PORT
