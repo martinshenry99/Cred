@@ -1149,6 +1149,26 @@ async def create_admin_user():
 # Include router
 app.include_router(api_router)
 
+# Static files serving for production deployment
+frontend_build_path = os.environ.get('FRONTEND_BUILD_PATH', '../frontend/build')
+if os.path.exists(frontend_build_path):
+    app.mount("/static", StaticFiles(directory=f"{frontend_build_path}/static"), name="static")
+    
+    @app.get("/", response_class=FileResponse)
+    async def serve_frontend():
+        return FileResponse(f"{frontend_build_path}/index.html")
+    
+    @app.get("/{path:path}", response_class=FileResponse)
+    async def serve_frontend_routes(path: str):
+        # Serve static files directly
+        if path.startswith("static/"):
+            file_path = f"{frontend_build_path}/{path}"
+            if os.path.exists(file_path):
+                return FileResponse(file_path)
+        
+        # For all other routes, serve the React app
+        return FileResponse(f"{frontend_build_path}/index.html")
+
 @app.on_event("shutdown")
 async def shutdown_db_client():
     client.close()
