@@ -226,6 +226,16 @@ async def create_user_document(user_data: dict) -> dict:
 # Health check endpoint for Railway
 @api_router.get("/health")
 async def health_check():
+    try:
+        # Test database connectivity
+        await client.admin.command('ping')
+        return {"status": "healthy", "service": "CRED API", "database": "connected"}
+    except Exception as e:
+        return {"status": "unhealthy", "service": "CRED API", "error": str(e)}
+
+# Simple root health check (no /api prefix)
+@app.get("/health")
+async def root_health_check():
     return {"status": "healthy", "service": "CRED API"}
 
 @api_router.get("/")
