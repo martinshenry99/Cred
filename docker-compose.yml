@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  cred-app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - MONGO_URL=mongodb://mongo:27017
+      - DB_NAME=cred_database
+    depends_on:
+      - mongo
+    volumes:
+      - ./uploads:/app/uploads
+    networks:
+      - cred-network
+
+  mongo:
+    image: mongo:7.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - cred-network
+
+volumes:
+  mongo_data:
+
+networks:
+  cred-network:
+    driver: bridge
