@@ -15,7 +15,6 @@ import uuid
 import jwt
 import bcrypt
 import pyotp
-import qrcode
 import io
 import base64
 import aiosmtplib
