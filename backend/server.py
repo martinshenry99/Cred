@@ -223,6 +223,11 @@ async def create_user_document(user_data: dict) -> dict:
     raise HTTPException(status_code=500, detail="Failed to create user")
 
 # API Routes
+# Health check endpoint for Railway
+@api_router.get("/health")
+async def health_check():
+    return {"status": "healthy", "service": "CRED API"}
+
 @api_router.get("/")
 async def root():
     return {"message": "CRED API is running", "version": "1.0.0"}
